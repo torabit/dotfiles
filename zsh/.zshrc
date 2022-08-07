@@ -8,6 +8,13 @@ fi
 # Prompt
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
+# Load plugins
+export ZSH_PLUGINS=/home/linuxbrew/.linuxbrew/share/
+
+source ${ZSH_PLUGINS}/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+source ${ZSH_PLUGINS}/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ${ZSH_PLUGINS}/zsh-history-substring-search/zsh-history-substring-search.zsh
+
 # bind UP and DOWN arrow keys to history substring search
 zmodload zsh/terminfo
 bindkey "$terminfo[kcuu1]" history-substring-search-up
@@ -55,6 +62,9 @@ if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
 else
   compinit -C
 fi
+
+# Thefuck
+eval $(thefuck --alias)
 
 # Aliases
 alias git='hub'
