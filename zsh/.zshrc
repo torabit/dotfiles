@@ -48,6 +48,10 @@ zstyle ':completion:*' rehash true
 alias git='hub'
 alias ls='ls --color=auto'
 
+function create() {
+  mkdir -p $1 && cd $1
+}
+
 # Auto-cd
 setopt auto_cd
 
