@@ -69,7 +69,10 @@ eval $(thefuck --alias)
 # Aliases
 alias git='hub'
 alias ls='ls --color=auto'
+alias ll="exa -l -h -@ -mU --icons --git --time-style=long-iso --color=automatic --group-directories-first"
+alias l="ll -aa"
 
+# Custom functions
 function create() {
   mkdir -p $1 && cd $1
 }
