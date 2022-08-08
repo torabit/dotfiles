@@ -9,11 +9,13 @@ fi
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # Load plugins
-export ZSH_PLUGINS=/home/linuxbrew/.linuxbrew/share/
+export ZSH_PLUGINS=/home/linuxbrew/.linuxbrew/
 
-source ${ZSH_PLUGINS}/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-source ${ZSH_PLUGINS}/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ${ZSH_PLUGINS}/zsh-history-substring-search/zsh-history-substring-search.zsh
+source ${ZSH_PLUGINS}/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+source ${ZSH_PLUGINS}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ${ZSH_PLUGINS}/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+source ${ZSH_PLUGINS}/opt/fzf/shell/key-bindings.zsh
+source ${ZSH_PLUGINS}/opt/fzf/shell/completion.zsh
 
 # bind UP and DOWN arrow keys to history substring search
 zmodload zsh/terminfo
@@ -69,8 +71,9 @@ eval $(thefuck --alias)
 # Aliases
 alias git='hub'
 alias ls='ls --color=auto'
-alias ll="exa -l -h -@ -mU --icons --git --time-style=long-iso --color=automatic --group-directories-first"
-alias l="ll -aa"
+alias ll='exa -l -h -@ -mU --icons --git --time-style=long-iso --color=automatic --group-directories-first'
+alias l='ll -aa'
+alias vim='nvim'
 
 # Custom functions
 function create() {
@@ -80,6 +83,13 @@ function create() {
 # Auto-cd
 setopt auto_cd
 
+# FZF
+export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --glob "!.git/*"'
+
+bindkey '^[[A' history-substring-search-up			
+bindkey '^[[B' history-substring-search-down
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 
