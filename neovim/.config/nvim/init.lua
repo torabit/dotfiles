@@ -94,9 +94,6 @@ local silent = { silent = true }
 -- Disable annoying F1 binding
 map('', '<f1>', '<cmd>FloatermToggle<cr>')
 
--- Run a build
-map('n', '<localleader><localleader>', '<cmd>Make<cr>', silent)
-
 -- Quit, close buffers, etc.
 map('n', '<leader>q', '<cmd>qa<cr>', silent)
 map('n', '<leader>x', '<cmd>x!<cr>', silent)
