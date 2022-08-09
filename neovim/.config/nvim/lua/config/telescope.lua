@@ -5,7 +5,11 @@ telescope.setup {
     scroll_strategy = 'cycle',
   },
   extensions = {
-    frecency = { workspaces = { exo = '/home/wil/projects/research/exoplanet' } },
+    frecency = { 
+      workspaces = {
+        ['project'] = '/home/torabit/projects'
+      }
+    },
     fzf = {
       fuzzy = true,
       override_generic_sorter = true,
