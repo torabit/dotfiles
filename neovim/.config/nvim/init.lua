@@ -11,6 +11,12 @@ local map = utils.map
 g.mapleader = [[ ]]
 g.maplocalleader = [[\\]]
 
+-- Skip some remote provider loading
+g.loaded_python_provider = 0
+g.python_host_prog = '/usr/bin/python2'
+g.python3_host_prog = '/usr/bin/python'
+g.node_host_prog = '/usr/bin/neovim-node-host'
+
 -- Disable some built-in plugins we don't want
 local disabled_built_ins = {
   'gzip',

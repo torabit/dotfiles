@@ -181,32 +181,6 @@ local function init()
   -- Endwise
   use 'RRethy/nvim-treesitter-endwise'
 
-  -- Debugger
-  use {
-    {
-      'mfussenegger/nvim-dap',
-      setup = [[require('config.dap_setup')]],
-      config = [[require('config.dap')]],
-      requires = 'jbyuki/one-small-step-for-vimkind',
-      wants = 'one-small-step-for-vimkind',
-      module = 'dap',
-    },
-    {
-      'rcarriga/nvim-dap-ui',
-      requires = 'nvim-dap',
-      after = 'nvim-dap',
-      config = function()
-        require('dapui').setup()
-      end,
-    },
-  }
-
-  use {
-    'puremourning/vimspector',
-    setup = [[vim.g.vimspector_enable_mappings = 'HUMAN']],
-    disable = true,
-  }
-
   -- Path navigation
   use 'justinmk/vim-dirvish'
 
