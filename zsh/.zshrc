@@ -73,7 +73,12 @@ alias git='hub'
 alias ls='ls --color=auto'
 alias ll='exa -l -h -@ -mU --icons --git --time-style=long-iso --color=automatic --group-directories-first'
 alias l='ll -aa'
+alias v='nvim'
+alias vi='nvim'
 alias vim='nvim'
+alias dot='cd ~/dotfiles'
+alias tmuxs='tmux source-file ~/.tmux.conf'
+alias zshrc='vim ~/.zshrc'
 
 # Custom functions
 function create() {
