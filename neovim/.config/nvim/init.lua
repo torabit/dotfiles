@@ -9,7 +9,7 @@ local map = utils.map
 
 -- Leader/local leader
 g.mapleader = [[ ]]
-g.maplocalleader = [[,]]
+g.maplocalleader = [[\\]]
 
 -- Disable some built-in plugins we don't want
 local disabled_built_ins = {
@@ -93,6 +93,9 @@ cmd [[command! PackerCompile packadd packer.nvim | lua require('plugins').compil
 local silent = { silent = true }
 -- Disable annoying F1 binding
 map('', '<f1>', '<cmd>FloatermToggle<cr>')
+
+-- Run a build
+map('n', '<localleader><localleader>', '<cmd>Make<cr>', silent)
 
 -- Quit, close buffers, etc.
 map('n', '<leader>q', '<cmd>qa<cr>', silent)
