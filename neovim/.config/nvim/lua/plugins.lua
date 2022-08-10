@@ -184,9 +184,6 @@ local function init()
   -- Path navigation
   use 'justinmk/vim-dirvish'
 
-  -- LaTeX
-  use 'lervag/vimtex'
-
   -- Meson
   use 'igankevich/mesonic'
 
