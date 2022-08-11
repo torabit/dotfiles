@@ -20,7 +20,7 @@ local function init()
     use 'mhinz/vim-sayonara'
 
   -- Marks
-  use { 'kshenoy/vim-signature', config = [[require('config.signature')]], disable = true }
+  use { 'kshenoy/vim-signature', config = [[require('config.signature')]] }
 
   use { 'tversteeg/registers.nvim', keys = { { 'n', '"' }, { 'i', '<c-r>' } } }
 
@@ -133,11 +133,22 @@ local function init()
     'nvim-lua/lsp-status.nvim',
     'folke/trouble.nvim',
     'ray-x/lsp_signature.nvim',
-    'kosayoda/nvim-lightbulb',
+    {
+      'kosayoda/nvim-lightbulb',
+      requires = 'antoinemadec/FixCursorHold.nvim',
+    }
   }
 
   -- C++
   use 'p00f/clangd_extensions.nvim'
+
+  -- Rust
+  use {
+    'simrat39/rust-tools.nvim',
+    config = function()
+      require('rust-tools').setup {}
+    end,
+  }
 
   -- Highlights
   use {
@@ -167,7 +178,7 @@ local function init()
       'L3MON4D3/LuaSnip',
       { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
       'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-nvim-lsp-signature-help',
+      { 'hrsh7th/cmp-nvim-lsp-signature-help', after = 'nvim-cmp' },
       { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
       { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
       { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
@@ -211,15 +222,6 @@ local function init()
     config = [[require('colorizer').setup {'css', 'javascript', 'vim', 'html'}]],
   }
 
-  -- Notes
-  use {
-    '~/projects/personal/pdf-scribe.nvim',
-    config = [[require('config.pdf_scribe')]],
-    disable = true,
-  }
-
-  use { { 'nvim-orgmode/orgmode.nvim', config = [[require('config.orgmode')]] }, 'akinsho/org-bullets.nvim' }
-
   -- Buffer management
   use {
     'akinsho/bufferline.nvim',
@@ -231,6 +233,22 @@ local function init()
   use 'b0o/incline.nvim'
   use 'teal-language/vim-teal'
   use { 'jose-elias-alvarez/null-ls.nvim', requires = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' } }
+
+  -- Pretty UI
+  use 'stevearc/dressing.nvim'
+  use 'rcarriga/nvim-notify'
+
+  use {
+    'ethanholz/nvim-lastplace',
+    config = function()
+      require('nvim-lastplace').setup {}
+    end,
+  }
+
+  use {
+    'ggandor/leap.nvim',
+    requires = 'tpope/vim-repeat',
+  }
 end
 
 local plugins = setmetatable({}, {
