@@ -74,6 +74,10 @@ opt('modeline', false, buffer)
 opt('mouse', 'nivh')
 opt('signcolumn', 'yes:1', window)
 
+-- Colorscheme
+opt('termguicolors', true)
+opt('background', 'light')
+
 -- Autocommands
 autocmd('start_screen', [[VimEnter * ++once lua require('start').start()]], true)
 autocmd(
