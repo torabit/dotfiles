@@ -1,11 +1,28 @@
 require 'impatient'
 local g = vim.g
 local cmd = vim.cmd
-local o, wo, bo = vim.o, vim.wo, vim.bo
+local o, wo, bo, fn = vim.o, vim.wo, vim.bo, vim.fn
 local utils = require 'config.utils'
 local opt = utils.opt
 local autocmd = utils.autocmd
 local map = utils.map
+local win32yank = '/mnt/c/Tools/win32yank/win32yank.exe'
+
+-- Yank to clipboard
+if fn.executable(win32yank) == 1 then 
+  g.clipboard = {
+    name = "win32yank-wsl",
+    copy = {
+      ["+"] = win32yank.." -i --crlf",
+      ["*"] = win32yank.." -i --crlf"
+    },
+    paste = {
+      ["+"] = win32yank.." -o --lf",
+      ["*"] = win32yank.." -o --lf"
+    },
+    cache_enable = 1,
+  }
+end
 
 -- Leader/local leader
 g.mapleader = [[ ]]
@@ -38,6 +55,8 @@ end
 -- Settings
 local buffer = { o, bo }
 local window = { o, wo }
+
+opt('clipboard', 'unnamedplus')
 opt('textwidth', 100, buffer)
 opt('scrolloff', 7)
 opt('wildignore', '*.o,*~,*.pyc')
@@ -126,7 +145,7 @@ map('t', 'jj', [[<C-\><C-n>]])
 map('i', 'jj', '<esc>', silent)
 
 -- Yank to clipboard
-map({ 'n', 'v' }, 'y+', '<cmd>set opfunc=util#clipboard_yank<cr>g@', silent)
+-- map({ 'n', 'v' }, 'y+', '<cmd>set opfunc=util#clipboard_yank<cr>g@', silent)
 
 -- Window movement
 map('n', '<c-h>', '<c-w>h')
