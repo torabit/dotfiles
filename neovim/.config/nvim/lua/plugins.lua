@@ -51,6 +51,8 @@ packer.startup(function(use)
   -- Pretty UI
   use 'rcarriga/nvim-notify'
 
+  -- Completion UIs
+  use 'glepnir/lspsaga.nvim'
   -- Highlight colors
   use 'norcalli/nvim-colorizer.lua'
 
