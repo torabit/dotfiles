@@ -34,4 +34,7 @@ packer.startup(function(use)
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
   }
+
+  -- Endwise
+  use 'RRethy/nvim-treesitter-endwise'
 end)
