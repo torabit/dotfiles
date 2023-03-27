@@ -34,6 +34,6 @@ map('n', '<c-k>', '<c-w>k', silent)
 map('n', '<c-l>', '<c-w>l', silent)
 
 -- Tab movement
-map('n', '<c-Left>', '<cmd>tabpre<cr>', silent)
-map('n', '<c-Right>', '<cmd>tabnext<cr>', silent)
+map('n', '<tab>', '<cmd>tabpre<cr>', silent)
+map('n', '<s-tab>', '<cmd>tabnext<cr>', silent)
 
