@@ -56,4 +56,7 @@ packer.startup(function(use)
 
   -- File icons
   use 'kyazdani42/nvim-web-devicons'
+
+  -- Buffer management
+  use 'akinsho/bufferline.nvim'
 end)
