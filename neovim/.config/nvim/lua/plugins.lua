@@ -53,4 +53,7 @@ packer.startup(function(use)
 
   -- Highlight colors
   use 'norcalli/nvim-colorizer.lua'
+
+  -- File icons
+  use 'kyazdani42/nvim-web-devicons'
 end)
