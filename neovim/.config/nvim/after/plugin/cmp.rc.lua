@@ -4,6 +4,8 @@ if (not status) then return end
 local lspkind = require 'lspkind'
 local luasnip = require 'luasnip'
 
+table.unpack = table.unpack or unpack -- 5.1 compatibility
+
 local has_words_before = function()
   local line, col = table.unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match '%s' == nil
@@ -20,10 +22,7 @@ cmp.setup({
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.close(),
-    ['<cr>'] = cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true
-    }),
+    ['<cr>'] = cmp.mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace }),
     ['<tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
