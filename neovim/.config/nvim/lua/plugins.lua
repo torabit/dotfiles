@@ -43,4 +43,11 @@ packer.startup(function(use)
   use 'windwp/nvim-ts-autotag'
 
   -- Search
+  use 'nvim-lua/plenary.nvim'
+  use 'nvim-telescope/telescope.nvim'
+  use 'nvim-telescope/telescope-file-browser.nvim'
+  use 'nvim-telescope/telescope-ui-select.nvim'
+
+  -- Pretty UI
+  use 'rcarriga/nvim-notify'
 end)
