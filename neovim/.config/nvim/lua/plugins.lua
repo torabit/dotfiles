@@ -41,4 +41,6 @@ packer.startup(function(use)
   -- Autopairs
   use 'windwp/nvim-autopairs'
   use 'windwp/nvim-ts-autotag'
+
+  -- Search
 end)

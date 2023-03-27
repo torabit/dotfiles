@@ -1,15 +1,16 @@
-require('base')
-require('highlights')
-require('maps')
-require('plugins')
+require 'base'
+require 'highlights'
+require 'maps'
+require 'plugins'
+vim.notify = require 'notify'
 
 local has = vim.fn.has
 local is_mac = has "macunix"
 local is_wsl = has "wsl"
 
 if is_mac then
-  require('macos')
+  require 'macos'
 end
 if is_wsl then
-  require('wsl')
+  require 'wsl'
 end
