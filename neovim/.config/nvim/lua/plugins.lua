@@ -37,4 +37,8 @@ packer.startup(function(use)
 
   -- Endwise
   use 'RRethy/nvim-treesitter-endwise'
+
+  -- Autopairs
+  use 'windwp/nvim-autopairs'
+  use 'windwp/nvim-ts-autotag'
 end)
