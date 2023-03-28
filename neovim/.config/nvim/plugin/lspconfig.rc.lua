@@ -24,6 +24,17 @@ lsp.handlers['textDocument/publishDiagnostics'] = lsp.with(lsp.diagnostic.on_pub
   underline = true,
 })
 
+local severity = {
+  'error',
+  'warn',
+  'info',
+  'hint', -- map both hint and info to info?
+}
+
+lsp.handlers['window/showMessage'] = function(err, method, params, client_id)
+  vim.notify(method.message, severity[params.type])
+end
+
 lsp_signature.setup { bind = true, handler_opts = { border = 'single' } }
 local keymap_opts = { noremap = true, silent = true }
 local function on_attach(client)
@@ -97,7 +108,7 @@ local null_diag = null_ls.builtins.diagnostics
 local null_act = null_ls.builtins.code_actions
 
 null_ls.setup {
-  on_attach =  on_attach,
+  on_attach = on_attach,
   sources = {
     null_diag.shellcheck,
     null_fmt.gofmt,
