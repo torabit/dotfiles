@@ -9,6 +9,8 @@ vim.cmd [[packadd packer.nvim]]
 packer.startup(function(use)
   use 'wbthomason/packer.nvim'
 
+  -- Commenting
+  use 'numToStr/Comment.nvim'
   -- Wrapping/delimiters
   use 'machakann/vim-sandwich'
   use {
