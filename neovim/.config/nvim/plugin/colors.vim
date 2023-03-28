@@ -9,6 +9,8 @@ function! s:setup_colors() abort
   hi! AquaHover guifg=#8ec07c ctermfg=108 gui=NONE cterm=NONE
   hi! WhiteHover guifg=#ffffff ctermfg=108 gui=NONE cterm=NONE
 
+  " for nvim bug
+  hi! link NormalFloat Normal
 
   let sign_col_bg = synIDattr(synIDtrans(hlID('SignColumn')), 'bg#', 'gui')
   let sign_col_bg = empty(sign_col_bg) ? synIDattr(synIDtrans(hlID('SignColumn')), 'bg#', 'cterm') : sign_col_bg
