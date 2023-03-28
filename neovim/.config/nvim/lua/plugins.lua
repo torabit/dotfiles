@@ -73,4 +73,5 @@ packer.startup(function(use)
   use 'akinsho/bufferline.nvim'
   use 'jose-elias-alvarez/null-ls.nvim'
   use 'b0o/incline.nvim'
+  use 'filipdutescu/renamer.nvim'
 end)
