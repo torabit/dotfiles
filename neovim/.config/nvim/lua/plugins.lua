@@ -11,8 +11,10 @@ packer.startup(function(use)
 
   -- Indentation tracking
   use 'lukas-reineke/indent-blankline.nvim'
+
   -- Commenting
   use 'numToStr/Comment.nvim'
+
   -- Wrapping/delimiters
   use 'machakann/vim-sandwich'
   use {
@@ -33,6 +35,8 @@ packer.startup(function(use)
   use 'hrsh7th/nvim-cmp'
   use 'neovim/nvim-lspconfig'
   use 'hrsh7th/cmp-cmdline'
+  use 'folke/trouble.nvim'
+  use 'ray-x/lsp_signature.nvim'
 
   -- Highlights
   use {
