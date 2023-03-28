@@ -48,6 +48,9 @@ packer.startup(function(use)
   use 'nvim-telescope/telescope-file-browser.nvim'
   use 'nvim-telescope/telescope-ui-select.nvim'
 
+  -- Git
+  use 'lewis6991/gitsigns.nvim'
+
   -- Pretty UI
   use 'rcarriga/nvim-notify'
 
