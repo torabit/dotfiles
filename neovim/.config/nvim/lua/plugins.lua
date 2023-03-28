@@ -53,6 +53,7 @@ packer.startup(function(use)
 
   -- Completion UIs
   use 'glepnir/lspsaga.nvim'
+
   -- Highlight colors
   use 'norcalli/nvim-colorizer.lua'
 
@@ -61,4 +62,5 @@ packer.startup(function(use)
 
   -- Buffer management
   use 'akinsho/bufferline.nvim'
+  use 'jose-elias-alvarez/null-ls.nvim'
 end)
