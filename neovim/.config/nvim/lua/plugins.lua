@@ -61,7 +61,9 @@ packer.startup(function(use)
   use 'lewis6991/gitsigns.nvim'
 
   -- Pretty UI
+  use 'stevearc/dressing.nvim'
   use 'rcarriga/nvim-notify'
+  use 'vigoux/notifier.nvim'
   use 'folke/todo-comments.nvim'
 
   -- Highlight colors
