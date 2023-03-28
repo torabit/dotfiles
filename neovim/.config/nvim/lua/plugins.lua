@@ -66,4 +66,5 @@ packer.startup(function(use)
   -- Buffer management
   use 'akinsho/bufferline.nvim'
   use 'jose-elias-alvarez/null-ls.nvim'
+  use 'b0o/incline.nvim'
 end)
