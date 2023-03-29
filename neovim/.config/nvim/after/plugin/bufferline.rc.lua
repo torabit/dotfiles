@@ -3,16 +3,22 @@ if (not status) then return end
 
 local map = vim.api.nvim_set_keymap
 
-local bar_bg = '#1f1f1f'
-local bar_fg = '#c9c9c9'
-local elem_bg = '#2d2d2d'
-local elem_fg = '#8c8c8c'
-local selected_bg = '#444444'
-local selected_fg = '#efefef'
-local error_fg = '#ca241a'
-local warning_fg = '#fabd2f'
-local info_fg = '#83a5cb'
-local pick_fg = '#870000'
+local diagnostics_signs = {
+  ['error'] = '',
+  warning = '',
+  default = '',
+}
+
+local bar_bg = '#27408B'
+local bar_fg = '#444444'
+local elem_bg = '#C0C0C0'
+local elem_fg = '#878787'
+local selected_bg = '#EEEEEE'
+local selected_fg = '#2B2B2B'
+local error_fg = '#E14133'
+local warning_fg = '#DE7D2F'
+local info_fg = '#0072C1'
+local pick_fg = '#AF87D7'
 
 local colors = {
   bar = { fg = bar_fg, bg = bar_bg },
@@ -31,14 +37,7 @@ local colors = {
   pick_selected = { fg = pick_fg, bg = selected_bg },
 }
 
-local diagnostics_signs = {
-  ['error'] = '',
-  warning = '',
-  default = '',
-}
-
-local highlights
-highlights = {
+local highlights = {
   background = colors.elem_inactive,
   buffer_selected = colors.elem_selected,
   buffer_visible = colors.elem_inactive,
@@ -90,6 +89,9 @@ highlights = {
 bufferline.setup {
   options = {
     always_show_bufferline = false,
+    color_icons = true,
+    mode = 'tabs',
+    separator_style = 'thin',
     diagnostics = 'nvim_lsp',
     diagnostics_indicator = function(count, level, diagnostics_dict, context)
       local s = ' '
@@ -99,7 +101,6 @@ bufferline.setup {
       end
       return s
     end,
-    separator_style = 'slant',
   },
   highlights = highlights,
 }
