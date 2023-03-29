@@ -13,7 +13,7 @@ gui:
     - '#008700'
     - bold
     inactiveBorderColor:
-    - '#444444'
+    - black
     optionsTextColor:
     - '#0087af'
     selectedLineBgColor:
