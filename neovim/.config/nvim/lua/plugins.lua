@@ -9,6 +9,12 @@ vim.cmd [[packadd packer.nvim]]
 packer.startup(function(use)
   use 'wbthomason/packer.nvim'
 
+  -- Movement
+  use 'chaoren/vim-wordmotion'
+  use 'ggandor/leap.nvim'
+  use 'tpope/vim-repeat'
+  use 'ggandor/flit.nvim'
+
   -- Indentation tracking
   use 'lukas-reineke/indent-blankline.nvim'
 
