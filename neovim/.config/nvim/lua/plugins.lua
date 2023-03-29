@@ -62,7 +62,6 @@ packer.startup(function(use)
 
   -- Pretty UI
   use 'stevearc/dressing.nvim'
-  use 'rcarriga/nvim-notify'
   use 'vigoux/notifier.nvim'
   use 'folke/todo-comments.nvim'
 
