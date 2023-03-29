@@ -66,6 +66,9 @@ packer.startup(function(use)
   use 'windwp/nvim-autopairs'
   use 'windwp/nvim-ts-autotag'
 
+  -- Text objects
+  use 'wellle/targets.vim'
+
   -- Search
   use 'nvim-lua/plenary.nvim'
   use 'nvim-telescope/telescope.nvim'
