@@ -30,7 +30,8 @@ packer.startup(function(use)
   }
 
   -- Statusline
-  -- use 'hoob3rt/lualine.nvim'
+  use 'hoob3rt/lualine.nvim'
+
   -- Snippets
   use 'L3MON4D3/LuaSnip'
 
