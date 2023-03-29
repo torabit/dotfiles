@@ -70,6 +70,7 @@ packer.startup(function(use)
   use 'wellle/targets.vim'
 
   -- Search
+  use 'romainl/vim-cool'
   use 'nvim-lua/plenary.nvim'
   use 'nvim-telescope/telescope.nvim'
   use 'nvim-telescope/telescope-file-browser.nvim'
