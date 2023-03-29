@@ -36,6 +36,9 @@ packer.startup(function(use)
 
   -- Snippets
   use 'L3MON4D3/LuaSnip'
+  -- Quick fix
+  use { 'Olical/vim-enmasse', cmd = 'EnMasse' }
+  use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
 
   -- Completion
   use 'onsails/lspkind-nvim'
