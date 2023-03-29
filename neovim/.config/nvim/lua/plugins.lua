@@ -9,6 +9,8 @@ vim.cmd [[packadd packer.nvim]]
 packer.startup(function(use)
   use 'wbthomason/packer.nvim'
 
+  -- Color scheme
+  use 'yorik1984/newpaper.nvim'
   -- Movement
   use 'chaoren/vim-wordmotion'
   use 'ggandor/leap.nvim'
