@@ -8,18 +8,18 @@ gui:
   expandFocusedSidePanel: true
   mainPanelSplitMode: flexible
   theme:
-    lightTheme: false
+    lightTheme: true
     activeBorderColor:
-    - green
+    - '#008700'
     - bold
     inactiveBorderColor:
-    - white
+    - black
     optionsTextColor:
-    - blue
+    - '#0087af'
     selectedLineBgColor:
-    - default
+    - '#bcbcbc'
     selectedRangeBgColor:
-    - blue
+    - '#0087af'
   commitLength:
     show: true
   skipNoStagedFilesWarning: false
