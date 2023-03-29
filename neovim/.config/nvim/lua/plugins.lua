@@ -64,6 +64,7 @@ packer.startup(function(use)
   use 'stevearc/dressing.nvim'
   use 'vigoux/notifier.nvim'
   use 'folke/todo-comments.nvim'
+  use 'j-hui/fidget.nvim'
 
   -- Highlight colors
   use 'norcalli/nvim-colorizer.lua'
