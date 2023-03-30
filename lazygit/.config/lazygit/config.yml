@@ -17,9 +17,9 @@ gui:
     optionsTextColor:
     - '#0087af'
     selectedLineBgColor:
-    - '#bcbcbc'
+    - reverse
     selectedRangeBgColor:
-    - '#0087af'
+    - reverse
   commitLength:
     show: true
   skipNoStagedFilesWarning: false
