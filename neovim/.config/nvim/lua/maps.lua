@@ -37,3 +37,6 @@ map('n', '<c-l>', '<c-w>l', silent)
 map('n', '<tab>', '<cmd>tabpre<cr>', silent)
 map('n', '<s-tab>', '<cmd>tabnext<cr>', silent)
 
+-- Disable key
+-- TODO : <c-z> is assigned when Pause/Break key is pressed, probably due to Tmux.
+map('n', '<c-z>', '<Nop>', {})
