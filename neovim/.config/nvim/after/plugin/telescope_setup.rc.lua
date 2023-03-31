@@ -8,13 +8,13 @@ end
 
 local silent = { silent = true, noremap = true }
 -- Navigate buffers and repos
-map('n', '<c-b>', [[<cmd>Telescope buffers show_all_buffers=true theme=get_dropdown<cr>]], silent)
-map('n', '<c-p>', [[<cmd>Telescope commands theme=get_dropdown<cr>]], silent)
-map('n', '<c-s>', [[<cmd>Telescope git_files theme=get_dropdown<cr>]], silent)
-map('n', '<c-d>', [[<cmd>Telescope find_files theme=get_dropdown<cr>]], silent)
-map('n', '<c-g>', [[<cmd>Telescope live_grep theme=get_dropdown<cr>]], silent)
+map('n', ';b', [[<cmd>Telescope buffers show_all_buffers=true theme=get_dropdown<cr>]], silent)
+map('n', ';p', [[<cmd>Telescope commands theme=get_dropdown<cr>]], silent)
+map('n', ';s', [[<cmd>Telescope git_files theme=get_dropdown<cr>]], silent)
+map('n', ';d', [[<cmd>Telescope find_files theme=get_dropdown<cr>]], silent)
+map('n', ';g', [[<cmd>Telescope live_grep theme=get_dropdown<cr>]], silent)
 
-vim.keymap.set('n', '<c-f>', function ()
+vim.keymap.set('n', ';f', function()
   telescope.extensions.file_browser.file_browser({
     path = "%:p:h",
     cwd = telescope_buffer_dir(),
