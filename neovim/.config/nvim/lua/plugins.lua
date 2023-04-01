@@ -26,11 +26,7 @@ packer.startup(function(use)
 
   -- Wrapping/delimiters
   use 'machakann/vim-sandwich'
-  use {
-    'andymass/vim-matchup',
-    setup = [[require('config.matchup')]],
-    event = 'User ActuallyEditing'
-  }
+  use 'andymass/vim-matchup'
 
   -- Statusline
   use 'hoob3rt/lualine.nvim'
