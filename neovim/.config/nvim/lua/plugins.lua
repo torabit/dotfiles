@@ -38,6 +38,7 @@ packer.startup(function(use)
   -- Quick fix
   use { 'Olical/vim-enmasse', cmd = 'EnMasse' }
   use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
+  use 'https://gitlab.com/yorickpeterse/nvim-pqf'
 
   -- Completion
   use 'onsails/lspkind-nvim'
