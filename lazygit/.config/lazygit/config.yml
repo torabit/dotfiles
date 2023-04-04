@@ -20,6 +20,8 @@ gui:
     - reverse
     selectedRangeBgColor:
     - reverse
+    defaultFgColor:
+    - black
   commitLength:
     show: true
   skipNoStagedFilesWarning: false
