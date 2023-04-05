@@ -37,6 +37,16 @@ map('n', '<c-l>', '<c-w>l', silent)
 map('n', '<tab>', '<cmd>tabpre<cr>', silent)
 map('n', '<s-tab>', '<cmd>tabnext<cr>', silent)
 
+-- Buffer list movement
+map('n', '[b', '<cmd>bprevious<cr>', silent)
+map('n', ']b', '<cmd>bnext<cr>', silent)
+map('n', '[B', '<cmd>bfirst<cr>', silent)
+map('n', ']B', '<cmd>blast<cr>', silent)
+
 -- Disable key
 -- TODO : <c-z> is assigned when Pause/Break key is pressed, probably due to Tmux.
 map('n', '<c-z>', '<Nop>', {})
+map('', '<left>', '<nop>', silent)
+map('', '<down>', '<nop>', silent)
+map('', '<up>', '<nop>', silent)
+map('', '<rigt>', '<nop>', silent)
