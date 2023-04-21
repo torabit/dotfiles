@@ -111,6 +111,12 @@ lspconfig.rust_analyzer.setup {
   }
 }
 
+lspconfig.tsserver.setup {
+  on_attach = on_attach,
+  filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+  cmd = { "typescript-language-server", "--stdio" }
+}
+
 -- null-ls setup
 local null_fmt = null_ls.builtins.formatting
 local null_diag = null_ls.builtins.diagnostics
