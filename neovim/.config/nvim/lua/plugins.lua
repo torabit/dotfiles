@@ -93,4 +93,5 @@ packer.startup(function(use)
   use 'jose-elias-alvarez/null-ls.nvim'
   use 'b0o/incline.nvim'
   use 'filipdutescu/renamer.nvim'
+  use 'MunifTanjim/prettier.nvim'
 end)
