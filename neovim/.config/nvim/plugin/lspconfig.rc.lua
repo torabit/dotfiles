@@ -126,7 +126,8 @@ null_ls.setup {
   on_attach = on_attach,
   sources = {
     null_diag.shellcheck,
-    null_fmt.gofmt,
     null_act.gitsigns,
+    null_fmt.gofmt,
+    null_fmt.prettierd,
   },
 }
