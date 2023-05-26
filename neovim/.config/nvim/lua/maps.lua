@@ -34,8 +34,8 @@ map('n', '<c-k>', '<c-w>k', silent)
 map('n', '<c-l>', '<c-w>l', silent)
 
 -- Tab movement
-map('n', '<tab>', '<cmd>tabpre<cr>', silent)
-map('n', '<s-tab>', '<cmd>tabnext<cr>', silent)
+map('n', '<tab>', '<cmd>tabnext<cr>', silent)
+map('n', '<s-tab>', '<cmd>tabpre<cr>', silent)
 
 -- Buffer list movement
 map('n', '[b', '<cmd>bprevious<cr>', silent)
