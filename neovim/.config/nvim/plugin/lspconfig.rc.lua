@@ -126,6 +126,9 @@ null_ls.setup {
   on_attach = on_attach,
   sources = {
     null_diag.shellcheck,
+    null_diag.eslint_d.with({
+      diagnostics_format = '[eslint] #{m}\n(#{c})'
+    }),
     null_act.gitsigns,
     null_fmt.gofmt,
     null_fmt.prettierd,
