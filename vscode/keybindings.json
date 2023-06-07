@@ -16,14 +16,6 @@
     "command": "workbench.action.closeActiveEditor"
   },
   {
-    "key": "ctrl+k o",
-    "command": "workbench.action.files.openFolder"
-  },
-  {
-    "key": "ctrl+k f",
-    "command": "workbench.action.closeFolder"
-  },
-  {
     "key": "ctrl+f",
     "command": "actions.find"
   },
