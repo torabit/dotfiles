@@ -43,7 +43,7 @@
     // window movement
     { "before": ["<C-h>"], "after": ["<C-w>", "h"] },
     { "before": ["<C-j>"], "after": ["<C-w>", "j"] },
-    { "before": ["C-k>"], "after": ["<C-w>", "k"] },
+    { "before": ["<C-k>"], "after": ["<C-w>", "k"] },
     { "before": ["<C-l>"], "after": ["<C-w>", "l"] },
 
     // declaration
@@ -125,12 +125,5 @@
       "before": ["<Leader>", "r", "n"],
       "commands": [{ "command": "editor.action.rename" }]
     }
-  ],
-
-  //vimではなくvscode側のキーを有効にする
-  "vim.handleKeys": {
-    "<C-a>": false, //全選択
-    "<C-f>": false, //検索
-    "<C-h>": false //置換
-  }
+  ]
 }
