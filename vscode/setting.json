@@ -80,42 +80,47 @@
       "commands": [{ "command": "editor.action.marker.prev" }]
     },
 
-    { "before": ["s", "s"], "commands": [":split"] }, //水平に開く
-    { "before": ["s", "v"], "commands": [":vsplit"] }, //垂直に開く
-    { "before": ["<tab>"], "after": ["g", "t"] }, //tab移動
-    { "before": ["<s-tab>"], "after": ["g", "T"] }, //tab移動
-    { "before": ["<Leader>", "d"], "commands": [":q!"] }, //tabを閉じる
-    { "before": ["<Leader>", "q"], "commands": [":qa!"] }, //すべてを閉じる
-    { "before": ["<Leader>", "w"], "commands": [":wa"] }, //すべてを保存
+    // Split window
+    { "before": ["s", "s"], "commands": [":split", "<Return>", "<C-w>", "w"] },
+    { "before": ["s", "v"], "commands": [":vsplit", "<Return>", "<C-w>", "w"] },
+
+    // Tab movement
+    { "before": ["<tab>"], "after": ["g", "t"] },
+    { "before": ["<s-tab>"], "after": ["g", "T"] },
+
+    // Quit, close
+    { "before": ["<Leader>", "q"], "commands": [":qa"] },
+    { "before": ["<Leader>", "x"], "commands": [":x!"] },
+    { "before": ["<Leader>", "d"], "commands": [":q!"] },
+
+    // Save buffer
+    { "before": ["<Leader>", "w"], "commands": [":w"] },
     {
       "before": ["t", "e"],
-      "commands": [{ "command": "workbench.action.files.newUntitledFile" }]
+      "commands": [":tabedit", "<Return>"]
     },
+
+    // commentout
     {
       "before": ["g", "c", "c"],
       "commands": [{ "command": "editor.action.commentLine" }]
-    }, //コメント
-    {
-      "before": ["<Leader>", ":"],
-      "commands": [{ "command": "workbench.action.showCommands" }]
-    }, //コマンドパレット
-    {
-      "before": ["<Leader>", ";"],
-      "commands": [{ "command": "workbench.action.quickOpen" }]
-    }, //ファイル検索
+    },
 
-    // 検索結果を画面中央に
-    { "before": ["n"], "after": ["n", "z", "z"] },
-    { "before": ["N"], "after": ["N", "z", "z"] },
-    { "before": ["*"], "after": ["*", "z", "z"] },
-    { "before": ["#"], "after": ["#", "z", "z"] }
+    // navigate buffers and repos
+    {
+      "before": [";", "d"],
+      "commands": [{ "command": "workbench.action.quickOpen" }]
+    },
+    {
+      "before": [";", "f"],
+      "commands": [{ "command": "workbench.view.explorer" }]
+    }
   ],
 
   // Insert mode
   "vim.insertModeKeyBindings": [
-    { "before": ["j", "j"], "after": ["<Esc>"] }, //jjでノーマルモードに戻る
-    { "before": ["<tab>"], "commands": ["editor.action.indentLines"] }, //インデント調整(repeat可能)
-    { "before": ["<s-tab>"], "commands": ["editor.action.outdentLines"] } //インデント調整(repeat可能)
+    // Esc in the terminal
+    { "before": ["j", "j"], "after": ["<Esc>"] }
   ],
 
   // Visual Mode
