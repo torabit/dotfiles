@@ -79,6 +79,7 @@ alias vim='nvim'
 alias dot='cd ~/dotfiles'
 alias tmuxs='tmux source-file ~/.tmux.conf'
 alias zshrc='vim ~/.zshrc'
+alias clip='/mnt/c/Tools/win32yank/win32yank.exe -i --crlf'
 
 # Custom functions
 function create() {
