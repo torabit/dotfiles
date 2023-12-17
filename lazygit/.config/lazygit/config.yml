@@ -10,18 +10,18 @@ gui:
   theme:
     lightTheme: true
     activeBorderColor:
-    - '#008700'
-    - bold
+      - "#008700"
+      - bold
     inactiveBorderColor:
-    - black
+      - black
     optionsTextColor:
-    - '#0087af'
+      - "#0087af"
     selectedLineBgColor:
-    - reverse
+      - reverse
     selectedRangeBgColor:
-    - reverse
+      - reverse
     defaultFgColor:
-    - black
+      - black
   commitLength:
     show: true
   skipNoStagedFilesWarning: false
@@ -62,10 +62,10 @@ keybinding:
     nextItem: <down>
     prevItem-alt: k
     nextItem-alt: j
-    prevPage: ','
+    prevPage: ","
     nextPage: .
     gotoTop: <
-    gotoBottom: '>'
+    gotoBottom: ">"
     prevBlock: <left>
     nextBlock: <right>
     prevBlock-alt: h
@@ -74,7 +74,7 @@ keybinding:
     prevMatch: "N"
     startSearch: /
     optionMenu: x
-    optionMenu-alt1: '?'
+    optionMenu-alt1: "?"
     select: <space>
     goInto: <enter>
     confirm: <enter>
@@ -89,14 +89,14 @@ keybinding:
     scrollDownMain-alt1: J
     scrollUpMain-alt2: <c-u>
     scrollDownMain-alt2: <c-d>
-    executeCustomCommand: ':'
+    executeCustomCommand: ":"
     createRebaseOptionsMenu: m
     pushFiles: P
     pullFiles: p
     refresh: R
     createPatchOptionsMenu: <c-p>
-    nextTab: ']'
-    prevTab: '['
+    nextTab: "]"
+    prevTab: "["
     nextScreenMode: +
     prevScreenMode: _
     undo: z
@@ -234,18 +234,219 @@ customCommands:
             description: ""
             value: ""
           - name: ":art:"
-            description: "🎨 Improve structure / format of the code."
+            description: "Improve structure / format of the code."
             value: ":art:"
           - name: ":zap:"
-            description: "⚡️ mprove performance"
+            description: "Improve performance"
             value: ":zap:"
+          - name: ":fire:"
+            description: "Remove code or files."
+            value: ":fire:"
+          - name: ":bug:"
+            description: "Fix a bug."
+            value: ":bug:"
+          - name: ":ambulance:"
+            description: "Critical hotfix."
+            value: ":ambulane:"
           - name: ":sparkles:"
-            description: "✨ Introduce new features."
+            description: "Introduce new features."
             value: ":sparkles:"
+          - name: ":memo:"
+            description: "Add or update documentation."
+            value: ":memo:"
+          - name: ":rocket:"
+            description: "Deploy stuff."
+            value: ":rocket:"
+          - name: ":lipstick:"
+            description: "Add or update the UI and style files."
+            value: ":lipstick:"
+          - name: ":tada:"
+            description: "Begin a project."
+            value: ":tada:"
+          - name: ":white_check_mark:"
+            description: "Add, update, or pass tests."
+            value: ":white_check_mark:"
+          - name: ":lock:"
+            description: "Fix security or privacy issues."
+            value: ":lock:"
+          - name: ":closed_lock_with_key:"
+            description: "Add or update secrets."
+            value: ":closed_lock_with_key:"
+          - name: ":bookmark:"
+            description: "Release / Version tags."
+            value: ":bookmark:"
+          - name: ":rotating_light:"
+            description: "Fix compiler / linter warnings."
+            value: ":rotating_light:"
+          - name: ":construction:"
+            description: "Work in progress."
+            value: ":construction:"
+          - name: ":green_heart:"
+            description: "Fix CI Build."
+            value: ":green_heart:"
+          - name: ":arrow_down:"
+            description: "Downgrade dependencies."
+            value: ":arrow_down:"
+          - name: ":arrow_up:"
+            description: "Upgrade dependencies."
+            value: ":arrow_up:"
+          - name: ":pushpin:"
+            description: "Pin dependencies to specific versions."
+            value: ":pushpin:"
+          - name: ":construction_worker:"
+            description: "Add or update CI build system."
+            value: ":construction_worker:"
+          - name: ":chart_with_upwards_trend:"
+            description: "Add or update analytics or track code."
+            value: ":chart_with_upwards_trend:"
+          - name: ":recycle:"
+            description: "Refactor code"
+            value: ":recycle:"
+          - name: ":heavy_plus_sign:"
+            description: "Add a dependency."
+            value: ":heavy_plus_sign:"
+          - name: ":heavy_minus_sign:"
+            description: "Remove a dependency."
+            value: ":heavy_minus_sign:"
+          - name: ":wrench:"
+            description: "Add or update configuration files."
+            value: ":wrench:"
+          - name: ":hammer:"
+            description: "Add or update development scripts."
+            value: ":hammer:"
+          - name: ":globe_with_meridians:"
+            description: "Internationalization and localization."
+            value: ":globe_with_meridians:"
+          - name: ":pencil2:"
+            description: "Fix typos."
+            value: ":pencil2:"
+          - name: ":poop:"
+            description: "Write bad code that needs to be improved."
+            value: ":poop:"
+          - name: ":rewind:"
+            description: "Revert changes."
+            value: ":rewind:"
+          - name: ":twisted_rightwards_arrows:"
+            description: "Merge branches."
+            value: ":twisted_rightwards_arrows:"
+          - name: ":package:"
+            description: "Add or update compiled files or packages."
+            value: ":package:"
+          - name: ":alien:"
+            description: "Update code due to external API changes."
+            value: ":alien:"
+          - name: ":truck:"
+            description: "Move or rename resources (e.g.: files, paths, routes)."
+            value: ":truck:"
+          - name: ":page_facing_up:"
+            description: "Add or update license."
+            value: ":page_facing_up:"
+          - name: ":boom:"
+            description: "Introduce breaking changes."
+            value: ":boom:"
+          - name: ":bento:"
+            description: "Add or update assets."
+            value: ":bento:"
+          - name: ":wheelchair:"
+            description: "Improve accessibility."
+            value: ":wheelchair:"
+          - name: ":bulb:"
+            description: "Add or update comments in source code."
+            value: ":bulb:"
+          - name: ":beers:"
+            description: "Write code drunkenly."
+            value: ":beers:"
+          - name: ":speech_balloon:"
+            description: "Add or update text and literals."
+            value: ":speech_balloon:"
+          - name: ":card_file_box:"
+            description: "Add or update contributor(s)."
+            value: ":card_file_box:"
+          - name: ":children_crossing:"
+            description: "Improve user experience / usability."
+            value: ":children_crossing:"
+          - name: ":building_construction:"
+            description: "Make architectural changes."
+            value: ":building_construction:"
+          - name: ":iphone:"
+            description: "Work on responsive design."
+            value: ":iphone:"
+          - name: ":clown_face:"
+            description: "Mock things."
+            value: ":clown_face:"
+          - name: ":egg:"
+            description: "Add or update an easter egg."
+            value: ":egg:"
+          - name: ":see_no_evil:"
+            description: "Add or update a .gitignore file."
+            value: ":see_no_evil:"
+          - name: ":camera_flash:"
+            description: "Add or update snapshots."
+            value: ":camera_flash:"
+          - name: ":alembic:"
+            description: " Perform experiments."
+            value: ":alembic:"
+          - name: ":mag:"
+            description: "Improve SEO."
+            value: ":mag:"
+          - name: ":label:"
+            description: "Add or update types."
+            value: ":label:"
+          - name: ":seedling:"
+            description: "Add or update seed files."
+            value: ":seedling:"
+          - name: ":triangular_flag_on_post:"
+            description: "Add, update, or remove feature flags."
+            value: ":triangular_flag_on_post:"
+          - name: ":goal_net:"
+            description: "Catch errors."
+            value: ":goal_net:"
+          - name: ":dizzy:"
+            description: "Add or update animations and transitions."
+            value: ":dizzy:"
+          - name: ":wastebasket:"
+            description: "Deprecate code that needs to be cleaned up."
+            value: ":wastebasket:"
+          - name: ":passport_control:"
+            description: "Work on code related to authorization, roles and permissions."
+            value: ":passport_control:"
+          - name: ":adhesive_bandage:"
+            description: "Simple fix for a non-critical issue."
+            value: ":adhesive_bandage:"
+          - name: ":monocle_face:"
+            description: "Data exploration/inspection."
+            value: ":monocle_face:"
+          - name: ":coffin:"
+            description: "Remove dead code."
+            value: ":coffin:"
+          - name: ":test_tube:"
+            description: "Add a failing test."
+            value: ":test_tube:"
+          - name: ":necktie:"
+            description: "Add or update business logic."
+            value: ":necktie:"
+          - name: ":stethoscope:"
+            description: "Add or update healthcheck."
+            value: ":stethoscope:"
+          - name: ":bricks:"
+            description: "Infrastructure related changes."
+            value: ":bricks:"
+          - name: ":technologist:"
+            description: "Improve developer experience."
+            value: ":technologist:"
+          - name: ":money_with_wings:"
+            description: "Add sponsorships or money related infrastructure."
+            value: ":money_with_wings:"
+          - name: ":thread:"
+            description: "Add or update code related to multithreading or concurrency."
+            value: ":thread:"
+          - name: ":safety_vest:"
+            description: "Add or update code related to validation."
+            value: ":safety_vest:"
       - type: "confirm"
         title: "Commit"
         body: "Commit with the message '{{.Form.Type}}({{.Form.Scope}}): {{.Form.Message}}{{.Form.Emoji}}'. Is this okay?"
-    command: "bash -c 'type=\"{{.Form.Type}}\"; scope=\"{{.Form.Scope}}\"; message=\"{{.Form.Message}}\"; emoji=\"{{.Form.Emoji}}\"; commit_message=\"$type${scope:+($scope)}: $message $emoji\"; git commit -m \"$commit_message\"'"
+    command: 'bash -c ''type="{{.Form.Type}}"; scope="{{.Form.Scope}}"; message="{{.Form.Message}}"; emoji="{{.Form.Emoji}}"; commit_message="$type${scope:+($scope)}: $message $emoji"; git commit -m "$commit_message"'''
     loadingText: "Commiting..."
 services: {}
 notARepository: prompt
