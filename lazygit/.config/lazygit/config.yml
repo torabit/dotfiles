@@ -54,7 +54,7 @@ quitOnTopLevelReturn: true
 keybinding:
   universal:
     quit: q
-    quit-alt1: <c-c>
+    # quit-alt1: <c-c>
     return: <esc>
     quitWithoutChangingDirectory: Q
     togglePanel: <tab>
@@ -112,7 +112,7 @@ keybinding:
     recentRepos: <enter>
     allBranchesLogGraph: a
   files:
-    commitChanges: c
+    commitChanges: <c-c>
     commitChangesWithoutHook: w
     amendLastCommit: A
     commitChangesWithEditor: C
@@ -173,6 +173,79 @@ os:
   openCommand: sh -c "xdg-open {{filename}} >/dev/null"
   openLinkCommand: sh -c "xdg-open {{link}} >/dev/null"
 disableStartupPopups: false
-customCommands: []
+customCommands:
+  - key: c
+    context: "files"
+    description: "commit files with Conventional Commits."
+    prompts:
+      - type: "menu"
+        title: "What kind of commit type is it?"
+        key: "Type"
+        options:
+          - name: "feat"
+            description: "A new feature."
+            value: "feat"
+          - name: "fix"
+            description: "A bug fix."
+            value: "fix"
+          - name: "docs"
+            description: "Documentation only changes."
+            value: "docs"
+          - name: "style"
+            description: "Changes that do not affect the meaning of the code."
+            value: "style"
+          - name: "refactor"
+            description: "A code change that neither fixes a bug nor adds a feature."
+            value: "refactor"
+          - name: "pref"
+            description: "A code change that improves perfomance."
+            value: "pref"
+          - name: "test"
+            description: "Adding missing tests or correcting existing tests."
+            value: "test"
+          - name: "build"
+            description: "Changes that affect the build system or external dependencies."
+            value: "build"
+          - name: "ci"
+            description: "Changes to our CI configuration files and scripts."
+            value: "ci"
+          - name: "chore"
+            description: "Other changes that don't modify src or test files."
+            value: "chore"
+          - name: "revert"
+            description: "Reverts a previous commit."
+            value: "revert"
+          - name: "wip"
+            description: "Work in Progress."
+            value: "wip"
+      - type: "input"
+        title: "(Optional) Enter the scope."
+        key: "Scope"
+        initialValue: ""
+      - type: "input"
+        title: "Enter the Message."
+        key: "Message"
+        initialValue: ""
+      - type: "menu"
+        title: "Choise the emoji."
+        key: "Emoji"
+        options:
+          - name: "(empty)"
+            description: ""
+            value: ""
+          - name: ":art:"
+            description: "🎨 Improve structure / format of the code."
+            value: ":art:"
+          - name: ":zap:"
+            description: "⚡️ mprove performance"
+            value: ":zap:"
+          - name: ":sparkles:"
+            description: "✨ Introduce new features."
+            value: ":sparkles:"
+      - type: "confirm"
+        title: "Commit"
+        body: "Commit with the message '{{.Form.Type}}({{.Form.Scope}}): {{.Form.Message}}{{.Form.Emoji}}'. Is this okay?"
+    command: "bash -c 'type=\"{{.Form.Type}}\"; scope=\"{{.Form.Scope}}\"; message=\"{{.Form.Message}}\"; emoji=\"{{.Form.Emoji}}\"; commit_message=\"$type${scope:+($scope)}: $message $emoji\"; git commit -m \"$commit_message\"'"
+    loadingText: "Commiting..."
 services: {}
 notARepository: prompt
