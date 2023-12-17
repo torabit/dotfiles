@@ -4,7 +4,7 @@ return {
     vim.g.PaperColo_Theme_Options = {
       theme = {
         default = {
-          transparent_background = true,
+          transparent_background = 1,
         },
       },
     }
