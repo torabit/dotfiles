@@ -54,7 +54,7 @@ quitOnTopLevelReturn: true
 keybinding:
   universal:
     quit: q
-    quit-alt1: <c-c>
+    # quit-alt1: <c-c>
     return: <esc>
     quitWithoutChangingDirectory: Q
     togglePanel: <tab>
@@ -112,7 +112,7 @@ keybinding:
     recentRepos: <enter>
     allBranchesLogGraph: a
   files:
-    # commitChanges: c
+    commitChanges: <c-c>
     commitChangesWithoutHook: w
     amendLastCommit: A
     commitChangesWithEditor: C
