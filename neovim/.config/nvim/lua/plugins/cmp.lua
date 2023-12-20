@@ -13,6 +13,7 @@ return {
     local cmp = require("cmp")
 
     opts.mapping = vim.tbl_extend("force", opts.mapping, {
+      ["<cr>"] = cmp.mapping.confirm({ select = false }),
       ["<tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_next_item()
@@ -34,5 +35,8 @@ return {
         end
       end, { "i", "s" }),
     })
+    opts.completion = {
+      completeopt = "menuone,noinsert,noselect",
+    }
   end,
 }
