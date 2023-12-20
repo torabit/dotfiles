@@ -35,6 +35,11 @@ keymap.set("n", "]b", ":bnext<cr>", silent)
 keymap.set("n", "[B", ":bfirst<cr>", silent)
 keymap.set("n", "]B", ":blast<cr>", silent)
 
+-- Rename
+keymap.set("n", "<leader>rn", function()
+  return ":IncRename " .. vim.fn.expand("<cword>")
+end, { expr = true })
+
 -- Disable key
 -- TODO : <c-z> is assigned when Pause/Break key is pressed, probably due to Tmux.
 keymap.set("n", "<c-z>", "<nop>", {})

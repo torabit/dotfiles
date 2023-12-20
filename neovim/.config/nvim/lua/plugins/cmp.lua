@@ -11,7 +11,6 @@ return {
 
     local luasnip = require("luasnip")
     local cmp = require("cmp")
-
     opts.mapping = vim.tbl_extend("force", opts.mapping, {
       ["<cr>"] = cmp.mapping.confirm({ select = false }),
       ["<tab>"] = cmp.mapping(function(fallback)

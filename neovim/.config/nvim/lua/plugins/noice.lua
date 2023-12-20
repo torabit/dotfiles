@@ -11,4 +11,9 @@ return {
 
     opts.presets.lsp_doc_border = true
   end,
+  config = function()
+    require("noice").setup({
+      presets = { inc_rename = true },
+    })
+  end,
 }
