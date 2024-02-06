@@ -1,7 +1,7 @@
 {
   "search.quickOpen.includeHistory": true,
   "search.quickOpen.includeSymbols": true,
-  "editor.fontFamily": "HackGenNerd Console",
+  "editor.fontFamily": "FixedsysExcelsior Nerd Font",
   "editor.tabSize": 2,
   "editor.fontSize": 13,
   "editor.wordWrapColumn": 100,
@@ -14,17 +14,15 @@
   "editor.bracketPairColorization.enabled": true,
   "editor.guides.bracketPairs": true,
   "editor.scrollBeyondLastLine": false,
-  "terminal.integrated.fontFamily": "HackGenNerd Console",
+  "editor.linkedEditing": true,
+  "terminal.integrated.fontFamily": "HackGen35 Console NF",
   "terminal.integrated.fontSize": 12,
   "git.alwaysShowStagedChangesResourceGroup": true,
   "git.openDiffOnClick": true,
   "git.showProgress": true,
   "git.showPushSuccessNotification": true,
-  "gitlens.currentLine.enabled": false,
   "gitlens.hovers.currentLine.over": "line",
-  "gitlens.codeLens.enabled": false,
-  "gitlens.statusBar.enabled": false,
-  "workbench.colorTheme": "papercolor-vscode-dark",
+  "workbench.colorTheme": "PaperColor",
   "rust-analyzer.inlayHints.chainingHints.enable": false,
   "rust-analyzer.inlayHints.parameterHints.enable": false,
   "rust-analyzer.inlayHints.typeHints.enable": false,
@@ -33,102 +31,176 @@
   "explorer.confirmDragAndDrop": false,
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-
   "vim.leader": "<space>",
   "vim.useSystemClipboard": true,
   "vim.hlsearch": true,
-
-  // Normal mode
   "vim.normalModeKeyBindingsNonRecursive": [
-    // window movement
-    { "before": ["<C-h>"], "after": ["<C-w>", "h"] },
-    { "before": ["<C-j>"], "after": ["<C-w>", "j"] },
-    { "before": ["<C-k>"], "after": ["<C-w>", "k"] },
-    { "before": ["<C-l>"], "after": ["<C-w>", "l"] },
-
-    // declaration
+    {
+      "before": ["<C-h>"],
+      "after": ["<C-w>", "h"]
+    },
+    {
+      "before": ["<C-j>"],
+      "after": ["<C-w>", "j"]
+    },
+    {
+      "before": ["<C-k>"],
+      "after": ["<C-w>", "k"]
+    },
+    {
+      "before": ["<C-l>"],
+      "after": ["<C-w>", "l"]
+    },
     {
       "before": ["g", "D"],
-      "commands": [{ "commnad": "editor.action.previewDeclaration" }]
+      "commands": [
+        {
+          "commnad": "editor.action.previewDeclaration"
+        }
+      ]
     },
-
-    // definitons
     {
       "before": ["g", "d"],
-      "commands": [{ "command": "editor.action.peekDefinition" }]
+      "commands": [
+        {
+          "command": "editor.action.peekDefinition"
+        }
+      ]
     },
-
-    // hover
     {
       "before": ["K"],
-      "commands": [{ "command": "editor.action.showHover" }]
+      "commands": [
+        {
+          "command": "editor.action.showHover"
+        }
+      ]
     },
-
-    // rename
     {
       "before": ["<Leader>", "r", "n"],
-      "commands": [{ "command": "editor.action.rename" }]
+      "commands": [
+        {
+          "command": "editor.action.rename"
+        }
+      ]
     },
-
-    // diagnostic goto next,prev
     {
       "before": ["]", "e"],
-      "commands": [{ "command": "editor.action.marker.next" }]
+      "commands": [
+        {
+          "command": "editor.action.marker.next"
+        }
+      ]
     },
     {
       "before": ["[", "e"],
-      "commands": [{ "command": "editor.action.marker.prev" }]
+      "commands": [
+        {
+          "command": "editor.action.marker.prev"
+        }
+      ]
     },
-
-    // Split window
-    { "before": ["s", "s"], "commands": [":split", "<Return>", "<C-w>", "w"] },
-    { "before": ["s", "v"], "commands": [":vsplit", "<Return>", "<C-w>", "w"] },
-
-    // Tab movement
-    { "before": ["<tab>"], "after": ["g", "t"] },
-    { "before": ["<s-tab>"], "after": ["g", "T"] },
-
-    // Quit, close
-    { "before": ["<Leader>", "q"], "commands": [":qa"] },
-    { "before": ["<Leader>", "x"], "commands": [":x!"] },
-    { "before": ["<Leader>", "d"], "commands": [":q!"] },
-
-    // Save buffer
-    { "before": ["<Leader>", "w"], "commands": [":w"] },
+    {
+      "before": ["s", "s"],
+      "commands": [":split", "<Return>", "<C-w>", "w"]
+    },
+    {
+      "before": ["s", "v"],
+      "commands": [":vsplit", "<Return>", "<C-w>", "w"]
+    },
+    {
+      "before": ["<tab>"],
+      "after": ["g", "t"]
+    },
+    {
+      "before": ["<s-tab>"],
+      "after": ["g", "T"]
+    },
+    {
+      "before": ["<Leader>", "q"],
+      "commands": [":qa"]
+    },
+    {
+      "before": ["<Leader>", "x"],
+      "commands": [":x!"]
+    },
+    {
+      "before": ["<Leader>", "d"],
+      "commands": [":q!"]
+    },
+    {
+      "before": ["<Leader>", "w"],
+      "commands": [":w"]
+    },
+    {
+      "before": ["<Leader>", "e"],
+      "commands": [{ "command": "workbench.action.toggleSidebarVisibility" }]
+    },
+    {
+      "before": ["<Leader>", "<Leader>"],
+      "commands": [{ "command": "workbench.action.quickOpen" }]
+    },
     {
       "before": ["t", "e"],
       "commands": [":tabedit", "<Return>"]
     },
-
-    // commentout
     {
       "before": ["g", "c", "c"],
-      "commands": [{ "command": "editor.action.commentLine" }]
+      "commands": [
+        {
+          "command": "editor.action.commentLine"
+        }
+      ]
     },
-
-    // navigate buffers and repos
     {
       "before": [";", "d"],
-      "commands": [{ "command": "workbench.action.quickOpen" }]
+      "commands": [
+        {
+          "command": "workbench.action.quickOpen"
+        }
+      ]
     },
     {
       "before": [";", "f"],
-      "commands": [{ "command": "workbench.view.explorer" }]
+      "commands": [
+        {
+          "command": "workbench.view.explorer"
+        }
+      ]
     }
   ],
-
-  // Insert mode
   "vim.insertModeKeyBindings": [
-    // Esc in the terminal
-    { "before": ["j", "j"], "after": ["<Esc>"] }
+    {
+      "before": ["j", "j"],
+      "after": ["<Esc>"]
+    }
   ],
-
-  // Visual Mode
   "vim.visualModeKeyBindingsNonRecursive": [
-    // rename
     {
       "before": ["<Leader>", "r", "n"],
-      "commands": [{ "command": "editor.action.rename" }]
+      "commands": [
+        {
+          "command": "editor.action.rename"
+        }
+      ]
     }
-  ]
+  ],
+  "terminal.integrated.env.osx": {},
+  "console-ninja.allowedHosts": [
+    "torabit.qa.wantedly.com",
+    "torabit.admin-qa.wantedly.com"
+  ],
+  "console-ninja.featureSet": "Community",
+  "workbench.iconTheme": "material-icon-theme",
+  "[ruby]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "editor.semanticHighlighting.enabled": true,
+    "editor.defaultFormatter": "Shopify.ruby-lsp"
+  },
+  "hediet.vscode-drawio.resizeImages": null
 }
