@@ -151,28 +151,6 @@
         }
       ]
     },
-    {
-      "before": [";", "d"],
-      "commands": [
-        {
-          "command": "workbench.action.quickOpen"
-        }
-      ]
-    },
-    {
-      "before": [";", "f"],
-      "commands": [
-        {
-          "command": "workbench.view.explorer"
-        }
-      ]
-    }
-  ],
-  "vim.insertModeKeyBindings": [
-    {
-      "before": ["j", "j"],
-      "after": ["<Esc>"]
-    }
   ],
   "vim.visualModeKeyBindingsNonRecursive": [
     {
@@ -185,10 +163,6 @@
     }
   ],
   "terminal.integrated.env.osx": {},
-  "console-ninja.allowedHosts": [
-    "torabit.qa.wantedly.com",
-    "torabit.admin-qa.wantedly.com"
-  ],
   "console-ninja.featureSet": "Community",
   "workbench.iconTheme": "material-icon-theme",
   "[ruby]": {
