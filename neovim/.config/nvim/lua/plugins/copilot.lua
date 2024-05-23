@@ -1,6 +1,6 @@
 return {
   "zbirenbaum/copilot.lua",
   opts = {
-    filetypes = { ["*"] = true },
+    filetypes = { javascript = false, typescript = false, ["*"] = true },
   },
 }
