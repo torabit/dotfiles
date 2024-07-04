@@ -6,7 +6,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Prompt
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+source /home/linuxbrew/.linuxbrew/share/powerlevel10k/powerlevel10k.zsh-theme
 
 # Load plugins
 export ZSH_PLUGINS=/home/linuxbrew/.linuxbrew/
