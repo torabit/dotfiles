@@ -1,3 +1,5 @@
 [user]
 	name = torabit
 	email = pujigami@gmail.com
+[ghq]
+	root = ~/ghq

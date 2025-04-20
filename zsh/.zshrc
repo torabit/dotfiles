@@ -6,10 +6,10 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Prompt
-source /home/linuxbrew/.linuxbrew/share/powerlevel10k/powerlevel10k.zsh-theme
+source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 
 # Load plugins
-export ZSH_PLUGINS=/home/linuxbrew/.linuxbrew/
+export ZSH_PLUGINS=/opt/homebrew/
 
 source ${ZSH_PLUGINS}/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 source ${ZSH_PLUGINS}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -98,3 +98,5 @@ bindkey '^[[B' history-substring-search-down
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh 
 eval "$(anyenv init -)"
+
+alias gi='(){ cd $(ghq root)/$(ghq list | peco --query "$*") }'

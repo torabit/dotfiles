@@ -5,4 +5,4 @@ export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
 
-eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+eval "$(/opt/homebrew/bin/brew shellenv)"
