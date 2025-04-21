@@ -1,3 +1,7 @@
 # misic
 /tmp
 .envrc
+.env
+
+# cursor
+.cursor/*
