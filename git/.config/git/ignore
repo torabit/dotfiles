@@ -5,3 +5,7 @@
 
 # cursor
 .cursor/*
+**/.claude/settings.local.json
+
+# supowerpowers
+docs/plans/*
