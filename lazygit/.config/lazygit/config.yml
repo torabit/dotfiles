@@ -7,21 +7,21 @@ gui:
   sidePanelWidth: 0.2
   expandFocusedSidePanel: true
   mainPanelSplitMode: flexible
-  theme:
-    lightTheme: true
-    activeBorderColor:
-      - "#008700"
-      - bold
-    inactiveBorderColor:
-      - black
-    optionsTextColor:
-      - "#0087af"
-    selectedLineBgColor:
-      - reverse
-    selectedRangeBgColor:
-      - reverse
-    defaultFgColor:
-      - black
+  # theme:
+  #   lightTheme: true
+  #   activeBorderColor:
+  #     - "#008700"
+  #     - bold
+  #   inactiveBorderColor:
+  #     - black
+  #   optionsTextColor:
+  #     - "#0087af"
+  #   selectedLineBgColor:
+  #     - reverse
+  #   selectedRangeBgColor:
+  #     - reverse
+  #   defaultFgColor:
+  #     - black
   commitLength:
     show: true
   skipNoStagedFilesWarning: false
