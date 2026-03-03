@@ -1,3 +1,10 @@
 # misic
 /tmp
 .envrc
+
+# cursor
+.cursor/*
+**/.claude/settings.local.json
+
+# superpowers
+docs/plans/*
