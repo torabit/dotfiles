@@ -23,6 +23,10 @@ vim.pack.add({
 	"https://github.com/axelvc/template-string.nvim",
 	"https://github.com/pmizio/typescript-tools.nvim",
 	"https://github.com/nvim-lua/plenary.nvim",
+	-- UI
+	"https://github.com/folke/trouble.nvim",
+	-- Tmux
+	"https://github.com/christoomey/vim-tmux-navigator",
 })
 
 local function packadd(name)
@@ -44,6 +48,8 @@ packadd("plenary.nvim")
 packadd("nvim-ts-autotag")
 packadd("template-string.nvim")
 packadd("typescript-tools.nvim")
+packadd("trouble.nvim")
+packadd("vim-tmux-navigator")
 
 require("plugins.colorscheme")
 require("plugins.treesitter")
@@ -54,3 +60,4 @@ require("plugins.typescript")
 require("plugins.gitsigns")
 require("plugins.lsp")
 require("plugins.completion")
+require("plugins.trouble")
