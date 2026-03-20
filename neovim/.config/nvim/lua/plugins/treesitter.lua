@@ -1,6 +1,12 @@
 local treesitter = require("nvim-treesitter")
 treesitter.setup({})
 
+-- Add nvim-treesitter runtime/ to rtp so inherited queries (ecma, jsx) are found
+local ts_runtime = vim.fn.stdpath("data") .. "/site/pack/core/opt/nvim-treesitter/runtime"
+if vim.fn.isdirectory(ts_runtime) == 1 and not vim.list_contains(vim.opt.rtp:get(), ts_runtime) then
+	vim.opt.rtp:prepend(ts_runtime)
+end
+
 local ensure_installed = {
 	"vim",
 	"vimdoc",
