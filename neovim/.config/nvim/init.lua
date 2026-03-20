@@ -1,3 +1,6 @@
 require("options")
 require("keymaps")
+require("statusline")
+require("autocmds")
 require("plugins")
+require("terminal")

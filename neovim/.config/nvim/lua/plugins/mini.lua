@@ -1,0 +1,57 @@
+require("mini.ai").setup({})
+require("mini.comment").setup({})
+require("mini.move").setup({})
+require("mini.surround").setup({})
+require("mini.cursorword").setup({})
+require("mini.indentscope").setup({})
+require("mini.pairs").setup({})
+require("mini.trailspace").setup({})
+require("mini.bufremove").setup({})
+require("mini.notify").setup({})
+require("mini.icons").setup({})
+
+require("mini.clue").setup({
+	triggers = {
+		{ mode = "n", keys = "<Leader>" },
+		{ mode = "x", keys = "<Leader>" },
+		{ mode = "n", keys = "g" },
+		{ mode = "x", keys = "g" },
+		{ mode = "n", keys = "'" },
+		{ mode = "n", keys = "`" },
+		{ mode = "x", keys = "'" },
+		{ mode = "x", keys = "`" },
+		{ mode = "n", keys = '"' },
+		{ mode = "x", keys = '"' },
+		{ mode = "i", keys = "<C-r>" },
+		{ mode = "c", keys = "<C-r>" },
+		{ mode = "n", keys = "<C-w>" },
+		{ mode = "n", keys = "z" },
+		{ mode = "x", keys = "z" },
+		{ mode = "n", keys = "]" },
+		{ mode = "n", keys = "[" },
+	},
+	clues = {
+		require("mini.clue").gen_clues.builtin_completion(),
+		require("mini.clue").gen_clues.g(),
+		require("mini.clue").gen_clues.marks(),
+		require("mini.clue").gen_clues.registers(),
+		require("mini.clue").gen_clues.windows(),
+		require("mini.clue").gen_clues.z(),
+		{ mode = "n", keys = "<Leader>f", desc = "+search" },
+		{ mode = "n", keys = "<Leader>g", desc = "+goto" },
+		{ mode = "n", keys = "<Leader>h", desc = "+git hunk" },
+		{ mode = "n", keys = "<Leader>b", desc = "+buffer" },
+		{ mode = "n", keys = "<Leader>s", desc = "+split" },
+		{ mode = "n", keys = "<Leader>c", desc = "+clear" },
+		{ mode = "n", keys = "<Leader>t", desc = "+terminal" },
+		{ mode = "n", keys = "<Leader>r", desc = "+refactor" },
+		{ mode = "n", keys = "<Leader>d", desc = "+diagnostic" },
+		{ mode = "n", keys = "<Leader>p", desc = "+path/paste" },
+		{ mode = "n", keys = "<Leader>o", desc = "+organize" },
+		{ mode = "n", keys = "<Leader>w", desc = "+write" },
+	},
+	window = {
+		delay = 300,
+		config = { width = "auto" },
+	},
+})
