@@ -9,6 +9,10 @@
       "src": "https://github.com/saghen/blink.cmp",
       "version": "1.0.0 - 2.0.0"
     },
+    "conform.nvim": {
+      "rev": "086a40dc7ed8242c03be9f47fbcee68699cc2395",
+      "src": "https://github.com/stevearc/conform.nvim"
+    },
     "efmls-configs-nvim": {
       "rev": "0b0ca5462a0a9c1233cc8359e64741d7d49fbbe4",
       "src": "https://github.com/creativenull/efmls-configs-nvim"
@@ -32,6 +36,10 @@
     "mini.nvim": {
       "rev": "adeaeac8622b966273bb161977bff1293dd44565",
       "src": "https://www.github.com/echasnovski/mini.nvim"
+    },
+    "nvim-lint": {
+      "rev": "606b823a57b027502a9ae00978ebf4f5d5158098",
+      "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
       "rev": "e057806776c8bed91971338d96a78a0f6a313dae",
