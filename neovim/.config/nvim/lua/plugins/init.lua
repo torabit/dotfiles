@@ -28,6 +28,8 @@ vim.pack.add({
 	"https://github.com/stevearc/oil.nvim",
 	-- Git
 	"https://github.com/sindrets/diffview.nvim",
+	-- Undo
+	"https://github.com/mbbill/undotree",
 	-- UI
 	"https://github.com/folke/trouble.nvim",
 	"https://github.com/folke/flash.nvim",
@@ -58,6 +60,7 @@ packadd("template-string.nvim")
 packadd("typescript-tools.nvim")
 packadd("oil.nvim")
 packadd("diffview.nvim")
+packadd("undotree")
 packadd("trouble.nvim")
 packadd("flash.nvim")
 packadd("nvim-surround")

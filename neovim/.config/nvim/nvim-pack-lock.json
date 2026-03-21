@@ -93,6 +93,10 @@
       "rev": "c2f5910074103705661e9651aa841e0d7eea9932",
       "src": "https://github.com/pmizio/typescript-tools.nvim"
     },
+    "undotree": {
+      "rev": "6fa6b57cda8459e1e4b2ca34df702f55242f4e4d",
+      "src": "https://github.com/mbbill/undotree"
+    },
     "vim-molder": {
       "rev": "b5f7435f96971b7c15b51b7e34594ffa4f219f0e",
       "src": "https://github.com/mattn/vim-molder"
