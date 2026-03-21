@@ -64,7 +64,6 @@ bindkey '^[[B' history-substring-search-down
 
 # ── Tools ────────────────────────────────────────────────────
 eval "$(mise activate zsh)"
-eval $(thefuck --alias)
 export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --glob "!.git/*"'
 export FZF_DEFAULT_OPTS='
   --color=light
