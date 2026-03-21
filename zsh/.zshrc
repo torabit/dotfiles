@@ -63,8 +63,7 @@ bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
 # ── Tools ────────────────────────────────────────────────────
-eval "$(direnv hook zsh)"
-eval "$(anyenv init -)"
+eval "$(mise activate zsh)"
 eval $(thefuck --alias)
 export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --glob "!.git/*"'
 [ -s "/Users/toranosukeujike/.bun/_bun" ] && source "/Users/toranosukeujike/.bun/_bun"
