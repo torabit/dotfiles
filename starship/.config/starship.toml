@@ -1,0 +1,64 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$cmd_duration\
+${env_var.KUBE_FORK_TARGET_ENV}\
+$line_break\
+$python\
+$character"""
+
+# PaperColor Light palette
+# cyan:    #005f87
+# blue:    #0087af
+# green:   #008700
+# red:     #af0000
+# magenta: #8700af
+# orange:  #d75f00
+# comment: #878787
+
+[directory]
+style = "#0087af"
+
+[character]
+success_symbol = "[❯](#8700af)"
+error_symbol = "[❯](#af0000)"
+vimcmd_symbol = "[❮](#008700)"
+
+[git_branch]
+format = "[$branch]($style)"
+style = "#878787"
+
+[git_status]
+format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](#d75f00) ($ahead_behind$stashed)]($style)"
+style = "#005f87"
+conflicted = "​"
+untracked = "​"
+modified = "​"
+staged = "​"
+renamed = "​"
+deleted = "​"
+stashed = "≡"
+
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = "#878787"
+
+[cmd_duration]
+format = "[$duration]($style) "
+style = "#005f87"
+
+[python]
+format = "[$virtualenv]($style) "
+style = "#878787"
+detect_extensions = []
+detect_files = []
+
+[env_var.KUBE_FORK_TARGET_ENV]
+format = "[⎈ $env_value]($style) "
+style = "#005f87"
