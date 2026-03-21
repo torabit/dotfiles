@@ -11,6 +11,9 @@ require("mini.comment").setup({
 })
 require("mini.move").setup({})
 require("mini.cursorword").setup({})
+require("mini.bracketed").setup({
+	hunk = { suffix = "" }, -- disabled, using gitsigns [h ]h
+})
 require("mini.pairs").setup({})
 require("mini.trailspace").setup({})
 require("mini.bufremove").setup({})

@@ -68,13 +68,6 @@ local function lsp_on_attach(ev)
 	vim.keymap.set("n", "<leader>d", function()
 		vim.diagnostic.open_float({ scope = "cursor" })
 	end, opts)
-	vim.keymap.set("n", "<leader>nd", function()
-		vim.diagnostic.jump({ count = 1 })
-	end, opts)
-	vim.keymap.set("n", "<leader>pd", function()
-		vim.diagnostic.jump({ count = -1 })
-	end, opts)
-
 	vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 
 	vim.keymap.set("n", "<leader>fd", function()
