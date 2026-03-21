@@ -32,6 +32,8 @@ vim.pack.add({
 	"https://github.com/mbbill/undotree",
 	-- Tabline
 	"https://github.com/nanozuki/tabby.nvim",
+	-- Navigation
+	"https://github.com/ThePrimeagen/harpoon",
 	-- UI
 	"https://github.com/folke/todo-comments.nvim",
 	"https://github.com/folke/trouble.nvim",
@@ -65,6 +67,7 @@ packadd("oil.nvim")
 packadd("diffview.nvim")
 packadd("undotree")
 packadd("tabby.nvim")
+packadd("harpoon")
 packadd("todo-comments.nvim")
 packadd("trouble.nvim")
 packadd("flash.nvim")
@@ -84,6 +87,7 @@ require("plugins.conform")
 require("plugins.lint")
 require("plugins.diffview")
 require("plugins.tabline")
+require("plugins.harpoon")
 require("todo-comments").setup({
 	search = {
 		args = {
