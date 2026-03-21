@@ -3,24 +3,22 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# ── Environment ──────────────────────────────────────────────
 export XDG_CONFIG_HOME="$HOME/.config"
-
-# Load plugins
+export EDITOR=nvim
 export HOMEBREW_PREFIX=/opt/homebrew
-source ${HOMEBREW_PREFIX}/opt/zsh-fast-syntax-highlighting/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-source ${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ${HOMEBREW_PREFIX}/share/zsh-history-substring-search/zsh-history-substring-search.zsh
-source ${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh
-source ${HOMEBREW_PREFIX}/opt/fzf/shell/completion.zsh
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# Key bindings
-zmodload zsh/terminfo
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
+# ── PATH ─────────────────────────────────────────────────────
+export PATH="$HOME/.local/bin:$PATH"
+PATH=~/.console-ninja/.bin:$PATH
+export PNPM_HOME="/Users/toranosukeujike/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
 
-# General options
+# ── Options ──────────────────────────────────────────────────
 setopt correct
 setopt extendedglob
 setopt nocaseglob
@@ -29,7 +27,7 @@ setopt nocheckjobs
 setopt numericglobsort
 setopt auto_cd
 
-# History
+# ── History ──────────────────────────────────────────────────
 HISTFILE=~/.zhistory
 HISTSIZE=1000
 SAVEHIST=500
@@ -37,14 +35,7 @@ setopt appendhistory
 setopt histignorealldups
 unsetopt share_history
 
-# Editor
-export EDITOR=nvim
-
-# env
-eval "$(direnv hook zsh)"
-eval "$(anyenv init -)"
-
-# Completion
+# ── Completion ───────────────────────────────────────────────
 zstyle ':completion:*' completer _complete
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
@@ -61,28 +52,43 @@ else
   compinit -C
 fi
 
-# Aliases
+# ── Plugins ──────────────────────────────────────────────────
+source ${HOMEBREW_PREFIX}/opt/zsh-fast-syntax-highlighting/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+source ${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ${HOMEBREW_PREFIX}/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+source ${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh
+source ${HOMEBREW_PREFIX}/opt/fzf/shell/completion.zsh
+
+# ── Key bindings ─────────────────────────────────────────────
+zmodload zsh/terminfo
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+# ── Tools ────────────────────────────────────────────────────
+eval "$(direnv hook zsh)"
+eval "$(anyenv init -)"
+eval $(thefuck --alias)
+export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --glob "!.git/*"'
+[ -s "/Users/toranosukeujike/.bun/_bun" ] && source "/Users/toranosukeujike/.bun/_bun"
+
+# ── Aliases ──────────────────────────────────────────────────
 alias ls='ls --color=auto'
 alias ll='eza -l -h -@ -mU --icons --git --time-style=long-iso --color=automatic --group-directories-first'
 alias l='ll -aa'
 alias v='nvim'
 alias vi='nvim'
 alias vim='nvim'
-alias dot='cd ~/dotfiles'
 alias tmuxs='tmux source-file ~/.tmux.conf'
-alias zshrc='vim ~/.zshrc'
 alias clip='pbcopy'
 alias clearbuff="clear && printf '\e[3J'"
 
-# Custom functions
+# ── Functions ────────────────────────────────────────────────
 function create() {
   mkdir -p $1 && cd $1
 }
 
-# FZF
-export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --glob "!.git/*"'
-
-# ghq + fzf
 function g() {
   local repo=$(ghq list | fzf --preview "bat --color=always --style=header,grid --line-range :50 $(ghq root)/{}/README.md 2>/dev/null || ls $(ghq root)/{}")
   if [ -n "$repo" ]; then
@@ -90,24 +96,8 @@ function g() {
   fi
 }
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+# ── Prompt ───────────────────────────────────────────────────
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# pnpm
-export PNPM_HOME="/Users/toranosukeujike/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-
-eval $(thefuck --alias)
-
-PATH=~/.console-ninja/.bin:$PATH
-export PATH="$HOME/.local/bin:$PATH"
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
-# bun completions
-[ -s "/Users/toranosukeujike/.bun/_bun" ] && source "/Users/toranosukeujike/.bun/_bun"
-
-# Source local env if available
+# ── Local overrides ─────────────────────────────────────────
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
