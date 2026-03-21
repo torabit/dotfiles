@@ -30,6 +30,8 @@ vim.pack.add({
 	"https://github.com/sindrets/diffview.nvim",
 	-- Undo
 	"https://github.com/mbbill/undotree",
+	-- Tabline
+	"https://github.com/nanozuki/tabby.nvim",
 	-- UI
 	"https://github.com/folke/trouble.nvim",
 	"https://github.com/folke/flash.nvim",
@@ -61,6 +63,7 @@ packadd("typescript-tools.nvim")
 packadd("oil.nvim")
 packadd("diffview.nvim")
 packadd("undotree")
+packadd("tabby.nvim")
 packadd("trouble.nvim")
 packadd("flash.nvim")
 packadd("nvim-surround")
@@ -78,6 +81,7 @@ require("plugins.completion")
 require("plugins.conform")
 require("plugins.lint")
 require("plugins.diffview")
+require("plugins.tabline")
 require("plugins.trouble")
 require("plugins.flash")
 require("nvim-surround").setup({})
