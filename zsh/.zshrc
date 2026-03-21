@@ -64,7 +64,6 @@ bindkey '^[[B' history-substring-search-down
 
 # ── Tools ────────────────────────────────────────────────────
 eval "$(mise activate zsh)"
-eval "$(zoxide init zsh)"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --glob "!.git/*"'
 export FZF_DEFAULT_OPTS='
   --color=light
@@ -102,8 +101,9 @@ function g() {
   fi
 }
 
-# ── Prompt ───────────────────────────────────────────────────
-eval "$(starship init zsh)"
-
 # ── Local overrides ─────────────────────────────────────────
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
+
+# ── Init (must be at the end of .zshrc) ─────────────────────
+eval "$(starship init zsh)"
+eval "$(zoxide init zsh)"
