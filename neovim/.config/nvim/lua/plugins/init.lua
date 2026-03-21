@@ -24,8 +24,7 @@ vim.pack.add({
 	"https://github.com/pmizio/typescript-tools.nvim",
 	"https://github.com/nvim-lua/plenary.nvim",
 	-- Explorer
-	"https://github.com/mattn/vim-molder",
-	"https://github.com/mattn/vim-molder-operations",
+	"https://github.com/stevearc/oil.nvim",
 	-- UI
 	"https://github.com/folke/trouble.nvim",
 	"https://github.com/folke/flash.nvim",
@@ -53,8 +52,7 @@ packadd("nvim-ts-context-commentstring")
 packadd("nvim-ts-autotag")
 packadd("template-string.nvim")
 packadd("typescript-tools.nvim")
-packadd("vim-molder")
-packadd("vim-molder-operations")
+packadd("oil.nvim")
 packadd("trouble.nvim")
 packadd("flash.nvim")
 packadd("nvim-surround")
