@@ -57,6 +57,10 @@
       "rev": "1b212c2eee76d787bbea6aa5e92a2b534e7b4f8f",
       "src": "https://github.com/JoosepAlviste/nvim-ts-context-commentstring"
     },
+    "oil.nvim": {
+      "rev": "0fcc83805ad11cf714a949c98c605ed717e0b83e",
+      "src": "https://github.com/stevearc/oil.nvim"
+    },
     "papercolor-theme": {
       "rev": "0cfe64ffb24c21a6101b5f994ca342a74c977aef",
       "src": "https://github.com/NLKNguyen/papercolor-theme"
