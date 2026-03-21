@@ -33,6 +33,7 @@ vim.pack.add({
 	-- Tabline
 	"https://github.com/nanozuki/tabby.nvim",
 	-- UI
+	"https://github.com/folke/todo-comments.nvim",
 	"https://github.com/folke/trouble.nvim",
 	"https://github.com/folke/flash.nvim",
 	"https://github.com/kylechui/nvim-surround",
@@ -64,6 +65,7 @@ packadd("oil.nvim")
 packadd("diffview.nvim")
 packadd("undotree")
 packadd("tabby.nvim")
+packadd("todo-comments.nvim")
 packadd("trouble.nvim")
 packadd("flash.nvim")
 packadd("nvim-surround")
@@ -82,6 +84,25 @@ require("plugins.conform")
 require("plugins.lint")
 require("plugins.diffview")
 require("plugins.tabline")
+require("todo-comments").setup({
+	search = {
+		args = {
+			"--color=never",
+			"--no-heading",
+			"--with-filename",
+			"--line-number",
+			"--column",
+			"--glob=!node_modules/",
+			"--glob=!dist/",
+			"--glob=!build/",
+			"--glob=!*.min.*",
+			"--glob=!*.lock",
+			"--glob=!*-lock.*",
+			"--glob=!schema.json",
+			"--glob=!__generated__/",
+		},
+	},
+})
 require("plugins.trouble")
 require("plugins.flash")
 require("nvim-surround").setup({})

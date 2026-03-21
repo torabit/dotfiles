@@ -30,3 +30,22 @@ end, { desc = "FZF Git Status" })
 vim.keymap.set("n", "<leader>fc", function()
 	require("fzf-lua").git_commits()
 end, { desc = "FZF Git Commits" })
+vim.keymap.set("n", "<leader>fT", function()
+	require("todo-comments.fzf").todo({
+		rg_opts = table.concat({
+			"--color=always",
+			"--no-heading",
+			"--with-filename",
+			"--line-number",
+			"--column",
+			"--glob=!node_modules/",
+			"--glob=!dist/",
+			"--glob=!build/",
+			"--glob=!*.min.*",
+			"--glob=!*.lock",
+			"--glob=!*-lock.*",
+			"--glob=!schema.json",
+			"--glob=!__generated__/",
+		}, " "),
+	})
+end, { desc = "FZF TODO comments" })
