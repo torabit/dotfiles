@@ -1,23 +1,9 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-#
-# Executes commands at the start of an interactive session.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
 
-# Lazygit
 export XDG_CONFIG_HOME="$HOME/.config"
-
-# Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-fi
 
 # Load plugins
 export HOMEBREW_PREFIX=/opt/homebrew
@@ -27,20 +13,7 @@ source ${HOMEBREW_PREFIX}/share/zsh-history-substring-search/zsh-history-substri
 source ${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh
 source ${HOMEBREW_PREFIX}/opt/fzf/shell/completion.zsh
 
-# bind UP and DOWN arrow keys to history substring search
-zmodload zsh/terminfo
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-
-# Customize to your needs...
-
-# env
-eval "$(direnv hook zsh)"
-eval "$(anyenv init -)"
-
-## bind UP and DOWN arrow keys to history substring search
+# Key bindings
 zmodload zsh/terminfo
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
@@ -54,6 +27,7 @@ setopt nocaseglob
 setopt rcexpandparam
 setopt nocheckjobs
 setopt numericglobsort
+setopt auto_cd
 
 # History
 HISTFILE=~/.zhistory
@@ -61,25 +35,24 @@ HISTSIZE=1000
 SAVEHIST=500
 setopt appendhistory
 setopt histignorealldups
-# Don't want common history between shells
 unsetopt share_history
 
-# Editor setting
-export EDITOR=vim
+# Editor
+export EDITOR=nvim
 
-# Hub
-function git(){hub "$@"} # zsh
+# env
+eval "$(direnv hook zsh)"
+eval "$(anyenv init -)"
 
 # Completion
 zstyle ':completion:*' completer _complete
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"         # Colored completion (different colors for dirs/files/etc)
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' rehash true
-# Speed up completions
 zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
-WORDCHARS=${WORDCHARS//\/[&.;]}                                 # Don't consider certain characters part of the word
+WORDCHARS=${WORDCHARS//\/[&.;]}
 fpath=(~/.zfunc ~/.zsh/completions $fpath)
 autoload -Uz compinit
 if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
@@ -89,7 +62,6 @@ else
 fi
 
 # Aliases
-alias git='hub'
 alias ls='ls --color=auto'
 alias ll='eza -l -h -@ -mU --icons --git --time-style=long-iso --color=automatic --group-directories-first'
 alias l='ll -aa'
@@ -118,16 +90,8 @@ function g() {
   fi
 }
 
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-
-# Auto-cd
-setopt auto_cd
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-
 
 # pnpm
 export PNPM_HOME="/Users/toranosukeujike/Library/pnpm"
@@ -135,7 +99,6 @@ case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
-# pnpm end
 
 eval $(thefuck --alias)
 
@@ -145,3 +108,6 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # bun completions
 [ -s "/Users/toranosukeujike/.bun/_bun" ] && source "/Users/toranosukeujike/.bun/_bun"
+
+# Source local env if available
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
