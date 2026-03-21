@@ -36,6 +36,8 @@ vim.pack.add({
 	"https://github.com/ThePrimeagen/harpoon",
 	-- Markdown
 	"https://github.com/OXY2DEV/markview.nvim",
+	-- Indent
+	"https://github.com/shellRaining/hlchunk.nvim",
 	-- UI
 	"https://github.com/folke/todo-comments.nvim",
 	"https://github.com/folke/trouble.nvim",
@@ -71,6 +73,7 @@ packadd("undotree")
 packadd("tabby.nvim")
 packadd("harpoon")
 packadd("markview.nvim")
+packadd("hlchunk.nvim")
 packadd("todo-comments.nvim")
 packadd("trouble.nvim")
 packadd("flash.nvim")
@@ -92,6 +95,12 @@ require("plugins.diffview")
 require("plugins.tabline")
 require("plugins.harpoon")
 require("markview").setup({})
+require("hlchunk").setup({
+	chunk = { enable = true },
+	indent = { enable = false },
+	line_num = { enable = false },
+	blank = { enable = false },
+})
 require("todo-comments").setup({
 	search = {
 		args = {
