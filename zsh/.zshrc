@@ -56,6 +56,7 @@ source ${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh
 source ${HOMEBREW_PREFIX}/opt/fzf/shell/completion.zsh
 
 # ── Key bindings ─────────────────────────────────────────────
+KEYTIMEOUT=1
 zmodload zsh/terminfo
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
