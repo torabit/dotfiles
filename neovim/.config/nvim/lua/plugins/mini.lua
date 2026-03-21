@@ -54,7 +54,6 @@ require("mini.clue").setup({
 		{ mode = "n", keys = "<Leader>b", desc = "+buffer" },
 		{ mode = "n", keys = "<Leader>s", desc = "+split" },
 		{ mode = "n", keys = "<Leader>c", desc = "+clear" },
-		{ mode = "n", keys = "<Leader>t", desc = "+terminal" },
 		{ mode = "n", keys = "<Leader>r", desc = "+refactor" },
 		{ mode = "n", keys = "<Leader>d", desc = "+diagnostic" },
 		{ mode = "n", keys = "<Leader>p", desc = "+path/paste" },
