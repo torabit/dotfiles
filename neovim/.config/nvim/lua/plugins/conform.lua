@@ -1,0 +1,25 @@
+require("conform").setup({
+	formatters_by_ft = {
+		lua = { "stylua" },
+		python = { "black" },
+		go = { "gofumpt" },
+		javascript = { "prettierd" },
+		javascriptreact = { "prettierd" },
+		typescript = { "prettierd" },
+		typescriptreact = { "prettierd" },
+		vue = { "prettierd" },
+		svelte = { "prettierd" },
+		css = { "prettierd" },
+		html = { "prettierd" },
+		markdown = { "prettierd" },
+		json = { "fixjson" },
+		jsonc = { "fixjson" },
+		sh = { "shfmt" },
+		c = { "clang-format" },
+		cpp = { "clang-format" },
+	},
+	format_on_save = {
+		timeout_ms = 2000,
+		lsp_format = "fallback",
+	},
+})

@@ -96,7 +96,6 @@ vscode "vscodevim.vim"
 vscode "wallabyjs.console-ninja"
 
 # Go tools
-go "github.com/mattn/efm-langserver"
 go "golang.org/x/tools/gopls"
 go "github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc"
 go "honnef.co/go/tools/cmd/staticcheck"

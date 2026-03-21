@@ -104,7 +104,7 @@ local function lsp_on_attach(ev)
 				bufnr = bufnr,
 			})
 			vim.defer_fn(function()
-				vim.lsp.buf.format({ bufnr = bufnr })
+				require("conform").format({ bufnr = bufnr })
 			end, 50)
 		end, opts)
 	end

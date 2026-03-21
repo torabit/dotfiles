@@ -11,7 +11,8 @@ vim.pack.add({
 	-- Language Server Protocols
 	"https://www.github.com/neovim/nvim-lspconfig",
 	"https://github.com/mason-org/mason.nvim",
-	"https://github.com/creativenull/efmls-configs-nvim",
+	"https://github.com/stevearc/conform.nvim",
+	"https://github.com/mfussenegger/nvim-lint",
 	{
 		src = "https://github.com/saghen/blink.cmp",
 		version = vim.version.range("1.*"),
@@ -44,7 +45,8 @@ packadd("mini.nvim")
 packadd("fzf-lua")
 packadd("nvim-lspconfig")
 packadd("mason.nvim")
-packadd("efmls-configs-nvim")
+packadd("conform.nvim")
+packadd("nvim-lint")
 packadd("blink.cmp")
 packadd("LuaSnip")
 packadd("plenary.nvim")
@@ -67,6 +69,8 @@ require("plugins.typescript")
 require("plugins.gitsigns")
 require("plugins.lsp")
 require("plugins.completion")
+require("plugins.conform")
+require("plugins.lint")
 require("plugins.trouble")
 require("plugins.flash")
 require("nvim-surround").setup({})
