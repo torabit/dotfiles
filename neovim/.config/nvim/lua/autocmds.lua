@@ -55,6 +55,22 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	end,
 })
 
+-- auto-reload files changed outside of nvim
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold" }, {
+	group = augroup,
+	callback = function(args)
+		if vim.bo[args.buf].buftype == "" then
+			vim.cmd("silent! checktime " .. args.buf)
+		end
+	end,
+})
+vim.api.nvim_create_autocmd("FileChangedShellPost", {
+	group = augroup,
+	callback = function()
+		vim.notify("File changed on disk. Buffer reloaded.", vim.log.levels.INFO)
+	end,
+})
+
 -- highlight yanked text
 vim.api.nvim_create_autocmd("TextYankPost", {
 	group = augroup,
