@@ -1,6 +1,7 @@
-# misic
+# misc
 /tmp
 .envrc
+mise.toml
 
 # cursor
 .cursor/*
