@@ -17,7 +17,6 @@ fi
 [[ -f ~/.zprofile.local ]] && source ~/.zprofile.local
 export PATH=$HOME/.wantedly/bin:$PATH
 export PATH=/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH
-export claude="NODE_ENV=20.5.0 claude"
 
 eval $(/opt/homebrew/bin/brew shellenv)
 
