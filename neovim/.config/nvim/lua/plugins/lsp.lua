@@ -1,14 +1,14 @@
 local augroup = require("autocmds")
 
 local diagnostic_signs = {
-	Error = " ",
-	Warn = " ",
-	Hint = "",
-	Info = "",
+	Error = "",
+	Warn = "",
+	Hint = "",
+	Info = "",
 }
 
 vim.diagnostic.config({
-	virtual_text = { prefix = "●", spacing = 2 },
+	virtual_text = false,
 	signs = {
 		text = {
 			[vim.diagnostic.severity.ERROR] = diagnostic_signs.Error,
@@ -112,3 +112,19 @@ vim.keymap.set("n", "<leader>dl", vim.diagnostic.open_float, { desc = "Show line
 
 -- Server configs and vim.lsp.enable are in lua/servers/
 require("servers")
+
+-- fix diagnostic colors to match PALETTE.md (must run after everything else)
+vim.api.nvim_set_hl(0, "DiagnosticFloatingError", { fg = "#af0000", bg = "#eeeeee" })
+vim.api.nvim_set_hl(0, "DiagnosticFloatingWarn", { fg = "#d75f00", bg = "#eeeeee" })
+vim.api.nvim_set_hl(0, "DiagnosticFloatingInfo", { fg = "#0087af", bg = "#eeeeee" })
+vim.api.nvim_set_hl(0, "DiagnosticFloatingHint", { fg = "#878787", bg = "#eeeeee" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#eeeeee" })
+vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#bcbcbc", bg = "#eeeeee" })
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { undercurl = true, sp = "#af0000", fg = "#af0000" })
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", { undercurl = true, sp = "#d75f00", fg = "#d75f00" })
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", { undercurl = true, sp = "#0087af", fg = "#0087af" })
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { undercurl = true, sp = "#878787", fg = "#878787" })
+vim.api.nvim_set_hl(0, "DiagnosticSignError", { fg = "#af0000", bg = "#eeeeee" })
+vim.api.nvim_set_hl(0, "DiagnosticSignWarn", { fg = "#d75f00", bg = "#eeeeee" })
+vim.api.nvim_set_hl(0, "DiagnosticSignInfo", { fg = "#0087af", bg = "#eeeeee" })
+vim.api.nvim_set_hl(0, "DiagnosticSignHint", { fg = "#878787", bg = "#eeeeee" })
