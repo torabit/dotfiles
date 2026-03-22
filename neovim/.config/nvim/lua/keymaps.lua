@@ -40,10 +40,11 @@ vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
 vim.keymap.set("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
 
 vim.keymap.set("n", "<leader>pa", function()
-	local path = vim.fn.expand("%:p")
+	local path = vim.fn.expand("%:p"):gsub("^%w+://", "")
+	path = vim.fn.fnamemodify(path, ":.")
 	vim.fn.setreg("+", path)
 	print("file:", path)
-end, { desc = "Copy full file path" })
+end, { desc = "Copy relative file path" })
 
 vim.keymap.set("n", "<leader>wn", "<cmd>noautocmd w<CR>", { desc = "Save without formatting" })
 
