@@ -38,6 +38,8 @@ vim.pack.add({
 	"https://github.com/OXY2DEV/markview.nvim",
 	-- Indent
 	"https://github.com/shellRaining/hlchunk.nvim",
+	-- Notification
+	"https://github.com/j-hui/fidget.nvim",
 	-- UI
 	"https://github.com/folke/todo-comments.nvim",
 	"https://github.com/folke/trouble.nvim",
@@ -81,6 +83,7 @@ packadd("trouble.nvim")
 packadd("flash.nvim")
 packadd("nvim-surround")
 packadd("marks.nvim")
+packadd("fidget.nvim")
 packadd("vim-tmux-navigator")
 
 require("plugins.colorscheme")
@@ -126,4 +129,5 @@ require("todo-comments").setup({
 require("plugins.trouble")
 require("plugins.flash")
 require("marks").setup({})
+require("fidget").setup({})
 require("nvim-surround").setup({})
