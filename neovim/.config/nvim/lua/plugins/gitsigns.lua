@@ -8,7 +8,10 @@ require("gitsigns").setup({
 		untracked = { text = "\u{25cb}" },
 	},
 	signcolumn = true,
-	current_line_blame = false,
+	current_line_blame = true,
+	current_line_blame_opts = {
+		delay = 200,
+	},
 })
 
 require("mason").setup({})
