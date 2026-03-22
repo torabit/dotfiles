@@ -43,6 +43,8 @@ vim.pack.add({
 	"https://github.com/folke/trouble.nvim",
 	"https://github.com/folke/flash.nvim",
 	"https://github.com/kylechui/nvim-surround",
+	-- Marks
+	"https://github.com/chentoast/marks.nvim",
 	-- Tmux
 	"https://github.com/christoomey/vim-tmux-navigator",
 })
@@ -78,6 +80,7 @@ packadd("todo-comments.nvim")
 packadd("trouble.nvim")
 packadd("flash.nvim")
 packadd("nvim-surround")
+packadd("marks.nvim")
 packadd("vim-tmux-navigator")
 
 require("plugins.colorscheme")
@@ -122,4 +125,5 @@ require("todo-comments").setup({
 })
 require("plugins.trouble")
 require("plugins.flash")
+require("marks").setup({})
 require("nvim-surround").setup({})
