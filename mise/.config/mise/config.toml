@@ -1,6 +1,7 @@
 [tools]
-node = "24.1.0"
+node = "24.14.0"
 ruby = "3.2.2"
+"npm:eslint_d" = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["node", "ruby"]
