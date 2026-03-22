@@ -108,3 +108,4 @@ function g() {
 # ── Init (must be at the end of .zshrc) ─────────────────────
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
+eval "$(atuin init zsh)"
