@@ -2,6 +2,10 @@
 	name = torabit
 	email = torabit.humble@gmail.com
 [core]
-	pager = git-split-diffs --color | less -RFX
+	pager = delta
+[delta]
+	light = true
+	line-numbers = true
+	side-by-side = true
 [ghq]
 	root = ~/ghq
