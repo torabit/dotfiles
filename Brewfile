@@ -6,8 +6,11 @@ tap "ktr0731/evans"
 tap "oven-sh/bun"
 
 # CLI tools
+brew "atuin"
 brew "awscli"
 brew "bat"
+brew "btop"
+brew "dust"
 brew "eza"
 brew "fd"
 brew "fzf"
