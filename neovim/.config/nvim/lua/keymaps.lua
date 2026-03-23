@@ -49,3 +49,12 @@ end, { desc = "Copy relative file path" })
 vim.keymap.set("n", "<leader>wn", "<cmd>noautocmd w<CR>", { desc = "Save without formatting" })
 
 vim.keymap.set("n", "<leader>u", "<cmd>UndotreeToggle<cr>", { desc = "Toggle undotree" })
+
+vim.keymap.set("n", "<leader>pv", function()
+	local file = vim.fn.expand("%:p")
+	if file:match("%.svg$") or file:match("%.png$") or file:match("%.jpg$") or file:match("%.jpeg$") or file:match("%.gif$") or file:match("%.webp$") then
+		vim.fn.system({ "open", file })
+	else
+		vim.notify("Not an image file", vim.log.levels.WARN)
+	end
+end, { desc = "Preview image in macOS" })
