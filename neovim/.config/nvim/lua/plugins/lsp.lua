@@ -1,5 +1,13 @@
 local augroup = require("autocmds")
 
+-- disable Neovim 0.11+ default gr* LSP keymaps
+vim.keymap.del("n", "grr")
+vim.keymap.del("n", "gra")
+vim.keymap.del("n", "grn")
+vim.keymap.del("n", "gri")
+vim.keymap.del("n", "grt")
+vim.keymap.del("x", "gra")
+
 local diagnostic_signs = {
 	Error = "",
 	Warn = "",
@@ -59,7 +67,7 @@ local function lsp_on_attach(ev)
 		vim.lsp.buf.definition()
 	end, opts)
 
-	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+	vim.keymap.set({ "n", "x" }, "<leader>ca", vim.lsp.buf.code_action, opts)
 	vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 
 	vim.keymap.set("n", "<leader>D", function()
