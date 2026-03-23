@@ -52,6 +52,8 @@ vim.api.nvim_create_autocmd("FileType", {
 	callback = function()
 		vim.opt_local.wrap = true
 		vim.opt_local.linebreak = true
+		vim.opt_local.formatoptions:append("r")
+		vim.opt_local.comments = "b:- [ ],b:- [x],b:-,b:*,b:>,n:>"
 	end,
 })
 
