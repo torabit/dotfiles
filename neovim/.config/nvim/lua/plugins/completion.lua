@@ -5,7 +5,16 @@ require("blink.cmp").setup({
 		["<CR>"] = { "accept", "fallback" },
 		["<C-j>"] = { "select_next", "fallback" },
 		["<C-k>"] = { "select_prev", "fallback" },
-		["<Tab>"] = { "snippet_forward", "fallback" },
+		["<Tab>"] = {
+			function(cmp)
+				if require("copilot.suggestion").is_visible() then
+					require("copilot.suggestion").accept()
+					return true
+				end
+				return cmp.snippet_forward()
+			end,
+			"fallback",
+		},
 		["<S-Tab>"] = { "snippet_backward", "fallback" },
 		["<C-d>"] = { "show_documentation", "hide_documentation", "fallback" },
 		["<C-f>"] = { "scroll_documentation_down", "fallback" },

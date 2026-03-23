@@ -47,6 +47,8 @@ vim.pack.add({
 	"https://github.com/chentoast/marks.nvim",
 	-- Tmux
 	"https://github.com/christoomey/vim-tmux-navigator",
+	-- Copilot
+	"https://github.com/zbirenbaum/copilot.lua",
 })
 
 local function packadd(name)
@@ -82,6 +84,7 @@ packadd("nvim-surround")
 packadd("marks.nvim")
 packadd("fidget.nvim")
 packadd("vim-tmux-navigator")
+packadd("copilot.lua")
 
 require("plugins.colorscheme")
 require("plugins.treesitter")
@@ -122,3 +125,4 @@ require("plugins.flash")
 require("marks").setup({})
 require("fidget").setup({})
 require("nvim-surround").setup({})
+require("plugins.copilot")
