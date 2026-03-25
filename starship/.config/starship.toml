@@ -8,10 +8,11 @@ $git_branch\
 $git_state\
 $git_status\
 $cmd_duration\
-${env_var.KUBE_FORK_TARGET_ENV}\
 $line_break\
 $python\
 $character"""
+
+right_format = "${env_var.KUBE_FORK_TARGET_ENV}"
 
 # PaperColor Light palette
 # cyan:    #005f87
