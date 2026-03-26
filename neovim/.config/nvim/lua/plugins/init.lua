@@ -49,6 +49,21 @@ vim.pack.add({
 	"https://github.com/christoomey/vim-tmux-navigator",
 	-- Copilot
 	"https://github.com/zbirenbaum/copilot.lua",
+	-- Ruby/Rails
+	"https://github.com/tpope/vim-rails",
+	"https://github.com/tpope/vim-endwise",
+	"https://github.com/tpope/vim-bundler",
+	"https://github.com/tpope/vim-projectionist",
+	-- Protocol Buffers
+	"https://github.com/uarun/vim-protobuf",
+	-- Testing
+	"https://github.com/nvim-neotest/neotest",
+	"https://github.com/olimorris/neotest-rspec",
+	"https://github.com/nvim-neotest/nvim-nio",
+	-- Debugging
+	"https://github.com/mfussenegger/nvim-dap",
+	"https://github.com/rcarriga/nvim-dap-ui",
+	"https://github.com/suketa/nvim-dap-ruby",
 })
 
 local function packadd(name)
@@ -85,6 +100,17 @@ packadd("marks.nvim")
 packadd("fidget.nvim")
 packadd("vim-tmux-navigator")
 packadd("copilot.lua")
+packadd("vim-rails")
+packadd("vim-endwise")
+packadd("vim-bundler")
+packadd("vim-projectionist")
+packadd("vim-protobuf")
+packadd("neotest")
+packadd("neotest-rspec")
+packadd("nvim-nio")
+packadd("nvim-dap")
+packadd("nvim-dap-ui")
+packadd("nvim-dap-ruby")
 
 require("plugins.colorscheme")
 require("plugins.treesitter")
@@ -126,3 +152,5 @@ require("marks").setup({})
 require("fidget").setup({})
 require("nvim-surround").setup({})
 require("plugins.copilot")
+require("plugins.neotest")
+require("plugins.dap")
