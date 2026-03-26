@@ -4,6 +4,7 @@ require("servers.bashls")
 require("servers.gopls")
 require("servers.clangd")
 require("servers.tailwindcss")
+require("servers.ruby_lsp")
 vim.lsp.enable({
 	"lua_ls",
 	"pyright",
@@ -11,4 +12,5 @@ vim.lsp.enable({
 	"gopls",
 	"clangd",
 	"tailwindcss",
+	"ruby_lsp",
 })

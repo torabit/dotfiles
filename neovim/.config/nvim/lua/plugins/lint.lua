@@ -15,6 +15,7 @@ lint.linters_by_ft = {
 	c = { "cpplint" },
 	cpp = { "cpplint" },
 	go = { "revive" },
+	ruby = { "rubocop" },
 }
 
 vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost", "InsertLeave" }, {

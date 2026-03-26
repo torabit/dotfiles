@@ -17,6 +17,8 @@ require("conform").setup({
 		sh = { "shfmt" },
 		c = { "clang-format" },
 		cpp = { "clang-format" },
+		ruby = { "rubocop" },
+		eruby = { "erb_format" },
 	},
 	format_on_save = {
 		timeout_ms = 2000,

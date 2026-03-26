@@ -1,0 +1,26 @@
+vim.lsp.config("ruby_lsp", {
+	init_options = {
+		enabledFeatures = {
+			"codeActions",
+			"codeLens",
+			"completion",
+			"definition",
+			"diagnostics",
+			"documentHighlights",
+			"documentLink",
+			"documentSymbols",
+			"foldingRanges",
+			"formatting",
+			"hover",
+			"inlayHint",
+			"onTypeFormatting",
+			"references",
+			"rename",
+			"selectionRanges",
+			"semanticHighlighting",
+			"signatureHelp",
+			"typeHierarchy",
+			"workspaceSymbol",
+		},
+	},
+})

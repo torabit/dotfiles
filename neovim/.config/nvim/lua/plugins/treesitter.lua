@@ -27,6 +27,9 @@ local ensure_installed = {
 	"vue",
 	"svelte",
 	"bash",
+	"ruby",
+	"embedded_template",
+	"proto",
 }
 
 local config = require("nvim-treesitter.config")
