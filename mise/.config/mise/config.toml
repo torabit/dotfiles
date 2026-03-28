@@ -2,6 +2,27 @@
 node = "24.14.0"
 ruby = "3.2.2"
 "npm:eslint_d" = "latest"
+rust = "1.85.0"
+"cargo:bacon" = "latest"
+"cargo:cargo-nextest" = "latest"
+"cargo:cargo-binstall" = "latest"
+"cargo:sqlx-cli" = "latest"
+"cargo:cargo-deny" = "latest"
+"cargo:cargo-audit" = "latest"
+"cargo:cargo-machete" = "latest"
+"cargo:cargo-expand" = "latest"
+"cargo:cargo-bloat" = "latest"
+"cargo:cargo-llvm-lines" = "latest"
+"cargo:cargo-show-asm" = "latest"
+"cargo:cargo-modules" = "latest"
+"cargo:cargo-llvm-cov" = "latest"
+"cargo:cargo-insta" = "latest"
+"cargo:flamegraph" = "latest"
+"cargo:cargo-semver-checks" = "latest"
+"cargo:cargo-dist" = "latest"
+"cargo:cargo-release" = "latest"
+"cargo:cargo-chef" = "latest"
+"cargo:tree-sitter-cli" = "latest"
 
 [settings]
-idiomatic_version_file_enable_tools = ["node", "ruby"]
+idiomatic_version_file_enable_tools = ["node", "ruby", "rust"]
