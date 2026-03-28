@@ -64,6 +64,14 @@ vim.pack.add({
 	"https://github.com/mfussenegger/nvim-dap",
 	"https://github.com/rcarriga/nvim-dap-ui",
 	"https://github.com/suketa/nvim-dap-ruby",
+	-- Rust
+	{
+		src = "https://github.com/mrcjkb/rustaceanvim",
+		version = vim.version.range("5.*"),
+	},
+	"https://github.com/saecki/crates.nvim",
+	-- Testing (Rust adapter)
+	"https://github.com/rouge8/neotest-rust",
 })
 
 local function packadd(name)
@@ -111,6 +119,9 @@ packadd("nvim-nio")
 packadd("nvim-dap")
 packadd("nvim-dap-ui")
 packadd("nvim-dap-ruby")
+packadd("rustaceanvim")
+packadd("crates.nvim")
+packadd("neotest-rust")
 
 require("plugins.colorscheme")
 require("plugins.treesitter")
@@ -154,3 +165,4 @@ require("nvim-surround").setup({})
 require("plugins.copilot")
 require("plugins.neotest")
 require("plugins.dap")
+require("plugins.rust")
