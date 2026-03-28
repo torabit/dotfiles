@@ -44,6 +44,10 @@ brew "zsh-fast-syntax-highlighting"
 brew "zsh-history-substring-search"
 
 # Language tools
+brew "rust-analyzer"
+brew "just"
+brew "hyperfine"
+brew "sccache"
 brew "lua-language-server"
 brew "bufbuild/buf/buf"
 brew "fsouza/prettierd/prettierd"
@@ -104,5 +108,3 @@ go "golang.org/x/tools/gopls"
 go "github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc"
 go "honnef.co/go/tools/cmd/staticcheck"
 
-# Cargo tools
-cargo "tree-sitter-cli"
