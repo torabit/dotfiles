@@ -25,10 +25,8 @@ require("blink.cmp").setup({
 		menu = { auto_show = true },
 		documentation = { auto_show = false },
 	},
-	sources = {
-		default = { "lsp", "path", "buffer", "snippets" },
-		cmdline = {},
-	},
+	sources = { default = { "lsp", "path", "buffer", "snippets" } },
+	cmdline = { sources = {} },
 	snippets = {
 		expand = function(snippet)
 			require("luasnip").lsp_expand(snippet)
