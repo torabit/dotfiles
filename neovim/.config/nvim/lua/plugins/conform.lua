@@ -18,6 +18,7 @@ require("conform").setup({
 		c = { "clang-format" },
 		cpp = { "clang-format" },
 		ruby = { "rubocop" },
+		rust = { "rustfmt" },
 		eruby = { "erb_format" },
 	},
 	format_on_save = {
