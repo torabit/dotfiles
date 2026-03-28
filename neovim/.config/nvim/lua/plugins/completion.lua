@@ -26,7 +26,10 @@ require("blink.cmp").setup({
 		documentation = { auto_show = false },
 	},
 	sources = { default = { "lsp", "path", "buffer", "snippets" } },
-	cmdline = { sources = {} },
+	cmdline = {
+		keymap = { preset = "inherit" },
+		completion = { menu = { auto_show = true } },
+	},
 	snippets = {
 		expand = function(snippet)
 			require("luasnip").lsp_expand(snippet)
