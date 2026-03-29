@@ -5,7 +5,11 @@ require("ts_context_commentstring").setup({
 require("mini.comment").setup({
 	options = {
 		custom_commentstring = function()
-			return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo.commentstring
+			local ok, cs = pcall(require("ts_context_commentstring.internal").calculate_commentstring)
+			if ok and cs then
+				return cs
+			end
+			return vim.bo.commentstring
 		end,
 	},
 })
