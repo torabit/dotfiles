@@ -27,7 +27,11 @@ require("blink.cmp").setup({
 	},
 	sources = { default = { "lsp", "path", "buffer", "snippets" } },
 	cmdline = {
-		keymap = { preset = "inherit" },
+		keymap = {
+			preset = "inherit",
+			["<CR>"] = { "fallback" },
+			["<Tab>"] = { "accept", "fallback" },
+		},
 		completion = { menu = { auto_show = true } },
 	},
 	snippets = {
