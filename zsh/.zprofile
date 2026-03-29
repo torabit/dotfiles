@@ -17,6 +17,7 @@ fi
 [[ -f ~/.zprofile.local ]] && source ~/.zprofile.local
 export PATH=$HOME/.wantedly/bin:$PATH
 export PATH=/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH
+export PATH=/opt/homebrew/opt/libpq/bin:$PATH
 
 eval $(/opt/homebrew/bin/brew shellenv)
 
@@ -39,3 +40,7 @@ fi
 if [[ -z "$LESSOPEN" ]] && (( $#commands[(i)lesspipe(|.sh)] )); then
   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 fi
+
+# Added by OrbStack: command-line tools and integration
+# This won't be added again if you remove it.
+source ~/.orbstack/shell/init.zsh 2>/dev/null || :
