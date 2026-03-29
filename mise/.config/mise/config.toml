@@ -2,7 +2,7 @@
 node = "24.14.0"
 ruby = "3.2.2"
 "npm:eslint_d" = "latest"
-rust = "1.85.0"
+rust = "1.94.0"
 "cargo:bacon" = "latest"
 "cargo:cargo-nextest" = "latest"
 "cargo:cargo-binstall" = "latest"
