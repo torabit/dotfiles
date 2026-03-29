@@ -1,5 +1,6 @@
 vim.g.mapleader = " " -- space for leader
 vim.g.maplocalleader = " " -- space for localleader
+vim.g.tmux_navigator_no_mappings = 1
 
 vim.keymap.set("n", "<leader>c", ":nohlsearch<CR>", { desc = "Clear search highlights" })
 

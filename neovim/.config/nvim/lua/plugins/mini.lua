@@ -13,7 +13,6 @@ require("mini.comment").setup({
 		end,
 	},
 })
-require("mini.move").setup({})
 require("mini.cursorword").setup({})
 require("mini.bracketed").setup({
 	hunk = { suffix = "" }, -- disabled, using gitsigns [h ]h
