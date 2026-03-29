@@ -50,7 +50,7 @@ decorations_theme_variant = "None" # Default: "None"
 resize_increments = false # Default: false
 
 # Make Option key behave as Alt.
-option_as_alt = "None" # Default: "None"
+option_as_alt = "Both"
 
 # ====================== SCROLING ======================
 [scrolling]
