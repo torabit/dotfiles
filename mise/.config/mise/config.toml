@@ -1,28 +1,34 @@
 [tools]
 node = "24.14.0"
 ruby = "3.2.2"
-"npm:eslint_d" = "latest"
 rust = "1.94.0"
-"cargo:bacon" = "latest"
-"cargo:cargo-nextest" = "latest"
+"npm:eslint_d" = "latest"
+
+# aqua backend (prebuilt binary, checksum verified)
 "aqua:cargo-bins/cargo-binstall" = "latest"
-"cargo:sqlx-cli" = "latest"
 "aqua:EmbarkStudios/cargo-deny" = "latest"
 "aqua:rustsec/rustsec/cargo-audit" = "latest"
+"aqua:taiki-e/cargo-llvm-cov" = "latest"
+"aqua:mitsuhiko/insta" = "latest"
+"aqua:axodotdev/cargo-dist" = "latest"
+"aqua:tree-sitter/tree-sitter" = "latest"
+
+# github backend (prebuilt binary from GitHub releases)
 "github:bnjbvr/cargo-machete" = "latest"
+"github:obi1kenobi/cargo-semver-checks" = "latest"
+"github:crate-ci/cargo-release" = "latest"
+
+# cargo backend (no prebuilt binary available)
+"cargo:bacon" = "latest"
+"cargo:cargo-nextest" = "latest"
+"cargo:sqlx-cli" = "latest"
 "cargo:cargo-expand" = "latest"
 "cargo:cargo-bloat" = "latest"
 "cargo:cargo-llvm-lines" = "latest"
 "cargo:cargo-show-asm" = "latest"
 "cargo:cargo-modules" = "latest"
-"aqua:taiki-e/cargo-llvm-cov" = "latest"
-"aqua:mitsuhiko/insta" = "latest"
 "cargo:flamegraph" = "latest"
-"github:obi1kenobi/cargo-semver-checks" = "latest"
-"aqua:axodotdev/cargo-dist" = "latest"
-"github:crate-ci/cargo-release" = "latest"
 "cargo:cargo-chef" = "latest"
-"aqua:tree-sitter/tree-sitter" = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["node", "ruby", "rust"]
