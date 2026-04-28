@@ -3,9 +3,11 @@
 .envrc
 mise.toml
 
-# cursor
-.cursor/*
+# claude
 **/.claude/settings.local.json
+
+# local tsconfig override
+tsconfig.local.json
 
 # superpowers
 docs/plans/*
