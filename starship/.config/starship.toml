@@ -12,8 +12,6 @@ $line_break\
 $python\
 $character"""
 
-right_format = "${env_var.KUBE_FORK_TARGET_ENV}"
-
 # PaperColor Light palette
 # cyan:    #005f87
 # blue:    #0087af
@@ -59,7 +57,3 @@ format = "[$virtualenv]($style) "
 style = "#878787"
 detect_extensions = []
 detect_files = []
-
-[env_var.KUBE_FORK_TARGET_ENV]
-format = "[⎈ $env_value]($style) "
-style = "#005f87"
