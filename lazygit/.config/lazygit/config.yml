@@ -32,9 +32,9 @@ gui:
     show: true
   skipNoStagedFilesWarning: false
 git:
-  pagers:
+  diffRenderers:
     - colorArg: always
-      pager: "delta --paging=never --light --syntax-theme=gruvbox-light --minus-style=\"syntax #ffd7d7\" --minus-emph-style=\"syntax #ffafaf\" --plus-style=\"syntax #d7ffd7\" --plus-emph-style=\"syntax #afffaf\" --hunk-header-style=\"file line-number syntax\" --file-style=\"#005f87 bold\" --line-numbers --line-numbers-minus-style=\"#af0000\" --line-numbers-plus-style=\"#008700\""
+      command: "delta --paging=never --light --syntax-theme=gruvbox-light --minus-style=\"syntax #ffd7d7\" --minus-emph-style=\"syntax #ffafaf\" --plus-style=\"syntax #d7ffd7\" --plus-emph-style=\"syntax #afffaf\" --hunk-header-style=\"file line-number syntax\" --file-style=\"#005f87 bold\" --line-numbers --line-numbers-minus-style=\"#af0000\" --line-numbers-plus-style=\"#008700\""
   merging:
     manualCommit: false
     args: ""
@@ -158,7 +158,7 @@ keybinding:
     pasteCommits: v
     tagCommit: T
     checkoutCommit: <space>
-    resetCherryPick: <c-R>
+    resetCherryPick: <c-r>
     copyCommitMessageToClipboard: <c-y>
   stash:
     popStash: g
