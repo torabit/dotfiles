@@ -69,6 +69,9 @@ brew "redis"
 brew "ffmpeg"
 brew "vips"
 
+# Apps
+cask "claude-code"
+
 # Clipboard bridge for nvim/tmux. Only needed with a GUI session;
 # on headless boxes OSC 52 is used instead (see .tmux.conf / .zshrc).
 # brew "wl-clipboard"
