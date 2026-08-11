@@ -2,13 +2,15 @@
 # ── Environment ──────────────────────────────────────────────
 export XDG_CONFIG_HOME="$HOME/.config"
 export EDITOR=nvim
-export HOMEBREW_PREFIX=/opt/homebrew
-eval "$(/opt/homebrew/bin/brew shellenv)"
+export HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
+
+eval "$(${HOMEBREW_PREFIX}/bin/brew shellenv)"
 
 # ── PATH ─────────────────────────────────────────────────────
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH" # go install targets (gopls, staticcheck, ...)
 PATH=~/.console-ninja/.bin:$PATH
-export PNPM_HOME="/Users/toranosukeujike/Library/pnpm"
+export PNPM_HOME="$HOME/.local/share/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
@@ -49,11 +51,16 @@ else
 fi
 
 # ── Plugins ──────────────────────────────────────────────────
-source ${HOMEBREW_PREFIX}/opt/zsh-fast-syntax-highlighting/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-source ${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ${HOMEBREW_PREFIX}/share/zsh-history-substring-search/zsh-history-substring-search.zsh
-source ${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh
-source ${HOMEBREW_PREFIX}/opt/fzf/shell/completion.zsh
+for _plugin in \
+  ${HOMEBREW_PREFIX}/opt/zsh-fast-syntax-highlighting/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh \
+  ${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
+  ${HOMEBREW_PREFIX}/share/zsh-history-substring-search/zsh-history-substring-search.zsh \
+  ${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh \
+  ${HOMEBREW_PREFIX}/opt/fzf/shell/completion.zsh
+do
+  [[ -r $_plugin ]] && source $_plugin
+done
+unset _plugin
 
 # ── Key bindings ─────────────────────────────────────────────
 KEYTIMEOUT=1
@@ -64,7 +71,7 @@ bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
 # ── Tools ────────────────────────────────────────────────────
-eval "$(mise activate zsh)"
+(( $+commands[mise] )) && eval "$(mise activate zsh)"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --glob "!.git/*"'
 export FZF_DEFAULT_OPTS='
   --color=light
@@ -77,17 +84,26 @@ export FZF_DEFAULT_OPTS='
   --color=preview-bg:#eeeeee,preview-fg:#444444,preview-border:#bcbcbc
 '
 export BAT_THEME='PaperColor-Light'
-[ -s "/Users/toranosukeujike/.bun/_bun" ] && source "/Users/toranosukeujike/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # ── Aliases ──────────────────────────────────────────────────
 alias ls='ls --color=auto'
-alias ll='eza -l -h -@ -mU --icons --git --time-style=long-iso --color=automatic --group-directories-first'
+alias ll='eza -l -h -@ -mU --icons --git --time-style=long-iso --color=auto --group-directories-first'
 alias l='ll -aa'
 alias v='nvim'
 alias vi='nvim'
 alias vim='nvim'
 alias tmuxs='tmux source-file ~/.tmux.conf'
-alias clip='pbcopy'
+if (( $+commands[wl-copy] )); then
+  alias clip='wl-copy'
+elif (( $+commands[xclip] )); then
+  alias clip='xclip -selection clipboard'
+elif [[ -n $TMUX ]]; then
+  alias clip='tmux load-buffer -w -'
+else
+  # OSC 52: let the terminal emulator own the clipboard (works over SSH)
+  clip() { printf '\e]52;c;%s\a' "$(base64 | tr -d '\n')" }
+fi
 alias clearbuff="clear && printf '\e[3J'"
 
 # ── Functions ────────────────────────────────────────────────
@@ -106,6 +122,6 @@ function g() {
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
 # ── Init (must be at the end of .zshrc) ─────────────────────
-eval "$(starship init zsh)"
-eval "$(zoxide init zsh)"
-eval "$(atuin init zsh)"
+(( $+commands[starship] )) && eval "$(starship init zsh)"
+(( $+commands[zoxide] )) && eval "$(zoxide init zsh)"
+(( $+commands[atuin] )) && eval "$(atuin init zsh)"

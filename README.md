@@ -1,6 +1,14 @@
 # dotfiles
 My dotfiles
 
+## Branches
+Config is split per OS. Keep OS-specific changes on their own branch.
+
+| branch | target |
+| --- | --- |
+| `darwin` | macOS |
+| `linux` | Linux (Homebrew on Linux) |
+
 i use ```stow```
 
 # Usage

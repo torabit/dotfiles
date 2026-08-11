@@ -63,6 +63,25 @@ vim.opt.clipboard:append("unnamedplus") -- use system clipboard
 vim.opt.modifiable = true -- allow buffer modifications
 vim.opt.encoding = "utf-8" -- set encoding
 
+-- No X/Wayland clipboard tool (headless or SSH): copy through OSC 52 so yanks
+-- land in the local terminal's clipboard. Paste reads the last yank, since most
+-- terminals refuse OSC 52 reads.
+if
+	vim.fn.executable("wl-copy") == 0
+	and vim.fn.executable("xclip") == 0
+	and vim.fn.executable("xsel") == 0
+then
+	local osc52 = require("vim.ui.clipboard.osc52")
+	local function paste()
+		return vim.split(vim.fn.getreg('"'), "\n")
+	end
+	vim.g.clipboard = {
+		name = "OSC 52",
+		copy = { ["+"] = osc52.copy("+"), ["*"] = osc52.copy("*") },
+		paste = { ["+"] = paste, ["*"] = paste },
+	}
+end
+
 vim.opt.guicursor =
 	"n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175" -- cursor blinking and settings
 

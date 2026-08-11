@@ -50,8 +50,8 @@ vim.keymap.set("n", "<leader>u", "<cmd>UndotreeToggle<cr>", { desc = "Toggle und
 vim.keymap.set("n", "<leader>pv", function()
 	local file = vim.fn.expand("%:p")
 	if file:match("%.svg$") or file:match("%.png$") or file:match("%.jpg$") or file:match("%.jpeg$") or file:match("%.gif$") or file:match("%.webp$") then
-		vim.fn.system({ "open", file })
+		vim.fn.system({ "xdg-open", file })
 	else
 		vim.notify("Not an image file", vim.log.levels.WARN)
 	end
-end, { desc = "Preview image in macOS" })
+end, { desc = "Preview image" })

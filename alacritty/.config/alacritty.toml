@@ -49,9 +49,6 @@ decorations_theme_variant = "None" # Default: "None"
 # Prefer resizing window by discrete steps equal to cell dimensions.
 resize_increments = false # Default: false
 
-# Make Option key behave as Alt.
-option_as_alt = "Both"
-
 # ====================== SCROLING ======================
 [scrolling]
 
@@ -243,9 +240,7 @@ bindings = [
 alphabet = "jfkdls;ahgurieowpq" # Default: "jfkdls;ahgurieowpq"
 
 [[hints.enabled]]
-command = "xdg-open" # On Linux/BSD
-# command = "open" # On macOS
-# command = { program = "cmd", args = [ "/c", "start", "" ] } # On Windows
+command = "xdg-open"
 hyperlinks = true
 post_processing = true
 persist = false
