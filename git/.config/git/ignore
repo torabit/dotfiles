@@ -1,7 +1,6 @@
 # misc
 /tmp
 .envrc
-mise.toml
 
 # claude
 **/.claude/settings.local.json
