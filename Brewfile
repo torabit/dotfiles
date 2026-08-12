@@ -2,9 +2,7 @@
 
 # Taps
 tap "bufbuild/buf"
-tap "fsouza/prettierd"
 tap "ktr0731/evans"
-tap "oven-sh/bun"
 
 # CLI tools
 brew "atuin"
@@ -24,7 +22,6 @@ brew "jq"
 brew "lazygit"
 brew "mise"
 brew "neovim"
-brew "pnpm"
 brew "pre-commit"
 brew "ripgrep"
 brew "starship"
@@ -33,8 +30,8 @@ brew "the_silver_searcher"
 brew "tmux"
 brew "tree"
 brew "typos-cli"
+brew "unzip"
 brew "wget"
-brew "yarn"
 brew "zoxide"
 brew "zsh" # distro zsh is often outdated
 
@@ -51,16 +48,13 @@ brew "hyperfine"
 brew "sccache"
 brew "lua-language-server"
 brew "bufbuild/buf/buf"
-brew "fsouza/prettierd/prettierd"
 brew "ktr0731/evans/evans"
 brew "protobuf"
 brew "protolint"
 
-# Runtimes
-brew "oven-sh/bun/bun"
-brew "node"
-brew "node-build"
-brew "ruby-build"
+# Runtimes: mise で管理する (~/.config/mise/config.toml)
+#   node / ruby / rust / pnpm と、npm 由来の prettierd / eslint_d はここには置かない。
+#   brew と二重に持つと PATH の解決順で brew 側が勝ち、mise の固定が効かなくなる。
 
 # Services
 brew "redis"

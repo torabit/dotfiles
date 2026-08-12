@@ -1,8 +1,10 @@
 [tools]
-node = "24.14.0"
+node = "24.19.0"   # LTS Krypton
 ruby = "3.2.2"
-rust = "1.94.0"
+rust = "1.97.1"    # cargo-modules の最新が rustc 1.95 以上を要求するため 1.94.0 から更新
+pnpm = "10.34.5"
 "npm:eslint_d" = "latest"
+"npm:@fsouza/prettierd" = "latest"   # brew から移管。brew 版は node に依存していた
 
 # aqua backend (prebuilt binary, checksum verified)
 "aqua:cargo-bins/cargo-binstall" = "latest"
