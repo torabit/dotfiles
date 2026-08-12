@@ -54,7 +54,6 @@ fi
 for _plugin in \
   ${HOMEBREW_PREFIX}/opt/zsh-fast-syntax-highlighting/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh \
   ${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
-  ${HOMEBREW_PREFIX}/share/zsh-history-substring-search/zsh-history-substring-search.zsh \
   ${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh \
   ${HOMEBREW_PREFIX}/opt/fzf/shell/completion.zsh
 do
@@ -64,11 +63,16 @@ unset _plugin
 
 # ── Key bindings ─────────────────────────────────────────────
 KEYTIMEOUT=1
-zmodload zsh/terminfo
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
+# 矢印キーは意図的に未バインド: ↑ は atuin が init 時に奪い、↓ は zsh 既定の
+# down-line-or-history が残る。どちらも複数行バッファ内では行移動として動く。
+
+# コマンドライン全体を $EDITOR で編集する (長い複数行コマンドの修正用)。
+# 保存して閉じるとバッファに戻る。実行はされないので Enter は自分で押す。
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey -M viins '^G'   edit-command-line  # 既定の list-expand を置き換え
+bindkey -M vicmd '^G'   edit-command-line
+bindkey -M vicmd 'v'    edit-command-line  # 既定の visual-mode を置き換え
 
 # ── Tools ────────────────────────────────────────────────────
 (( $+commands[mise] )) && eval "$(mise activate zsh)"

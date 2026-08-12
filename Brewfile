@@ -39,7 +39,6 @@ brew "zsh" # distro zsh is often outdated
 brew "zsh-autosuggestions"
 brew "zsh-completions"
 brew "zsh-fast-syntax-highlighting"
-brew "zsh-history-substring-search"
 
 # Language tools
 brew "rust-analyzer"
