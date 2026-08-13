@@ -2,6 +2,8 @@
 # ── Environment ──────────────────────────────────────────────
 export XDG_CONFIG_HOME="$HOME/.config"
 export EDITOR=nvim
+# 1Password SSH agent (ssh_config を読まないツール向け)
+export SSH_AUTH_SOCK="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 export HOMEBREW_PREFIX=/opt/homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
@@ -104,6 +106,14 @@ function g() {
   if [ -n "$repo" ]; then
     cd "$(ghq root)/$repo"
   fi
+}
+
+# カレントディレクトリ配下のディレクトリを選んで claude を起動
+function cclaude() {
+  local dir
+  dir=$( (echo "."; fd --type d --hidden --exclude .git) | fzf --preview 'eza -la --icons {} 2>/dev/null || ls -la {}' ) || return
+  [ -n "$dir" ] || return
+  cd "$dir" && claude
 }
 
 # ── Local overrides ─────────────────────────────────────────
