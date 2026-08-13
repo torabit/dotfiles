@@ -69,5 +69,6 @@ dotfiles 全体で使用する PaperColor Light のカラーパレット。
 - `starship/.config/starship.toml` - プロンプト
 - `tmux/.tmux.conf` - ステータスバー、ボーダー
 - `lazygit/.config/lazygit/config.yml` - テーマ、delta pager
+- `hunk/.config/hunk/config.toml` - diff ビューア (`[themes.papercolor-light]`)
 - `bat/.config/bat/themes/PaperColor-Light.tmTheme` - シンタックスハイライト
 - `zsh/.zshrc` - fzf 配色 (`FZF_DEFAULT_OPTS`)
