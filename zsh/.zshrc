@@ -36,7 +36,7 @@ setopt numericglobsort
 HISTFILE=~/.zhistory
 HISTSIZE=1000
 SAVEHIST=500
-setopt appendhistory
+setopt inc_append_history
 setopt histignorealldups
 # Don't want common history between shells
 unsetopt share_history
