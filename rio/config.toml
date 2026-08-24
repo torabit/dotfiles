@@ -1,0 +1,120 @@
+# Rio terminal configuration
+#
+# 移植元: alacritty/.config/alacritty.toml
+# 配色は PALETTE.md (PaperColor Light) の hex を直接記述する。
+# テーマ名では参照しない。
+#
+# 反映方法: rio/sync.sh (Windows 側 %LOCALAPPDATA%\rio\config.toml へコピー)
+# 参照: https://rioterm.com/docs/config
+#
+# 注意: セクションヘッダに属さないキーはファイル先頭に置く必要がある。
+# 後方に置くと無視される。
+
+hide-mouse-cursor-when-typing = true
+scrollback-history-limit = 10000
+
+[shell]
+program = "wsl"
+args = ["~"]
+
+[fonts]
+size = 11.25
+
+[fonts.regular]
+family = "HackGen35 Console NF"
+style = "default"
+weight = 400
+
+[fonts.bold]
+family = "HackGen35 Console NF"
+style = "default"
+weight = 700
+
+# HackGen35 Console NF は Regular / Bold のフェイスのみ配布されている。
+# italic は Rio 側の合成に任せるため style は default のままにする。
+[fonts.italic]
+family = "HackGen35 Console NF"
+style = "default"
+weight = 400
+
+[fonts.bold-italic]
+family = "HackGen35 Console NF"
+style = "default"
+weight = 700
+
+[cursor]
+shape = "block"
+blinking = true
+
+[colors]
+background = "#eeeeee"
+foreground = "#444444"
+cursor = "#444444"
+# vi モードのカーソルは通常カーソルと区別できるようアクセント色にする
+# (Alacritty では CellForeground 反転指定だが Rio は固定色のみ)
+vi-cursor = "#005f87"
+
+# 選択範囲: Alacritty の CellBackground / CellForeground 反転相当
+selection-foreground = "#eeeeee"
+selection-background = "#444444"
+
+# ANSI 16 colors
+black = "#eeeeee"
+red = "#af0000"
+green = "#008700"
+yellow = "#5f8700"
+blue = "#0087af"
+magenta = "#878787"
+cyan = "#005f87"
+white = "#444444"
+
+light-black = "#bcbcbc"
+light-red = "#d70000"
+light-green = "#d70087"
+light-yellow = "#8700af"
+light-blue = "#d75f00"
+light-magenta = "#d75f00"
+light-cyan = "#005faf"
+light-white = "#005f87"
+
+# 検索ハイライト
+search-match-foreground = "#eeeeee"
+search-match-background = "#af0000"
+search-focused-match-foreground = "#eeeeee"
+search-focused-match-background = "#0087af"
+
+# ヒント (URL 選択)
+hint-foreground = "#eeeeee"
+hint-background = "#0087af"
+
+# UI: Rio 既定はダーク配色のため Light 側に合わせる
+bar = "#eeeeee"
+tabs = "#bcbcbc"
+tabs-active = "#d70087"
+split = "#bcbcbc"
+
+[bindings]
+keys = [
+  # Alt+Enter の ToggleFullscreen を解除し、キーストロークを
+  # 端末上のアプリケーションへ透過させる (Claude Code の submit が Alt+Enter)。
+  # action = "None" は完全な no-op でアプリにも届かないため使わない。
+  { key = "return", with = "alt", action = "ReceiveChar" },
+]
+
+[hints]
+alphabet = "jfkdls;ahgurieowpq"
+
+[[hints.rules]]
+regex = "(ipfs:|ipns:|magnet:|mailto:|gemini://|gopher://|https://|http://|news:|file:|git://|ssh:|ftp://)[^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩]+"
+hyperlinks = true
+post-processing = true
+persist = false
+
+[hints.rules.action]
+# Rio は Windows ネイティブアプリなので xdg-open (WSL 側) は使えない。
+# explorer が Windows の既定ブラウザで URL を開く。
+command = "explorer"
+
+[hints.rules.binding]
+key = "U"
+mods = ["Control", "Shift"]
