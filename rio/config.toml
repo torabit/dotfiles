@@ -17,30 +17,27 @@ scrollback-history-limit = 10000
 program = "wsl"
 args = ["~"]
 
+[title]
+content = "{{ title }}"
+
 [fonts]
 size = 11.25
 
 [fonts.regular]
 family = "HackGen35 Console NF"
-style = "default"
-weight = 400
+style = "Regular"
 
 [fonts.bold]
 family = "HackGen35 Console NF"
-style = "default"
-weight = 700
+style = "Bold"
 
 # HackGen35 Console NF は Regular / Bold のフェイスのみ配布されている。
-# italic は Rio 側の合成に任せるため style は default のままにする。
+# italic と bold-italic はフェイスが無いので style を指定せず、Rio 側の合成に任せる。
 [fonts.italic]
 family = "HackGen35 Console NF"
-style = "default"
-weight = 400
 
 [fonts.bold-italic]
 family = "HackGen35 Console NF"
-style = "default"
-weight = 700
 
 [cursor]
 shape = "block"
