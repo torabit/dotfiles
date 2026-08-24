@@ -99,3 +99,12 @@ bindkey '^[[B' history-substring-search-down
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh 
 eval "$(anyenv init -)"
+
+# Report the working directory and running command as the terminal title.
+# Without this the title stays at whatever ConPTY set at startup
+# (C:\WINDOWS\SYSTEM32\wsl.exe), since zsh never updates it.
+autoload -Uz add-zsh-hook
+_title_precmd() { print -P -n '\e]2;%~\a' }
+_title_preexec() { print -P -n '\e]2;%~ | '"${1%% *}"'\a' }
+add-zsh-hook precmd _title_precmd
+add-zsh-hook preexec _title_preexec
