@@ -68,51 +68,51 @@ blinking = true
 audio = false
 
 [colors]
-background = "#eeeeee"
-foreground = "#444444"
-cursor = "#444444"
+background = "{{role.bg}}"
+foreground = "{{role.fg}}"
+cursor = "{{role.fg}}"
 # vi モードのカーソルは通常カーソルと区別できるようアクセント色にする
 # (Alacritty では CellForeground 反転指定だが Rio は固定色のみ)
-vi-cursor = "#005f87"
+vi-cursor = "{{role.accent-alt}}"
 
 # 選択範囲: Alacritty の CellBackground / CellForeground 反転相当
-selection-foreground = "#eeeeee"
-selection-background = "#444444"
+selection-foreground = "{{role.bg}}"
+selection-background = "{{role.fg}}"
 
 # ANSI 16 colors
-black = "#eeeeee"
-red = "#af0000"
-green = "#008700"
-yellow = "#5f8700"
-blue = "#0087af"
-magenta = "#878787"
-cyan = "#005f87"
-white = "#444444"
+black = "{{ansi.0}}"
+red = "{{ansi.1}}"
+green = "{{ansi.2}}"
+yellow = "{{ansi.3}}"
+blue = "{{ansi.4}}"
+magenta = "{{ansi.5}}"
+cyan = "{{ansi.6}}"
+white = "{{ansi.7}}"
 
-light-black = "#bcbcbc"
-light-red = "#d70000"
-light-green = "#d70087"
-light-yellow = "#8700af"
-light-blue = "#d75f00"
-light-magenta = "#d75f00"
-light-cyan = "#005faf"
-light-white = "#005f87"
+light-black = "{{ansi.8}}"
+light-red = "{{ansi.9}}"
+light-green = "{{ansi.10}}"
+light-yellow = "{{ansi.11}}"
+light-blue = "{{ansi.12}}"
+light-magenta = "{{ansi.13}}"
+light-cyan = "{{ansi.14}}"
+light-white = "{{ansi.15}}"
 
 # 検索ハイライト
-search-match-foreground = "#eeeeee"
-search-match-background = "#af0000"
-search-focused-match-foreground = "#eeeeee"
-search-focused-match-background = "#0087af"
+search-match-foreground = "{{role.bg}}"
+search-match-background = "{{role.error}}"
+search-focused-match-foreground = "{{role.bg}}"
+search-focused-match-background = "{{role.visual}}"
 
 # ヒント (URL 選択)
-hint-foreground = "#eeeeee"
-hint-background = "#0087af"
+hint-foreground = "{{role.bg}}"
+hint-background = "{{role.visual}}"
 
 # UI: Rio 既定はダーク配色のため Light 側に合わせる
-bar = "#eeeeee"
-tabs = "#bcbcbc"
-tabs-active = "#d70087"
-split = "#bcbcbc"
+bar = "{{role.bg}}"
+tabs = "{{role.border}}"
+tabs-active = "{{role.accent}}"
+split = "{{role.border}}"
 
 [bindings]
 keys = [
