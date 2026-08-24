@@ -6,3 +6,5 @@ export LANG=${LANG:-C.UTF-8}
 
 # rustup 未導入の環境では env が存在しないので、あれば読む。
 [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+
+[ -f ~/.zshenv.local ] && source ~/.zshenv.local

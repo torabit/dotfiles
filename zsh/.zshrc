@@ -1,63 +1,48 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block, everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
 
-# Prompt
-source /home/linuxbrew/.linuxbrew/share/powerlevel10k/powerlevel10k.zsh-theme
+# ── Environment ──────────────────────────────────────────────
+export XDG_CONFIG_HOME="$HOME/.config"
+export EDITOR=nvim
+export HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
 
-# Load plugins
-export ZSH_PLUGINS=/home/linuxbrew/.linuxbrew/
+eval "$(${HOMEBREW_PREFIX}/bin/brew shellenv)"
 
-source ${ZSH_PLUGINS}/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-source ${ZSH_PLUGINS}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ${ZSH_PLUGINS}/share/zsh-history-substring-search/zsh-history-substring-search.zsh
-source ${ZSH_PLUGINS}/opt/fzf/shell/key-bindings.zsh
-source ${ZSH_PLUGINS}/opt/fzf/shell/completion.zsh
+# ── PATH ─────────────────────────────────────────────────────
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH" # go install targets (gopls, staticcheck, ...)
+PATH=~/.console-ninja/.bin:$PATH
+export PNPM_HOME="$HOME/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
 
-# bind UP and DOWN arrow keys to history substring search
-zmodload zsh/terminfo
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-
-# General options
+# ── Options ──────────────────────────────────────────────────
 setopt correct
 setopt extendedglob
 setopt nocaseglob
 setopt rcexpandparam
 setopt nocheckjobs
 setopt numericglobsort
+setopt auto_cd
 
-# History
+# ── History ──────────────────────────────────────────────────
 HISTFILE=~/.zhistory
 HISTSIZE=1000
 SAVEHIST=500
 setopt inc_append_history
 setopt histignorealldups
-# Don't want common history between shells
 unsetopt share_history
 
-# Editor setting
-export EDITOR=nvim
-
-# Hub
-eval "$(hub alias -s)"
-
-# Completion
+# ── Completion ───────────────────────────────────────────────
 zstyle ':completion:*' completer _complete
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"         # Colored completion (different colors for dirs/files/etc)
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' rehash true
-# Speed up completions
 zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
-WORDCHARS=${WORDCHARS//\/[&.;]}                                 # Don't consider certain characters part of the word
-fpath=(~/.zfunc ~/.zsh/completions $fpath) 
+WORDCHARS=${WORDCHARS//\/[&.;]}
+fpath=(~/.zfunc ~/.zsh/completions $fpath)
 autoload -Uz compinit
 if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
   compinit
@@ -65,41 +50,93 @@ else
   compinit -C
 fi
 
-# Aliases
-alias git='hub'
-alias ls='ls --color=auto'
-alias ll='eza -l -h -@ -mU --icons --git --time-style=long-iso --color=automatic --group-directories-first'
-alias l='ll -aa'
-alias vim='nvim'
-alias dot='cd ~/dotfiles'
-alias tmuxs='tmux source-file ~/.tmux.conf'
-alias zshrc='vim ~/.zshrc'
-alias clip='/mnt/c/Tools/win32yank/win32yank.exe -i --crlf'
-alias clearbuff="clear && printf '\e[3J'"
+# bash 形式の補完 (complete -C) を使うツール向け。
+autoload -U +X bashcompinit && bashcompinit
+(( $+commands[aws_completer] )) && complete -C aws_completer aws
+# terraform 自身が COMP_LINE/COMP_POINT を読んで候補を返す。
+# terraform -install-autocomplete が書く Cellar の絶対パスは
+# バージョン更新で切れるため、PATH 上の名前で参照する。
+(( $+commands[terraform] )) && complete -o nospace -C terraform terraform
 
-# Custom functions
-function create() {
-  mkdir -p $1 && cd $1
-}
+# ── Plugins ──────────────────────────────────────────────────
+for _plugin in \
+  ${HOMEBREW_PREFIX}/opt/zsh-fast-syntax-highlighting/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh \
+  ${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
+  ${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh \
+  ${HOMEBREW_PREFIX}/opt/fzf/shell/completion.zsh
+do
+  [[ -r $_plugin ]] && source $_plugin
+done
+unset _plugin
 
-# Auto-cd
-setopt auto_cd
+# ── Key bindings ─────────────────────────────────────────────
+KEYTIMEOUT=1
+# 矢印キーは意図的に未バインド: ↑ は atuin が init 時に奪い、↓ は zsh 既定の
+# down-line-or-history が残る。どちらも複数行バッファ内では行移動として動く。
 
-# FZF
-export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --glob "!.git/*"'
+# コマンドライン全体を $EDITOR で編集する (長い複数行コマンドの修正用)。
+# 保存して閉じるとバッファに戻る。実行はされないので Enter は自分で押す。
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey -M viins '^G'   edit-command-line  # 既定の list-expand を置き換え
+bindkey -M vicmd '^G'   edit-command-line
+bindkey -M vicmd 'v'    edit-command-line  # 既定の visual-mode を置き換え
 
-bindkey '^[[A' history-substring-search-up			
-bindkey '^[[B' history-substring-search-down
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh 
-eval "$(anyenv init -)"
-
-# Report the working directory and running command as the terminal title.
-# Without this the title stays at whatever ConPTY set at startup
-# (C:\WINDOWS\SYSTEM32\wsl.exe), since zsh never updates it.
+# ── Terminal title ───────────────────────────────────────────
+# WSL 固有: ConPTY が起動時に設定したタイトル (wsl.exe のパス) が更新されずに
+# 残る。zsh が OSC 2 を送らないためで、precmd と preexec で直接送って解決する。
 autoload -Uz add-zsh-hook
 _title_precmd() { print -P -n '\e]2;%~\a' }
 _title_preexec() { print -P -n '\e]2;%~ | '"${1%% *}"'\a' }
 add-zsh-hook precmd _title_precmd
 add-zsh-hook preexec _title_preexec
+
+# ── Tools ────────────────────────────────────────────────────
+(( $+commands[mise] )) && eval "$(mise activate zsh)"
+export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --glob "!.git/*"'
+export FZF_DEFAULT_OPTS='
+  --color=light
+  --color=fg:#444444,bg:#eeeeee,hl:#d70087
+  --color=fg+:#444444,bg+:#e4e4e4,hl+:#d70087
+  --color=selected-fg:#444444,selected-bg:#d7d7af
+  --color=info:#878787,prompt:#005f87,pointer:#d70087
+  --color=marker:#008700,spinner:#d70087
+  --color=border:#bcbcbc,header:#005f87,gutter:#eeeeee
+  --color=preview-bg:#eeeeee,preview-fg:#444444,preview-border:#bcbcbc
+'
+export BAT_THEME='PaperColor-Light'
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
+# ── Aliases ──────────────────────────────────────────────────
+alias git='hub'
+alias ls='ls --color=auto'
+alias ll='eza -l -h -@ -mU --icons --git --time-style=long-iso --color=auto --group-directories-first'
+alias l='ll -aa'
+alias vim='nvim'
+alias dot='cd ~/dotfiles'
+alias tmuxs='tmux source-file ~/.tmux.conf'
+alias zshrc='vim ~/.zshrc'
+# WSL 固有: クリップボードは Windows 側が持つ。win32yank で橋渡しする。
+# X も Wayland も無いので wl-copy と xclip は使えない。
+alias clip='/mnt/c/Tools/win32yank/win32yank.exe -i --crlf'
+alias clearbuff="clear && printf '\e[3J'"
+
+# ── Functions ────────────────────────────────────────────────
+function create() {
+  mkdir -p $1 && cd $1
+}
+
+function g() {
+  local repo=$(ghq list | fzf --preview "bat --color=always --style=header,grid --line-range :50 $(ghq root)/{}/README.md 2>/dev/null || ls $(ghq root)/{}")
+  if [ -n "$repo" ]; then
+    cd "$(ghq root)/$repo"
+  fi
+}
+
+# ── Local overrides ─────────────────────────────────────────
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
+
+# ── Init (must be at the end of .zshrc) ─────────────────────
+(( $+commands[starship] )) && eval "$(starship init zsh)"
+(( $+commands[zoxide] )) && eval "$(zoxide init zsh)"
+(( $+commands[atuin] )) && eval "$(atuin init zsh)"
