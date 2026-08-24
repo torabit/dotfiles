@@ -52,6 +52,9 @@ brew "ktr0731/evans/evans"
 brew "protobuf"
 brew "protolint"
 
+# cargo でビルドするツールが openssl-sys などを通すのに pkg-config を要求する。
+brew "pkgconf"
+
 # Runtimes: mise で管理する (~/.config/mise/config.toml)
 #   node / ruby / rust / pnpm と、npm 由来の prettierd / eslint_d はここには置かない。
 #   brew と二重に持つと PATH の解決順で brew 側が勝ち、mise の固定が効かなくなる。
