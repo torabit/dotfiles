@@ -18,13 +18,13 @@
 #   CLIP_IMAGE_REMOTE_DIR  リモートの保存先。ホーム基準の相対パス
 #                          (既定: .cache/clip-image)
 #   CLIP_IMAGE_KEEP_DAYS   リモートに残す日数。転送のついでに古い分を消すので
-#                          cron は要らない (既定: 7)
+#                          cron は要らない (既定: 30)
 
 set -euo pipefail
 
 host="${1:-${CLIP_IMAGE_HOST:-lura}}"
 remote_dir="${CLIP_IMAGE_REMOTE_DIR:-.cache/clip-image}"
-keep_days="${CLIP_IMAGE_KEEP_DAYS:-7}"
+keep_days="${CLIP_IMAGE_KEEP_DAYS:-30}"
 
 powershell_exe=/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe
 if [[ ! -x "${powershell_exe}" ]]; then

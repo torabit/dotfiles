@@ -105,7 +105,7 @@ Windows のクリップボードは `powershell.exe` 経由で読む。WSL 側�
 画像は PNG に変換して base64 で受け取る。`Clipboard.GetImage` は STA アパートメント
 でないと null を返すため `-Sta` を付けている。
 
-転送先は `~/.cache/clip-image`。転送のついでに `CLIP_IMAGE_KEEP_DAYS` (既定 7) より古い
+転送先は `~/.cache/clip-image`。転送のついでに `CLIP_IMAGE_KEEP_DAYS` (既定 30) より古い
 分を消すので、リモート側に cron を置く必要はない。掃除が失敗しても転送結果には影響しない。
 ホストと保存先は `CLIP_IMAGE_HOST` と `CLIP_IMAGE_REMOTE_DIR` で変えられる。
 
