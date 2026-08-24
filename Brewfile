@@ -33,6 +33,9 @@ brew "stow"
 brew "the_silver_searcher"
 brew "tmux"
 brew "tree"
+# nvim-treesitter がパーサをビルドするのに必要。mise の aqua backend でも
+# 取れるが GitHub API のトークンを要求するため、brew から入れる。
+brew "tree-sitter-cli"
 brew "typos-cli"
 brew "unzip"
 brew "wget"

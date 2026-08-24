@@ -1,6 +1,22 @@
 # dotfiles
 My dotfiles
 
+## Branches
+OS ごとに分ける。OS 固有の変更はそのブランチに留める。
+
+| branch | target |
+| --- | --- |
+| `darwin` | macOS |
+| `linux` | Linux (Homebrew on Linux) |
+| `wsl` | WSL2 + Rio (Homebrew on Linux) |
+
+ツールの導入は `Brewfile` と `mise/.config/mise/config.toml` を見る。
+
+```zsh
+brew bundle
+mise install
+```
+
 i use ```stow```
 
 # Usage

@@ -1,12 +1,3 @@
-return {
-  "NLKNguyen/papercolor-theme",
-  config = function()
-    vim.g.PaperColo_Theme_Options = {
-      theme = {
-        default = {
-          transparent_background = 1,
-        },
-      },
-    }
-  end,
-}
+vim.opt.background = "light"
+vim.cmd.colorscheme("PaperColor")
+vim.api.nvim_set_hl(0, "LineNr", { fg = "#af5f00", bg = "#eeeeee" })

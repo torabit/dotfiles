@@ -1,0 +1,51 @@
+require("fzf-lua").setup({})
+
+vim.keymap.set("n", "<leader>ff", function()
+	require("fzf-lua").files()
+end, { desc = "FZF Files" })
+vim.keymap.set("n", "<leader>fg", function()
+	require("fzf-lua").live_grep()
+end, { desc = "FZF Live Grep" })
+vim.keymap.set("n", "<leader>fb", function()
+	require("fzf-lua").buffers()
+end, { desc = "FZF Buffers" })
+vim.keymap.set("n", "<leader>fh", function()
+	require("fzf-lua").help_tags()
+end, { desc = "FZF Help Tags" })
+vim.keymap.set("n", "<leader>fx", function()
+	require("fzf-lua").diagnostics_document()
+end, { desc = "FZF Diagnostics Document" })
+vim.keymap.set("n", "<leader>fX", function()
+	require("fzf-lua").diagnostics_workspace()
+end, { desc = "FZF Diagnostics Workspace" })
+vim.keymap.set("n", "<leader>fo", function()
+	require("fzf-lua").oldfiles({ cwd_only = true })
+end, { desc = "FZF Recent Files (project)" })
+vim.keymap.set("n", "<leader>fO", function()
+	require("fzf-lua").oldfiles()
+end, { desc = "FZF Recent Files (all)" })
+vim.keymap.set("n", "<leader>fG", function()
+	require("fzf-lua").git_status()
+end, { desc = "FZF Git Status" })
+vim.keymap.set("n", "<leader>fc", function()
+	require("fzf-lua").git_commits()
+end, { desc = "FZF Git Commits" })
+vim.keymap.set("n", "<leader>fT", function()
+	require("todo-comments.fzf").todo({
+		rg_opts = table.concat({
+			"--color=always",
+			"--no-heading",
+			"--with-filename",
+			"--line-number",
+			"--column",
+			"--glob=!node_modules/",
+			"--glob=!dist/",
+			"--glob=!build/",
+			"--glob=!*.min.*",
+			"--glob=!*.lock",
+			"--glob=!*-lock.*",
+			"--glob=!schema.json",
+			"--glob=!__generated__/",
+		}, " "),
+	})
+end, { desc = "FZF TODO comments" })

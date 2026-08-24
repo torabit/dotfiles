@@ -1,4 +1,7 @@
--- bootstrap lazy.nvim, LazyVim and your plugins
-require("config.lazy")
-
-require("torabit.dashboard").setup()
+require("options")
+require("keymaps")
+require("statusline")
+require("autocmds")
+require("plugins")
+require("terminal")
+require("cowboy").cowboy()
