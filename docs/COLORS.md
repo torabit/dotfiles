@@ -96,3 +96,21 @@ starship は include を持たないが `[palettes]` で間接層を張れる。
 
 レンダラの単体テストは `just test` で走る。npm 依存はゼロで、node の組み込み test runner
 を使う。
+
+## 手書きファイルに hex が残っていないか確認する
+
+この設計が成り立つ前提は「手書きファイルに hex を 1 つも書かない」ことである。`.in`
+ファイルとその生成物 (兄弟パス) は hex を持つのが正しいので、両方を除外して残りを洗う。
+
+```bash
+GEN=$(git ls-files | grep '\.in$' | sed 's/\.in$//')
+EXCL=$(printf '%s\n' $GEN | sed 's#^#^#; s#$#$#' | paste -sd'|')
+grep -rnIE '#[0-9a-fA-F]{6}' \
+  $(git ls-files | grep -vE "\.in$|^palette\.json$|^docs/|^build/|$EXCL") \
+  || echo "なし"
+```
+
+`.in` だけを除外して生成物を除外し忘れると、生成物が意図どおり持っている hex がノイズに
+なり、この確認は成立しない。ヒットが出た場合、コメントであっても hex を palette.json の
+参照に置き換える。パレットを変えたときにコメントだけが嘘になるのを防ぐため、値を直接
+書いた説明文はコメントであっても残さない。
