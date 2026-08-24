@@ -4,6 +4,7 @@
 # Taps
 tap "bufbuild/buf"
 tap "ktr0731/evans"
+tap "hashicorp/tap" # terraform は core から外れた
 
 # CLI tools
 brew "atuin"
@@ -59,14 +60,18 @@ brew "protobuf"
 brew "protolint"
 
 # Infrastructure
-brew "terraform"
+brew "hashicorp/tap/terraform"
 brew "kubernetes-cli"
 brew "minikube"
 brew "tailscale"
 
+# nvim-treesitter がパーサをコンパイルするのに C コンパイラが必要。
+brew "gcc"
+
 # Runtimes: mise で管理する (~/.config/mise/config.toml)
-#   node / ruby / rust / pnpm と、npm 由来の prettierd / eslint_d はここには置かない。
-#   brew と二重に持つと PATH の解決順で brew 側が勝ち、mise の固定が効かなくなる。
+#   node / ruby / rust / pnpm / bun と、npm 由来の yarn / prettierd / eslint_d は
+#   ここには置かない。brew と二重に持つと PATH の解決順で brew 側が勝ち、
+#   mise の固定が効かなくなる。
 
 # Services
 brew "redis"

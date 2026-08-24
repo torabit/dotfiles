@@ -3,8 +3,10 @@ node = "24.19.0"   # LTS Krypton
 ruby = "3.2.2"
 rust = "1.97.1"    # cargo-modules の最新が rustc 1.95 以上を要求するため 1.94.0 から更新
 pnpm = "10.34.5"
+bun = "1.4.0"      # brew から移管。brew 版は 1.1.20 で止まっていた
 "npm:eslint_d" = "latest"
 "npm:@fsouza/prettierd" = "latest"   # brew から移管。brew 版は node に依存していた
+"npm:yarn" = "1.22.22"   # brew から移管。Yarn Classic のまま維持する
 
 # aqua backend (prebuilt binary, checksum verified)
 "aqua:cargo-bins/cargo-binstall" = "latest"
