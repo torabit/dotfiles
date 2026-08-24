@@ -10,6 +10,3 @@ export FZF_DEFAULT_OPTS='
   --color=border:#bcbcbc,header:#005f87,gutter:#eeeeee
   --color=preview-bg:#eeeeee,preview-fg:#444444,preview-border:#bcbcbc
 '
-
-# lazygit は後のファイルが前を上書きする形でマージする。テーマを分離しておく。
-export LG_CONFIG_FILE="$HOME/.config/lazygit/config.yml,$HOME/.config/lazygit/theme.yml"

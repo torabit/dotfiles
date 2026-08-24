@@ -99,7 +99,7 @@ add-zsh-hook preexec _title_preexec
 # ── Tools ────────────────────────────────────────────────────
 (( $+commands[mise] )) && eval "$(mise activate zsh)"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --glob "!.git/*"'
-source "$HOME/.config/zsh/palette.zsh"
+[ -s "$HOME/.config/zsh/palette.zsh" ] && source "$HOME/.config/zsh/palette.zsh"
 export BAT_THEME='PaperColor-Light'
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 

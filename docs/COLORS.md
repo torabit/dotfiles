@@ -35,10 +35,11 @@
 | rio | `config.toml` |
 | tmux | `.tmux.conf` |
 | starship | `.config/starship.toml` |
-| （本書） | `PALETTE.md` |
+| パレット一覧 | `PALETTE.md` |
 
-型 B のファイルはどれも 1 行目に「生成物。編集は対応する `.in` を直す」を持つ。この
-行が付いているファイルは直接編集しない。
+型 B のファイルはどれも先頭付近に「生成物。編集は対応する `.in` を直す」を持つ
+(bat の tmTheme は XML 宣言と DOCTYPE が先に来るため 3 行目)。この行が付いている
+ファイルは直接編集しない。
 
 ## 反映表
 
