@@ -93,8 +93,10 @@ bind -r C-l resize-pane -R 5
 # ── PaperColor Light Theme ────────────────────────────────────
 
 # Pane borders
-set -g pane-border-style "fg={{role.border}}"
-set -g pane-active-border-style "fg={{role.accent}}"
+# ssh 中のペインを警告色で示す。
+# tmux はスタイルをペインごとにフォーマット展開するため、シェル側で select-pane -P を叩く必要はない。
+set -g pane-border-style "#{?#{m:*ssh*,#{pane_current_command}},fg={{role.error}},fg={{role.border}}}"
+set -g pane-active-border-style "#{?#{m:*ssh*,#{pane_current_command}},fg={{ansi.9}},fg={{role.accent}}}"
 set -g pane-border-status off
 
 # Mode & message
@@ -112,7 +114,9 @@ set -g status-style "fg={{role.comment}},bg={{role.bg}}"
 set -g status-left-length 40
 set -g status-right-length 80
 
-set -g status-left "#{?client_prefix,#[fg={{role.bg}} bg={{role.accent}} bold],#[fg={{role.accent}} bg={{role.bg}} bold]} #S "
+# ペインボーダーは分割時しか描画されない。
+# 単一ペインで ssh していても分かるよう、status にもバッジを出す。
+set -g status-left "#{?client_prefix,#[fg={{role.bg}} bg={{role.accent}} bold],#[fg={{role.accent}} bg={{role.bg}} bold]} #S #{?#{m:*ssh*,#{pane_current_command}},#[fg={{role.bg}} bg={{ansi.9}} bold] SSH ,}"
 set -g status-right "#[fg={{role.comment}}]#(cd #{pane_current_path}; git rev-parse --abbrev-ref HEAD 2>/dev/null) %H:%M "
 
 # Window tabs
