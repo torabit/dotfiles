@@ -23,7 +23,10 @@ pnpm = "10.34.5"
 # cargo backend (no prebuilt binary available)
 "cargo:bacon" = "latest"
 "cargo:cargo-nextest" = "latest"
-"cargo:sqlx-cli" = "latest"
+# 既定の native-tls は brew の openssl@3 にリンクするが、その libcrypto.so は
+# glibc 2.38 の __isoc23_strtol を参照しており rust-lld が
+# --no-allow-shlib-undefined で拒否する。rustls にすると openssl を経由しない。
+"cargo:sqlx-cli" = { version = "latest", default-features = false, features = "rustls,postgres,mysql,sqlite" }
 "cargo:cargo-expand" = "latest"
 "cargo:cargo-bloat" = "latest"
 "cargo:cargo-llvm-lines" = "latest"
