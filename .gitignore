@@ -3,3 +3,6 @@ hunk/.config/hunk/state.json
 tmux/.tmux.conf.local
 neovim/.config/nvim/plugin/packer_compiled.lua
 **/*.local
+# stow パッケージの .local ディレクトリ (~/.local へのリンク元) は追跡する。
+# 上の **/*.local はローカル上書きファイル向けだが、ディレクトリ名にもマッチする。
+!**/.local/

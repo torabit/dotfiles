@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+#
+# Windows のクリップボードにある画像を ssh 先へ転送し、リモート側の絶対パスを表示する。
+#
+# 用途: ssh 先で動かしている Claude Code へ画像を渡す。ローカルの Claude Code は
+# 貼り付けで受け取れるが、ssh 先のプロセスは Windows のクリップボードに触れない。
+#
+# Windows のクリップボードは powershell.exe 経由で読む。WSL 側の xclip や
+# wl-clipboard は WSL 内のクリップボードを指すので Windows 側の内容は取れない。
+# 画像は PNG に変換して base64 で受け取る。
+#
+# 使い方:
+#   clip-image           # 既定のホストへ転送
+#   clip-image myhost    # ホストを指定
+#
+# 環境変数:
+#   CLIP_IMAGE_HOST        転送先ホスト (既定: lura)
+#   CLIP_IMAGE_REMOTE_DIR  リモートの保存先。ホーム基準の相対パス
+#                          (既定: .cache/clip-image)
+
+set -euo pipefail
+
+host="${1:-${CLIP_IMAGE_HOST:-lura}}"
+remote_dir="${CLIP_IMAGE_REMOTE_DIR:-.cache/clip-image}"
+
+powershell_exe=/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe
+if [[ ! -x "${powershell_exe}" ]]; then
+  powershell_exe="$(command -v powershell.exe || true)"
+fi
+if [[ -z "${powershell_exe}" ]]; then
+  echo "error: powershell.exe が見つかりません。WSL 上で実行してください。" >&2
+  exit 1
+fi
+
+# Clipboard.GetImage は STA アパートメントでないと null を返すため -Sta を付ける。
+# 画像が無い場合は exit 2 になるので、失敗を吸収して空文字列で判定する。
+read -r -d '' ps_script <<'PS' || true
+$ErrorActionPreference = 'Stop'
+Add-Type -AssemblyName System.Windows.Forms, System.Drawing
+$img = [Windows.Forms.Clipboard]::GetImage()
+if (-not $img) { exit 2 }
+$ms = New-Object System.IO.MemoryStream
+$img.Save($ms, [System.Drawing.Imaging.ImageFormat]::Png)
+[Convert]::ToBase64String($ms.ToArray())
+PS
+
+b64="$( { "${powershell_exe}" -NoProfile -Sta -Command "${ps_script}" 2>/dev/null || true; } | tr -d '\r\n' )"
+
+if [[ -z "${b64}" ]]; then
+  echo "error: クリップボードに画像がありません。" >&2
+  exit 1
+fi
+
+name="clip-$(date +%Y%m%d-%H%M%S).png"
+remote_path="${remote_dir}/${name}"
+
+# 転送と絶対パスの取得を 1 回の ssh で済ませる。
+remote_cmd="mkdir -p '${remote_dir}' && cat > '${remote_path}' && readlink -f '${remote_path}'"
+
+abs="$(printf '%s' "${b64}" | base64 -d | ssh "${host}" "${remote_cmd}")"
+
+echo "${abs}"

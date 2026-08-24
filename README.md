@@ -22,14 +22,21 @@ i use ```stow```
 # Usage
 in root dir
 
+リポジトリが `~/ghq` 配下にあるので `-t ~` でターゲットを明示する。省略すると
+親ディレクトリ (`~/ghq/github.com/torabit`) にリンクが張られる。
+
+`--no-folding` はディレクトリ自体ではなく中のファイルを個別にリンクする。これが無いと
+リンク先に存在しないディレクトリ (`~/.local` など) はディレクトリごと symlink にされ、
+stow 管理外のファイルを共存させられなくなる。
+
 ### create link
 ```zsh
-stow -v dirname
+stow --no-folding -t ~ -v dirname
 ```
 
 ### unlink
 ```zsh
-stow -vD dirname
+stow -D -t ~ -v dirname
 ```
 
 ## Rio (stow 対象外)
@@ -69,3 +76,32 @@ Segoe UI Emoji が選ばれ、そのフォントは日本語グリフを持た�
 
 ドナーは Windows 同梱の Segoe UI Symbol。改変フォントなので再配布はしない。
 反映には Rio の再起動が必要。
+
+## clip-image
+
+Windows のクリップボードにある画像を ssh 先へ転送し、リモート側の絶対パスを表示する。
+ssh 先で動かしている Claude Code へ画像を渡すために使う。ローカルの Claude Code は
+貼り付けで受け取れるが、ssh 先のプロセスは Windows のクリップボードに触れない。
+
+```zsh
+clip-image           # 既定の ssh 先へ転送
+clip-image myhost    # ホストを指定
+```
+
+Windows のクリップボードは `powershell.exe` 経由で読む。WSL 側の `xclip` や
+`wl-clipboard` は WSL 内のクリップボードを指すので Windows 側の内容は取れない。
+画像は PNG に変換して base64 で受け取る。`Clipboard.GetImage` は STA アパートメント
+でないと null を返すため `-Sta` を付けている。
+
+転送先は `~/.cache/clip-image`。`CLIP_IMAGE_HOST` と `CLIP_IMAGE_REMOTE_DIR` で変えられる。
+
+## 画像のインライン表示
+
+`chafa` で端末に画像を出す。tmux は `allow-passthrough on` で kitty graphics を通す
+(`tmux/.tmux.conf`)。sixel は `terminal-features` に宣言していない。宣言すると tmux が
+DA1 へ sixel 対応と応答し、chafa が描画できない端末へ sixel を送るため。
+
+```zsh
+chafa -f kitty path/to/image.png
+chafa -f sixels path/to/image.png
+```
