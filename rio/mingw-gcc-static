@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+#
+# rustc に渡すリンカのラッパ。build-windows.sh から
+# CARGO_TARGET_X86_64_PC_WINDOWS_GNU_LINKER 経由で指定する。
+#
+# やっていること: リンカ引数の -lstdc++ を libstdc++.a の実パスへ置換する。
+#
+# 直したい症状:
+#   出来上がった rio.exe が libstdc++-6.dll を要求し、Windows 側にそれが無いので
+#   起動に失敗する (WSL 経由の実行で exit 53)。
+#
+# 原因:
+#   wgpu feature (Windows では必須) が librashader を引き、その librashader-reflect
+#   が glslang-sys を引く。glslang-sys は C++ なので
+#   cargo:rustc-link-lib=dylib=stdc++ を出す。rustc はこれを
+#   -Wl,-Bdynamic -lstdc++ としてリンカへ渡す。
+#
+# gcc の -static や -static-libstdc++ では消えない:
+#   rustc が付ける -Bdynamic が後から効くため -static の -Bstatic が打ち消される。
+#   -static-libstdc++ は g++ ドライバが暗黙に足す libstdc++ にしか作用せず、
+#   コマンドラインに明示された -lstdc++ には効かない。
+#   明示パスのアーカイブは -Bdynamic の影響を受けないので、置換が確実。
+#
+# posix threads 版を使う理由は build-windows.sh のヘッダを参照。
+
+set -euo pipefail
+
+gcc_bin=x86_64-w64-mingw32-gcc-posix
+gxx_bin=x86_64-w64-mingw32-g++-posix
+
+# gcc のバージョンを直書きしない。10-posix のようなパスは gcc 更新で変わる。
+libstdcxx="$("${gxx_bin}" -print-file-name=libstdc++.a)"
+if [[ "${libstdcxx}" == "libstdc++.a" || ! -f "${libstdcxx}" ]]; then
+  echo "error: libstdc++.a を解決できません (${gxx_bin} -print-file-name)" >&2
+  exit 1
+fi
+
+args=()
+for arg in "$@"; do
+  if [[ "${arg}" == "-lstdc++" ]]; then
+    args+=("${libstdcxx}")
+  else
+    args+=("${arg}")
+  fi
+done
+
+exec "${gcc_bin}" "${args[@]}" -static-libgcc
