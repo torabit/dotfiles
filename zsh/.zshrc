@@ -65,9 +65,6 @@ else
   compinit -C
 fi
 
-# Thefuck
-eval $(thefuck --alias)
-
 # Aliases
 alias git='hub'
 alias ls='ls --color=auto'
