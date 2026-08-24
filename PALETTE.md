@@ -66,13 +66,13 @@ dotfiles 全体で使用する PaperColor Light のカラーパレット。
 ## 使用ファイル一覧
 
 - `rio/config.toml` - ターミナルカラー (Windows ネイティブ Rio、stow 対象外)
-- `alacritty/.config/alacritty.toml` - ターミナルカラー
 - `tmux/.tmux.conf` - ステータスバー、ボーダー
 - `lazygit/.config/lazygit/config.yml` - テーマ、delta pager
 - `zsh/.zshrc` - fzf 配色 (`FZF_DEFAULT_OPTS`)
 
 以下は darwin / linux ブランチのみ (wsl ブランチには未導入):
 
+- `alacritty/.config/alacritty.toml` - ターミナルカラー
 - `starship/.config/starship.toml` - プロンプト
 - `hunk/.config/hunk/config.toml` - diff ビューア (`[themes.papercolor-light]`)
 - `bat/.config/bat/themes/PaperColor-Light.tmTheme` - シンタックスハイライト
