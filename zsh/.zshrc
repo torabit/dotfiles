@@ -116,6 +116,10 @@ alias zshrc='vim ~/.zshrc'
 # X も Wayland も無いので wl-copy と xclip は使えない。
 alias clip='/mnt/c/Tools/win32yank/win32yank.exe -i --crlf'
 alias clearbuff="clear && printf '\e[3J'"
+# 端末で画像を見る。-f symbols の明示が必要。既定の auto は Rio を画像プロトコル
+# 対応と判定して sixel を選ぶが、Windows 版 Rio は sixel を描画しないため何も
+# 表示されない (raphamorim/rio#729)。文字で描くので粗いが確実に映る。
+alias img='chafa -f symbols'
 
 # ── Functions ────────────────────────────────────────────────
 function create() {
