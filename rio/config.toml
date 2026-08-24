@@ -60,6 +60,12 @@ family = "HackGen35 Console NF"
 shape = "block"
 blinking = true
 
+# BEL でシステム音を鳴らさない。Rio の audio 既定は Windows と macOS では
+# true、Linux と BSD では false。Rio は Windows ネイティブアプリなので
+# 既定では鳴る。visual は既定の false のままにする (画面を光らせない)。
+[bell]
+audio = false
+
 [colors]
 background = "#eeeeee"
 foreground = "#444444"
