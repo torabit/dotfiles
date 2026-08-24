@@ -35,7 +35,6 @@
 | rio | `config.toml` |
 | tmux | `.tmux.conf` |
 | starship | `.config/starship.toml` |
-| パレット一覧 | `PALETTE.md` |
 
 型 B のファイルはどれも先頭付近に「生成物。編集は対応する `.in` を直す」を持つ
 (bat の tmTheme は XML 宣言と DOCTYPE が先に来るため 3 行目)。この行が付いている
@@ -57,6 +56,49 @@
 | hunk | 再起動 |
 | lazygit | 再起動 |
 
+## パレットの語彙
+
+`palette.json` は 4 つのテーブルを持つ。`colors` だけが生の hex を持ち、`ansi` と `role` は
+`{colors.x}` 参照でそこを指す。`diff` は delta の diff ティントで、PaperColor のパレット外の
+色なので生の hex を持つ。
+
+`colors` の名前は ANSI ロール名ではなく見た目の名前にする。PaperColor は ANSI スロットの
+意味を守っておらず、`ansi.10` は名前が Bright Green でも値はピンクである。同様に `ansi.11`
+は Bright Yellow でパープル、`ansi.12` は Bright Blue でオレンジ、`ansi.5` は Magenta で
+グレー。ロール名で命名するとテンプレートが嘘になる。`ansi.13` は `ansi.12` と、`ansi.15` は
+`ansi.6` と同値である。
+
+ANSI スロットの割り当てそのものを書く場所 (rio の `[colors]` の ANSI ブロック) だけは
+`role.*` ではなく `ansi.*` を参照する。`role.*` を経由すると、role の再割り当てで ANSI
+スロットの意味が黙って変わる。
+
+`role` の各トークンが何を指すか。
+
+| トークン | 用途 |
+| --- | --- |
+| `bg` / `fg` | 背景と前景 |
+| `comment` | コメント |
+| `keyword` | キーワード |
+| `string` | 文字列リテラル |
+| `error` | エラー、diff の削除 |
+| `ok` | 成功、diff の追加 |
+| `warn` | 警告 |
+| `visual` | 選択範囲、リンク、属性 |
+| `linenr` | 行番号 |
+| `accent` | 主アクセント。tmux アクティブ、fzf pointer |
+| `accent-alt` | 副アクセント。fzf prompt、starship dir |
+| `accent-warm` | 第三アクセント。starship cmd_duration |
+| `inactive` | 非アクティブな要素 |
+| `border` | ボーダー |
+| `selection-bg` | 選択の背景 |
+| `hover-bg` | ホバーの背景 |
+
+どのファイルがどのトークンを使うかは grep で引く。手書きの一覧は必ず実態からずれる。
+
+```zsh
+rg -l 'role\.accent\b' -g '*.in'
+```
+
 ## トークンを追加する
 
 1. `palette.json` の `colors` に生の hex を足す。既にある色なら足さない
@@ -64,9 +106,8 @@
 3. テンプレートから `{{role.y}}` で参照する
 4. `just build` を実行する
 
-`colors` の名前は ANSI ロール名ではなく見た目の名前にする。PaperColor は ANSI スロットの
-意味を守っておらず、`ansi.10` (Bright Green) はピンクである。ロール名で命名するとテンプ
-レートが嘘になる。
+どのテンプレートからも参照されないトークンは足さない。使う当てのない語彙は、値を変えても
+何も動かないまま残り、読み手を誤らせる。
 
 ## ツールを追加する
 

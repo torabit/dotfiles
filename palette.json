@@ -18,9 +18,7 @@
     "orange": "#d75f00",
     "brown": "#af5f00",
     "sand": "#d7d7af",
-    "mist": "#e4e4e4",
-    "mint": "#00af5f",
-    "lemon": "#ffff5f"
+    "mist": "#e4e4e4"
   },
   "ansi": {
     "0": "{colors.paper}",
@@ -46,16 +44,10 @@
     "comment": "{colors.gray}",
     "keyword": "{colors.blue}",
     "string": "{colors.olive}",
-    "function": "{colors.ink}",
-    "type": "{colors.pink}",
-    "constant": "{colors.orange}",
     "error": "{colors.red}",
     "ok": "{colors.green}",
     "warn": "{colors.orange}",
-    "todo": "{colors.mint}",
     "visual": "{colors.azure}",
-    "search-bg": "{colors.lemon}",
-    "cursor-bg": "{colors.teal}",
     "linenr": "{colors.ash}",
     "accent": "{colors.pink}",
     "accent-alt": "{colors.teal}",
