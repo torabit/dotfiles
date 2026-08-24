@@ -1,8 +1,9 @@
+<!-- 生成物。編集は PALETTE.md.in を直す。色の値は palette.json にある。 -->
+
 # PaperColor Light Palette
 
-dotfiles 全体で使用する PaperColor Light のカラーパレット。
-各設定ファイルではこのパレットの色を直接ハードコーディングする。
-色を変更する場合はここを参照し、各ファイルを手動で更新する。
+dotfiles 全体で使用する PaperColor Light のカラーパレット。値のソースは `palette.json`
+であり、この文書は生成物である。色を変える手順は `docs/COLORS.md` を読む。
 
 ## Base Colors
 
@@ -31,6 +32,10 @@ dotfiles 全体で使用する PaperColor Light のカラーパレット。
 | 13    | color13  | `#d75f00` | Bright Magenta | (= color12)              |
 | 14    | color14  | `#005faf` | Bright Cyan    | キーワード               |
 | 15    | color15  | `#005f87` | Bright White   | (= color06)              |
+
+この表は ANSI スロットへの割り当てそのものを扱うので、他の表と違い `role.*` ではなく
+`ansi.*` を参照する。`role.*` を経由すると、role の再割り当てで ANSI スロットの意味が
+黙って変わってしまう。
 
 ## Semantic Colors
 
@@ -63,16 +68,12 @@ dotfiles 全体で使用する PaperColor Light のカラーパレット。
 | selection bg     | `#d7d7af` | fzf selected-bg、tmux mode               |
 | hover bg         | `#e4e4e4` | fzf bg+                                  |
 
-## 使用ファイル一覧
+## 生成先
 
-- `rio/config.toml` - ターミナルカラー (Windows ネイティブ Rio、stow 対象外)
-- `tmux/.tmux.conf` - ステータスバー、ボーダー
-- `lazygit/.config/lazygit/config.yml` - テーマ、delta pager
-- `zsh/.zshrc` - fzf 配色 (`FZF_DEFAULT_OPTS`)
+`palette.json` を参照するファイルの一覧は、リポジトリ内の `*.in` を探せば得られる。
+テンプレートの大半は `.config` などのドットディレクトリの下にあるので、`fd` には
+`-H` を付ける。
 
-以下は darwin / linux ブランチのみ (wsl ブランチには未導入):
-
-- `alacritty/.config/alacritty.toml` - ターミナルカラー
-- `starship/.config/starship.toml` - プロンプト
-- `hunk/.config/hunk/config.toml` - diff ビューア (`[themes.papercolor-light]`)
-- `bat/.config/bat/themes/PaperColor-Light.tmTheme` - シンタックスハイライト
+```zsh
+fd -H -e in
+```

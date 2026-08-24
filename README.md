@@ -17,6 +17,13 @@ brew bundle
 mise install
 ```
 
+配色は `palette.json` から生成する。生成物はコミットされているので、`stow` する前に
+実行する必要はない。色を変えるときだけ実行する。詳細は `docs/COLORS.md` を読む。
+
+```zsh
+just build
+```
+
 i use ```stow```
 
 # Usage
@@ -53,7 +60,7 @@ WSL2 が VHD 方式になった影響で、WSL 起動前は Windows 側からリ
 Rio の設定読み込みが失敗するため。
 
 Rio は保存を検知して即座に再読み込みするので再起動は不要。
-配色は `PALETTE.md` を参照する。
+配色は `palette.json` から生成する。手順は `docs/COLORS.md` を読む。
 
 ### フォントのパッチ
 

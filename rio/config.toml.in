@@ -2,7 +2,7 @@
 # Rio terminal configuration
 #
 # 移植元: alacritty/.config/alacritty.toml
-# 配色は PALETTE.md (PaperColor Light) の hex を直接記述する。
+# 配色は {{role.*}} / {{ansi.*}} で palette.json (PaperColor Light) を参照する。
 # テーマ名では参照しない。
 #
 # 反映方法: rio/sync.sh (Windows 側 %LOCALAPPDATA%\rio\config.toml へコピー)
