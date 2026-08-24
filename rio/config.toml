@@ -143,3 +143,8 @@ command = "explorer"
 [hints.rules.binding]
 key = "U"
 mods = ["Control", "Shift"]
+
+# クリックでも URL を開けるようにする。Alacritty 側は mouse.enabled = true のみを
+# 指定していた (mods 未指定なので修飾キーなしでクリック可)。挙動を揃える。
+[hints.rules.mouse]
+enabled = true
