@@ -1,6 +1,6 @@
 [user]
 	name = torabit
-	email = pujigami@gmail.com
+	email = torabit.humble@gmail.com
 [credential "https://github.com"]
 	helper = 
 	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
