@@ -95,6 +95,15 @@ bindkey '^[[B' history-substring-search-down
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh 
 eval "$(anyenv init -)"
 
+# bash 形式の補完 (complete -C) を使うツール向け。
+# compinit は上のブロックで済んでいるので呼び直さない。
+autoload -U +X bashcompinit && bashcompinit
+complete -C aws_completer aws
+# terraform 自身が COMP_LINE/COMP_POINT を読んで候補を返す。
+# terraform -install-autocomplete が書く Cellar の絶対パスは
+# バージョン更新で切れるため、PATH 上の名前で参照する。
+complete -o nospace -C terraform terraform
+
 # Report the working directory and running command as the terminal title.
 # Without this the title stays at whatever ConPTY set at startup
 # (C:\WINDOWS\SYSTEM32\wsl.exe), since zsh never updates it.
