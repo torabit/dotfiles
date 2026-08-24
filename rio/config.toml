@@ -18,10 +18,27 @@ program = "wsl"
 args = ["~"]
 
 [title]
-content = "{{ title }}"
+# 先頭の半角スペースは意図的なもの。
+# Rio のタブタイトルは文字列の先頭 1 文字だけでフォントを決め、その 1 フォントで
+# 全体をシェーピングする (sugarloaf/src/text.rs の shape_for)。文字単位の
+# フォールバックが無い。Claude Code はタイトルを "✳ ..." と設定するので、先頭の
+# 記号が HackGen に無いと絵文字フォントが選ばれ、そのフォントは日本語グリフを
+# 持たないためタイトルの日本語が全て豆腐になる。
+# ✳ (U+2733) 自体は patch-font.sh で HackGen へ移植済み。このスペースは ✳ 以外の
+# 記号が先頭に来た場合の保険。
+content = " {{ title }}"
 
 [fonts]
 size = 11.25
+
+# patch-font.sh が U+2733 (✳) を移植した HackGen の出力先。
+# Rio は additional-dirs をシステムフォントより先に検索するので
+# (sugarloaf/src/font/loader.rs の Database::query)、ファミリー名が同じでも
+# こちらが選ばれる。インストール済みフォントを直接書き換えると per-user フォントの
+# 登録が壊れて "Font(s) not found" になるため、この経路を使う。
+# Rio は Windows ネイティブアプリなので Windows のパスで書く。%LOCALAPPDATA% は
+# 展開されないため実体を書く。
+additional-dirs = ['C:\Users\rai-t\AppData\Local\rio\fonts']
 
 [fonts.regular]
 family = "HackGen35 Console NF"

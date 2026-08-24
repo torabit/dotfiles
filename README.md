@@ -31,3 +31,25 @@ Rio の設定読み込みが失敗するため。
 
 Rio は保存を検知して即座に再読み込みするので再起動は不要。
 配色は `PALETTE.md` を参照する。
+
+### フォントのパッチ
+
+```zsh
+./rio/patch-font.sh
+```
+
+HackGen35 Console NF に U+2733 (✳) のグリフを移植し、`%LOCALAPPDATA%\rio\fonts`
+へ出力する。`config.toml` の `fonts.additional-dirs` がこのディレクトリを指す。
+
+Rio のタブタイトルは文字列の先頭 1 文字だけでフォントを決め、その 1 フォントで全体を
+シェーピングする (`sugarloaf/src/text.rs` の `shape_for`)。文字単位のフォールバックが
+無い。Claude Code はタイトルを "✳ ..." と設定するが、✳ は HackGen に無いので
+Segoe UI Emoji が選ばれ、そのフォントは日本語グリフを持たないためタイトルの日本語が
+全て豆腐になる。HackGen 自身に ✳ を持たせて 1 フォントで描けるようにする。
+
+インストール済みフォントは書き換えない。同名ファイルを上書きすると per-user フォントの
+登録が壊れ、Rio が "Font(s) not found" を出す。Rio は `additional-dirs` をシステム
+フォントより先に検索するので、ファミリー名が同じでもパッチ版が選ばれる。
+
+ドナーは Windows 同梱の Segoe UI Symbol。改変フォントなので再配布はしない。
+反映には Rio の再起動が必要。
