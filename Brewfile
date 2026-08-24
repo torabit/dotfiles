@@ -2,8 +2,6 @@
 # ネイティブ Linux 固有は linux ブランチにある。
 
 # Taps
-tap "bufbuild/buf"
-tap "ktr0731/evans"
 tap "hashicorp/tap" # terraform は core から外れた
 
 # CLI tools
@@ -54,10 +52,6 @@ brew "just"
 brew "hyperfine"
 brew "sccache"
 brew "lua-language-server"
-brew "bufbuild/buf/buf"
-brew "ktr0731/evans/evans"
-brew "protobuf"
-brew "protolint"
 
 # Infrastructure
 brew "hashicorp/tap/terraform"
@@ -65,20 +59,15 @@ brew "kubernetes-cli"
 brew "minikube"
 brew "tailscale"
 
-# nvim-treesitter がパーサをコンパイルするのに C コンパイラが必要。
+# ビルドツール。gcc は nvim-treesitter のパーサ生成に、pkgconf は
+# cargo でビルドする sqlx-cli などが openssl-sys を通すのに必要。
 brew "gcc"
+brew "pkgconf"
 
 # Runtimes: mise で管理する (~/.config/mise/config.toml)
 #   node / ruby / rust / pnpm / bun と、npm 由来の yarn / prettierd / eslint_d は
 #   ここには置かない。brew と二重に持つと PATH の解決順で brew 側が勝ち、
 #   mise の固定が効かなくなる。
-
-# Services
-brew "redis"
-
-# Libraries (explicit dependencies)
-brew "ffmpeg"
-brew "vips"
 
 # Apps
 cask "claude-code"
@@ -89,5 +78,4 @@ cask "claude-code"
 
 # Go tools
 go "golang.org/x/tools/gopls"
-go "github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc"
 go "honnef.co/go/tools/cmd/staticcheck"
