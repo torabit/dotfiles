@@ -92,6 +92,10 @@ WSL 側のシェルで実行する。ssh 先では `powershell.exe` に届かな
 転送後、リモートのパスを Windows のクリップボードへ入れ替えるので、ssh 先の
 Claude Code では Ctrl+V でそのパスを貼り付ければよい。画像そのものは渡さない。
 
+tmux 内なら `Alt+V` で転送とパス挿入をまとめて実行できる (`tmux/.tmux.conf`)。
+tmux が WSL 側で動いていて、ssh はその中のペインなので、転送を WSL 側で走らせつつ
+結果を ssh ペインへ送り込める。Enter は送らないので内容を確認してから送信する。
+
 ローカルの Claude Code で Ctrl+V が効くのは、WSL 上のプロセスが `powershell.exe`
 経由でクリップボードを読めるため。ssh 先のプロセスにはその経路が無く、Ctrl+V は
 キーストロークが ssh 越しに送られるだけで画像データは流れない。
