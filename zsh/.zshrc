@@ -118,7 +118,7 @@ alias ls='ls --color=auto'
 alias ll='eza -l -h -@ -mU --icons --git --time-style=long-iso --color=auto --group-directories-first'
 alias l='ll -aa'
 alias vim='nvim'
-alias dot='cd ~/dotfiles'
+alias dot='cd $(ghq root)/github.com/torabit/dotfiles'
 alias tmuxs='tmux source-file ~/.tmux.conf'
 alias zshrc='vim ~/.zshrc'
 # WSL 固有: クリップボードは Windows 側が持つ。win32yank で橋渡しする。
