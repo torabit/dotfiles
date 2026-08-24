@@ -1,3 +1,5 @@
 lazygit/.config/lazygit/state.yml
+hunk/.config/hunk/state.json
 tmux/.tmux.conf.local
 neovim/.config/nvim/plugin/packer_compiled.lua
+**/*.local
