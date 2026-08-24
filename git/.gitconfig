@@ -8,6 +8,19 @@
 	helper = 
 	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
 [core]
+	pager = delta
 	quotepath = false
 	safecrlf = true
 	autocrlf = false
+[delta]
+	light = true
+	line-numbers = true
+	side-by-side = true
+[diff]
+	tool = hunk
+[difftool]
+	prompt = false
+[difftool "hunk"]
+	cmd = hunk difftool \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
+[ghq]
+	root = ~/ghq

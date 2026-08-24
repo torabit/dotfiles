@@ -1,11 +1,12 @@
-# misic
+# misc
 /tmp
 .envrc
-.env
 
-# cursor
-.cursor/*
+# claude
 **/.claude/settings.local.json
 
-# supowerpowers
+# local tsconfig override
+tsconfig.local.json
+
+# superpowers
 docs/plans/*
