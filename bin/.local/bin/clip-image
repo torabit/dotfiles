@@ -17,11 +17,14 @@
 #   CLIP_IMAGE_HOST        転送先ホスト (既定: lura)
 #   CLIP_IMAGE_REMOTE_DIR  リモートの保存先。ホーム基準の相対パス
 #                          (既定: .cache/clip-image)
+#   CLIP_IMAGE_KEEP_DAYS   リモートに残す日数。転送のついでに古い分を消すので
+#                          cron は要らない (既定: 7)
 
 set -euo pipefail
 
 host="${1:-${CLIP_IMAGE_HOST:-lura}}"
 remote_dir="${CLIP_IMAGE_REMOTE_DIR:-.cache/clip-image}"
+keep_days="${CLIP_IMAGE_KEEP_DAYS:-7}"
 
 powershell_exe=/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe
 if [[ ! -x "${powershell_exe}" ]]; then
@@ -54,8 +57,12 @@ fi
 name="clip-$(date +%Y%m%d-%H%M%S).png"
 remote_path="${remote_dir}/${name}"
 
-# 転送と絶対パスの取得を 1 回の ssh で済ませる。
-remote_cmd="mkdir -p '${remote_dir}' && cat > '${remote_path}' && readlink -f '${remote_path}'"
+# 転送のついでに古い分を消す。溜まり続けるのを防ぐためで、これがあるので
+# リモート側に cron を置かなくて済む。掃除の失敗は転送結果に影響させない。
+prune="find '${remote_dir}' -maxdepth 1 -type f -name 'clip-*.png' -mtime +${keep_days} -delete 2>/dev/null || true"
+
+# 転送、絶対パスの取得、掃除を 1 回の ssh で済ませる。
+remote_cmd="mkdir -p '${remote_dir}' && cat > '${remote_path}' && readlink -f '${remote_path}' && { ${prune}; }"
 
 # ssh config の LocalForward はファイル転送に不要。既存の ssh セッションと
 # ポートが衝突して "Address already in use" を出すため無効にする。
