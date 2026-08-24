@@ -42,7 +42,7 @@ setopt histignorealldups
 unsetopt share_history
 
 # Editor setting
-export EDITOR=vim
+export EDITOR=nvim
 
 # Hub
 eval "$(hub alias -s)"
@@ -73,8 +73,6 @@ alias git='hub'
 alias ls='ls --color=auto'
 alias ll='eza -l -h -@ -mU --icons --git --time-style=long-iso --color=automatic --group-directories-first'
 alias l='ll -aa'
-alias v='nvim'
-alias vi='nvim'
 alias vim='nvim'
 alias dot='cd ~/dotfiles'
 alias tmuxs='tmux source-file ~/.tmux.conf'
