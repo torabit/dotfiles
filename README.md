@@ -88,6 +88,14 @@ clip-image           # 既定の ssh 先へ転送
 clip-image myhost    # ホストを指定
 ```
 
+WSL 側のシェルで実行する。ssh 先では `powershell.exe` に届かないので動かない。
+転送後、リモートのパスを Windows のクリップボードへ入れ替えるので、ssh 先の
+Claude Code では Ctrl+V でそのパスを貼り付ければよい。画像そのものは渡さない。
+
+ローカルの Claude Code で Ctrl+V が効くのは、WSL 上のプロセスが `powershell.exe`
+経由でクリップボードを読めるため。ssh 先のプロセスにはその経路が無く、Ctrl+V は
+キーストロークが ssh 越しに送られるだけで画像データは流れない。
+
 Windows のクリップボードは `powershell.exe` 経由で読む。WSL 側の `xclip` や
 `wl-clipboard` は WSL 内のクリップボードを指すので Windows 側の内容は取れない。
 画像は PNG に変換して base64 で受け取る。`Clipboard.GetImage` は STA アパートメント

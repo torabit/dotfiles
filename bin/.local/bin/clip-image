@@ -57,6 +57,13 @@ remote_path="${remote_dir}/${name}"
 # 転送と絶対パスの取得を 1 回の ssh で済ませる。
 remote_cmd="mkdir -p '${remote_dir}' && cat > '${remote_path}' && readlink -f '${remote_path}'"
 
-abs="$(printf '%s' "${b64}" | base64 -d | ssh "${host}" "${remote_cmd}")"
+# ssh config の LocalForward はファイル転送に不要。既存の ssh セッションと
+# ポートが衝突して "Address already in use" を出すため無効にする。
+abs="$(printf '%s' "${b64}" | base64 -d | ssh -o ClearAllForwardings=yes "${host}" "${remote_cmd}")"
+
+# 転送先のパスを Windows のクリップボードへ入れ替える。ssh 先の Claude Code へ渡すのは
+# 画像ではなくこのパスなので、そのまま Ctrl+V で貼り付けられる。
+# 画像自体は転送済みなのでクリップボードに残す必要がない。
+"${powershell_exe}" -NoProfile -Sta -Command "Set-Clipboard -Value '${abs}'" 2>/dev/null || true
 
 echo "${abs}"
