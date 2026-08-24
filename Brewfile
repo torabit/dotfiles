@@ -9,6 +9,7 @@ brew "atuin"
 brew "awscli"
 brew "bat"
 brew "btop"
+brew "chafa" # 端末へ画像をインライン表示する
 brew "dust"
 brew "eza"
 brew "fd"

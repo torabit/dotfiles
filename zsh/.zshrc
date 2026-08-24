@@ -114,6 +114,10 @@ else
   clip() { printf '\e]52;c;%s\a' "$(base64 | tr -d '\n')" }
 fi
 alias clearbuff="clear && printf '\e[3J'"
+# 端末で画像を見る。Alacritty は画像プロトコル (sixel / kitty graphics) を実装して
+# いないので auto でも symbols に落ちるが、端末を変えても挙動が変わらないよう
+# 明示する。文字で描くので粗い。
+alias img='chafa -f symbols'
 
 # ── Functions ────────────────────────────────────────────────
 function create() {
