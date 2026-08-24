@@ -42,7 +42,12 @@ zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 WORDCHARS=${WORDCHARS//\/[&.;]}
-fpath=(~/.zfunc ~/.zsh/completions $fpath)
+# brew の zsh 5.9.2 は既定の fpath に Cellar/zsh/5.9 を焼き込んでいるが、その
+# バージョンのディレクトリは存在しない。旧バージョンが Cellar に残っている間は
+# 解決できていたが、brew cleanup で消えると compinit や add-zsh-hook などの
+# autoload 関数が一切引けなくなる。share/zsh/functions はバージョンに依存しない
+# ので明示的に足す。
+fpath=(~/.zfunc ~/.zsh/completions ${HOMEBREW_PREFIX}/share/zsh/functions $fpath)
 autoload -Uz compinit
 if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
   compinit
