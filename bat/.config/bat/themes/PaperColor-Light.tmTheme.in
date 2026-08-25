@@ -12,19 +12,19 @@
 			<key>settings</key>
 			<dict>
 				<key>background</key>
-				<string>#eeeeee</string>
+				<string>{{role.bg}}</string>
 				<key>foreground</key>
-				<string>#444444</string>
+				<string>{{role.fg}}</string>
 				<key>caret</key>
-				<string>#444444</string>
+				<string>{{role.fg}}</string>
 				<key>selection</key>
-				<string>#d7d7af</string>
+				<string>{{role.selection-bg}}</string>
 				<key>lineHighlight</key>
-				<string>#e4e4e4</string>
+				<string>{{role.hover-bg}}</string>
 				<key>gutterForeground</key>
-				<string>#878787</string>
+				<string>{{role.comment}}</string>
 				<key>gutterBackground</key>
-				<string>#eeeeee</string>
+				<string>{{role.bg}}</string>
 			</dict>
 		</dict>
 
@@ -37,7 +37,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#878787</string>
+				<string>{{role.comment}}</string>
 				<key>fontStyle</key>
 				<string>italic</string>
 			</dict>
@@ -52,7 +52,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#5f8700</string>
+				<string>{{role.string}}</string>
 			</dict>
 		</dict>
 
@@ -65,7 +65,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#d75f00</string>
+				<string>{{role.accent-warm}}</string>
 			</dict>
 		</dict>
 
@@ -78,7 +78,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#d75f00</string>
+				<string>{{role.accent-warm}}</string>
 			</dict>
 		</dict>
 
@@ -91,7 +91,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#005faf</string>
+				<string>{{role.keyword}}</string>
 			</dict>
 		</dict>
 
@@ -104,7 +104,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#444444</string>
+				<string>{{role.fg}}</string>
 			</dict>
 		</dict>
 
@@ -117,7 +117,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#005faf</string>
+				<string>{{role.keyword}}</string>
 			</dict>
 		</dict>
 
@@ -130,7 +130,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#444444</string>
+				<string>{{role.fg}}</string>
 			</dict>
 		</dict>
 
@@ -143,7 +143,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#8700af</string>
+				<string>{{colors.purple}}</string>
 			</dict>
 		</dict>
 
@@ -156,7 +156,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#444444</string>
+				<string>{{role.fg}}</string>
 			</dict>
 		</dict>
 
@@ -169,7 +169,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#005faf</string>
+				<string>{{role.keyword}}</string>
 			</dict>
 		</dict>
 
@@ -182,7 +182,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#0087af</string>
+				<string>{{role.visual}}</string>
 			</dict>
 		</dict>
 
@@ -195,7 +195,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#005f87</string>
+				<string>{{role.accent-alt}}</string>
 			</dict>
 		</dict>
 
@@ -208,7 +208,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#0087af</string>
+				<string>{{role.visual}}</string>
 			</dict>
 		</dict>
 
@@ -221,7 +221,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#444444</string>
+				<string>{{role.fg}}</string>
 			</dict>
 		</dict>
 
@@ -234,7 +234,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#d75f00</string>
+				<string>{{role.accent-warm}}</string>
 			</dict>
 		</dict>
 
@@ -247,7 +247,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#af0000</string>
+				<string>{{role.error}}</string>
 			</dict>
 		</dict>
 
@@ -260,7 +260,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#008700</string>
+				<string>{{role.ok}}</string>
 			</dict>
 		</dict>
 
@@ -273,7 +273,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#af0000</string>
+				<string>{{role.error}}</string>
 			</dict>
 		</dict>
 
@@ -286,7 +286,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#d75f00</string>
+				<string>{{role.accent-warm}}</string>
 			</dict>
 		</dict>
 
@@ -299,7 +299,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#005f87</string>
+				<string>{{role.accent-alt}}</string>
 				<key>fontStyle</key>
 				<string>bold</string>
 			</dict>
@@ -340,7 +340,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#0087af</string>
+				<string>{{role.visual}}</string>
 			</dict>
 		</dict>
 
@@ -353,7 +353,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#d75f00</string>
+				<string>{{role.accent-warm}}</string>
 			</dict>
 		</dict>
 
@@ -366,7 +366,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#d75f00</string>
+				<string>{{role.accent-warm}}</string>
 			</dict>
 		</dict>
 	</array>

@@ -1,8 +1,10 @@
+local p = require("palette")
+
 local function set_hl()
-	vim.api.nvim_set_hl(0, "TabbyBuf", { fg = "#878787", bg = "#eeeeee" })
-	vim.api.nvim_set_hl(0, "TabbyBufCurrent", { fg = "#444444", bg = "#eeeeee", bold = true })
-	vim.api.nvim_set_hl(0, "TabbyBufModified", { fg = "#d70087", bg = "#eeeeee", bold = true })
-	vim.api.nvim_set_hl(0, "TabbyFill", { bg = "#eeeeee" })
+	vim.api.nvim_set_hl(0, "TabbyBuf", { fg = p.comment, bg = p.bg })
+	vim.api.nvim_set_hl(0, "TabbyBufCurrent", { fg = p.fg, bg = p.bg, bold = true })
+	vim.api.nvim_set_hl(0, "TabbyBufModified", { fg = p.accent, bg = p.bg, bold = true })
+	vim.api.nvim_set_hl(0, "TabbyFill", { bg = p.bg })
 end
 
 set_hl()

@@ -18,13 +18,13 @@ right_format = "${env_var.KUBE_FORK_TARGET_ENV}"
 palette = "papercolor"
 
 [palettes.papercolor]
-accent-alt = "#005f87"
-accent-warm = "#d75f00"
-comment = "#878787"
-error = "#af0000"
-ok = "#008700"
-purple = "#8700af"
-visual = "#0087af"
+accent-alt = "{{role.accent-alt}}"
+accent-warm = "{{role.accent-warm}}"
+comment = "{{role.comment}}"
+error = "{{role.error}}"
+ok = "{{role.ok}}"
+purple = "{{colors.purple}}"
+visual = "{{role.visual}}"
 
 [directory]
 style = "visual"
