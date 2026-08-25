@@ -69,9 +69,9 @@ brew "ffmpeg"
 brew "vips"
 
 # Apps
-cask "alacritty"
 cask "cursor"
 cask "gcloud-cli"
+cask "ghostty"
 cask "gitify"
 cask "macskk"
 cask "rubymine"
