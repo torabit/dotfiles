@@ -1,0 +1,26 @@
+# 配色は生成物 theme.conf から読む。色を変えるときは palette.json を直して just build
+config-file = theme.conf
+
+# HackGen35 Console NF は Regular / Bold のみ配布。italic は ghostty の合成に任せる
+font-family = HackGen35 Console NF
+font-size = 11.25
+
+# ssh 先に xterm-ghostty terminfo を自動インストールする
+# 失敗した host では TERM=xterm-256color に fallback する
+# no-cursor: プロンプトでカーソルが bar に変わるのを防ぎ block を維持する
+shell-integration-features = no-cursor,ssh-env,ssh-terminfo
+
+# alacritty の 10000 行相当。ghostty はバイト単位 (既定 10MB)。
+# 8B/セル × 300 列 × 10000 行 ≈ 24MB なので余裕を持たせる。確保は遅延される
+scrollback-limit = 40000000
+
+mouse-hide-while-typing = true
+
+# OSC 52 はコピー (write) のみ許可する。write の既定は allow なので read だけ塞ぐ
+clipboard-read = deny
+
+# 左右の Option を Alt として扱う (alacritty の option_as_alt = "Both")
+macos-option-as-alt = true
+
+window-padding-x = 0
+window-padding-y = 0
