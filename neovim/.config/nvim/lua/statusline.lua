@@ -1,3 +1,5 @@
+local p = require("palette")
+
 local function set_transparent()
 	local groups = {
 		"Normal",
@@ -16,7 +18,7 @@ local function set_transparent()
 	for _, g in ipairs(groups) do
 		vim.api.nvim_set_hl(0, g, { bg = "none" })
 	end
-	vim.api.nvim_set_hl(0, "TabLineFill", { bg = "none", fg = "#767676" })
+	vim.api.nvim_set_hl(0, "TabLineFill", { bg = "none", fg = p.slate })
 end
 
 set_transparent()

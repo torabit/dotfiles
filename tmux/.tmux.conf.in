@@ -87,34 +87,34 @@ bind -r C-l resize-pane -R 5
 # ── PaperColor Light Theme ────────────────────────────────────
 
 # Pane borders
-set -g pane-border-style "fg=#bcbcbc"
-set -g pane-active-border-style "fg=#d70087"
+set -g pane-border-style "fg={{role.border}}"
+set -g pane-active-border-style "fg={{role.accent}}"
 set -g pane-border-status off
 
 # Mode & message
-set -g mode-style "fg=#444444,bg=#d7d7af"
-set -g message-style "fg=#005f87,bg=#eeeeee"
-set -g message-command-style "fg=#af0000,bg=#eeeeee"
+set -g mode-style "fg={{role.fg}},bg={{role.selection-bg}}"
+set -g message-style "fg={{role.accent-alt}},bg={{role.bg}}"
+set -g message-command-style "fg={{role.error}},bg={{role.bg}}"
 
 # Status bar
 set -g status "on"
 set -g status-interval 5
 set -g status-justify left
 set -g status-position top
-set -g status-style "fg=#878787,bg=#eeeeee"
+set -g status-style "fg={{role.comment}},bg={{role.bg}}"
 
 set -g status-left-length 40
 set -g status-right-length 80
 
-set -g status-left "#{?client_prefix,#[fg=#eeeeee bg=#d70087 bold],#[fg=#d70087 bg=#eeeeee bold]} #S "
-set -g status-right "#[fg=#878787]#(cd #{pane_current_path}; git rev-parse --abbrev-ref HEAD 2>/dev/null) %H:%M "
+set -g status-left "#{?client_prefix,#[fg={{role.bg}} bg={{role.accent}} bold],#[fg={{role.accent}} bg={{role.bg}} bold]} #S "
+set -g status-right "#[fg={{role.comment}}]#(cd #{pane_current_path}; git rev-parse --abbrev-ref HEAD 2>/dev/null) %H:%M "
 
 # Window tabs
 setw -g window-status-separator ""
-setw -g window-status-activity-style "fg=#d75f00,bg=#eeeeee,underscore"
+setw -g window-status-activity-style "fg={{role.accent-warm}},bg={{role.bg}},underscore"
 setw -g window-status-style "NONE"
-setw -g window-status-format "#[fg=#878787,bg=#eeeeee] #I #{b:pane_current_path} "
-setw -g window-status-current-format "#[fg=#d70087,bg=#eeeeee,bold] #I #{b:pane_current_path} "
+setw -g window-status-format "#[fg={{role.comment}},bg={{role.bg}}] #I #{b:pane_current_path} "
+setw -g window-status-current-format "#[fg={{role.accent}},bg={{role.bg}},bold] #I #{b:pane_current_path} "
 
 # List of plugins
 set -g @plugin 'tmux-plugins/tpm'

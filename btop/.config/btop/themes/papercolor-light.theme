@@ -1,5 +1,6 @@
+#* 生成物。編集は papercolor-light.theme.in を直す。
 # Btop PaperColor Light theme
-# Based on PALETTE.md
+# Based on palette.json
 
 # Main background, empty for terminal default
 theme[main_bg]="#eeeeee"

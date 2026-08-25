@@ -1,5 +1,6 @@
+# 生成物。編集は config.toml.in を直す。
 # Hunk (https://hunk.dev) - review-first terminal diff viewer
-# 色は PALETTE.md (PaperColor Light) をハードコーディングする。
+# 色は palette.json から生成する。
 
 mode = "split"        # delta の side-by-side に合わせる
 cursor_line = "row"
