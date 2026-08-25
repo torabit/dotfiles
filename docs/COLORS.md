@@ -103,7 +103,7 @@ starship は include を持たないが `[palettes]` で間接層を張れる。
 
 ```bash
 GEN=$(git ls-files | grep '\.in$' | sed 's/\.in$//')
-EXCL=$(printf '%s\n' $GEN | sed 's#^#^#; s#$#$#' | paste -sd'|')
+EXCL=$(printf '%s\n' $GEN | sed 's#^#^#; s#$#$#' | paste -sd'|' -)
 grep -rnIE '#[0-9a-fA-F]{6}' \
   $(git ls-files | grep -vE "\.in$|^palette\.json$|^docs/|^build/|$EXCL") \
   || echo "なし"
