@@ -50,3 +50,22 @@ peach = "{{role.accent-warm}}"
 
 [ui]
 accent = "{{role.accent}}"
+tab_bar_right = [{ type = "datetime", format = "%H:%M" }]
+tab_bar_right_separator = " "
+
+# git branch は tab_bar_right に置かない。command エントリは herdr サーバ側で
+# 解決されるためフォーカス中 pane の作業ディレクトリを見られない。sidebar の
+# spaces 行が組み込みトークン branch で既定から表示している。
+
+window_title = "{workspace} {tab} @{hostname}"
+
+# tmux では bind c が即座に window を作っていた。名前の入力を挟まない。
+prompt_new_tab_name = false
+
+[session]
+resume_agents_on_restore = true
+
+[experimental]
+# img alias は chafa -f symbols で文字として描くため画像プロトコルを使わない。
+# 外側の端末が kitty graphics を実装したら有効にする。
+kitty_graphics = false
