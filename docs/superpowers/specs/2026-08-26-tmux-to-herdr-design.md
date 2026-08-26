@@ -26,7 +26,8 @@ herdr は tmux 互換ではない。設定は移植ではなく書き直しに�
 | `bind r` reload | reload config アクション |
 | `bind g` lazygit popup | `[[keys.command]] type = "popup"` |
 | `C-hjkl` resize | resize アクション |
-| `status-right` | `[ui] tab_bar_right` の `command` と `datetime` |
+| `status-right` の時計 | `[ui] tab_bar_right` の `datetime` |
+| `status-right` の git branch | sidebar の `branch` トークン (既定で表示) |
 | resurrect + continuum | ネイティブ永続化と `[session] resume_agents_on_restore` |
 | agent-sidebar | ネイティブ sidebar |
 | tpm + sensible | 不要 |
@@ -75,16 +76,28 @@ height = "80%"
 `zsh -c` は非ログイン非対話でも `.zshenv` を読むのでこれを使う。
 popup はフォーカス中 pane の作業ディレクトリを継承する。
 
-### 既定 config を見て決める分
+### 既定 config を実際に読んで判明した差分
 
-`bind -r e kill-pane -a` (他の pane を全て閉じる) と `C-S-Left` / `C-S-Right` (タブの並べ替え)
-は相当アクションの有無を docs から確認できなかった。`herdr --default-config` の出力で
-アクション名を探し、無ければ落とす。
+herdr 0.8.2 の `--default-config` を確認した結果、設計時の想定と 3 点食い違った。
+
+`bind -r e kill-pane -a` (他の pane を全て閉じる) に相当するアクションは存在しない。落とす。
+`prefix+e` は herdr では `edit_scrollback` が占めている。
+
+タブの並べ替えは `move_tab_previous` / `move_tab_next` があり、既定は未設定。
+`ctrl+shift+left` / `ctrl+shift+right` を割り当てて現行の操作を保つ。
+
+git branch は `tab_bar_right` に置かない。`command` エントリは herdr サーバ側で解決されるため、
+フォーカス中 pane の作業ディレクトリを見られない。代わりに `[ui.sidebar.spaces]` の組み込み
+トークン `branch` と `git_status` が既定で branch を表示するので、そのまま使う。
+`tab_bar_right` には `datetime` だけを置く。
+
+`prefix+g` は既定で `goto` (ワークスペースとペインのピッカー) が占めている。lazygit を
+`prefix+g` に置くには `goto` を空文字で解除する必要がある。解除が受け付けられなければ
+lazygit を `prefix+alt+g` にする。
 
 ### tab bar
 
-`[ui] tab_bar_right` に git branch を出す `command` エントリと `datetime` を置く。
-`command` は `interval_seconds` ごとに非同期で走り、成功時の最終行を使う。
+`[ui] tab_bar_right` に `datetime` を置く。git branch は sidebar の `branch` トークンが持つ。
 
 タブラベルは `#{b:pane_current_path}` に相当するトークンが無い。タブ名は手動 rename か
 pane の terminal title 依存になる。
@@ -94,6 +107,7 @@ pane の terminal title 依存になる。
 - tmux-thumbs。画面上のテキストをラベルで掴む機能に相当するものが無い。copy mode の `/` 検索と
   ダブルクリックのトークンコピーで代替する
 - タブラベルの作業ディレクトリ自動表示
+- `prefix+e` の kill-pane -a (他の pane を全て閉じる)。相当アクションが無い
 - wsl の ssh 警告色のうち pane border 側 (下記)
 
 ## ブランチ別の差分
@@ -145,6 +159,7 @@ thumbs を捨てるので `@thumbs-command` の win32yank 指定は消える。`
 
 自動:
 
+- `herdr config check` が診断なしで通る
 - `just check` が通る (生成物とテンプレートが一致する)
 - `just test` が通る
 - 手書きファイルに hex が残っていないか docs/COLORS.md のスウィープで確認する
@@ -162,7 +177,7 @@ wsl と darwin はこの環境から動作確認できない。`just check` と�
 
 ## 実施順序
 
-1. herdr をインストールし `herdr --default-config` を控える
+1. herdr をインストールし `herdr --default-config` を控える (完了。0.8.2)
 2. `herdr/.config/herdr/config.toml.in` を書き `just build`
 3. nvim のキーマップ
 4. zsh
