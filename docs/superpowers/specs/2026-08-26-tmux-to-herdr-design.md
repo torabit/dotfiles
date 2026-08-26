@@ -120,7 +120,7 @@ pane の terminal title 依存になる。
 [[keys.command]]
 key = "alt+v"
 type = "shell"
-command = 'p=$(clip-image) && herdr pane send-text "$HERDR_PANE_ID" "$p"'
+command = 'p=$(clip-image) && herdr pane send-text "$HERDR_ACTIVE_PANE_ID" "$p"'
 ```
 
 ssh 中の pane を警告色で示す条件付きスタイルは再現できない。herdr の pane border 色は静的で、
