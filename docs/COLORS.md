@@ -32,7 +32,7 @@
 | btop | `.config/btop/themes/papercolor-light.theme` |
 | bat | `.config/bat/themes/PaperColor-Light.tmTheme` |
 | hunk | `.config/hunk/config.toml` |
-| tmux | `.tmux.conf` |
+| herdr | `.config/herdr/config.toml` |
 | starship | `.config/starship.toml` |
 | パレット一覧 | `PALETTE.md` |
 
@@ -47,7 +47,7 @@
 | ツール | 反映方法 |
 | --- | --- |
 | bat | `bat cache --build` が必須。省くとテーマの変更が反映されない |
-| tmux | `tmuxs` alias (`tmux source-file ~/.tmux.conf`) |
+| herdr | `herdrs` alias (`herdr server reload-config`) |
 | fzf | `exec zsh` |
 | starship | 次のプロンプトで反映される。生成物は `starship.toml` 全体なので、直接編集は次の `just build` で失う（型 B） |
 | nvim | 再起動 |
@@ -75,7 +75,7 @@
 zsh (`source`)、lazygit (`LG_CONFIG_FILE` のカンマ区切りマージ) がこの型。
 
 **型 B**: 全文をテンプレートにする。ファイルが元々ほぼ色だけの場合 (btop theme、
-bat tmTheme、hunk config)、またはツールに include 機構が無い場合 (tmux、starship)。
+bat tmTheme、hunk config)、またはツールに include 機構が無い場合 (herdr、starship)。
 生成物の 1 行目に「生成物。編集は対応する `.in` を直す」を書く。
 
 starship は include を持たないが `[palettes]` で間接層を張れる。置換をパレットテーブルの
@@ -87,8 +87,8 @@ starship は include を持たないが `[palettes]` で間接層を張れる。
 置換して `.in` を外した兄弟パスへ書く。レンダラは出力形式の知識を持たない。ヘッダコメント
 はテンプレート自身が書く。
 
-置換対象は二重波括弧 `{{token}}` だけである。tmux の `#{pane_current_path}` のような単一
-波括弧は素通しする。
+置換対象は二重波括弧 `{{token}}` だけである。herdr の `{workspace}` のような単一波括弧は
+素通しする。
 
 `palette.json` 内の `{path}` は参照であり、レンダラが解決する。未定義参照と循環参照は
 `just build` が落ちる。
