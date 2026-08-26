@@ -1,6 +1,5 @@
 vim.g.mapleader = " " -- space for leader
 vim.g.maplocalleader = " " -- space for localleader
-vim.g.tmux_navigator_no_mappings = 1
 
 vim.keymap.set("n", "<leader>c", ":nohlsearch<CR>", { desc = "Clear search highlights" })
 
@@ -18,10 +17,22 @@ vim.keymap.set("n", "<leader>bd", function()
 	require("mini.bufremove").delete(0)
 end, { desc = "Delete buffer" })
 
-vim.keymap.set("n", "<A-h>", "<cmd>TmuxNavigateLeft<cr>", { desc = "Move to left window" })
-vim.keymap.set("n", "<A-j>", "<cmd>TmuxNavigateDown<cr>", { desc = "Move to bottom window" })
-vim.keymap.set("n", "<A-k>", "<cmd>TmuxNavigateUp<cr>", { desc = "Move to top window" })
-vim.keymap.set("n", "<A-l>", "<cmd>TmuxNavigateRight<cr>", { desc = "Move to right window" })
+-- nvim の split 内で動けなければ herdr の pane へ抜ける。herdr は pane の
+-- 実行中コマンドを見てキーを分岐できないので、判定をこちら側に持つ。
+local herdr_direction = { h = "left", j = "down", k = "up", l = "right" }
+local function nav(key)
+	return function()
+		local from = vim.fn.winnr()
+		vim.cmd.wincmd(key)
+		if vim.fn.winnr() == from then
+			vim.system({ "herdr", "pane", "focus", "--current", "--direction", herdr_direction[key] })
+		end
+	end
+end
+
+for key, direction in pairs(herdr_direction) do
+	vim.keymap.set("n", "<A-" .. key .. ">", nav(key), { desc = "Move to " .. direction .. " window or pane" })
+end
 
 vim.keymap.set("n", "<leader>sv", ":vsplit<CR>", { desc = "Split window vertically" })
 vim.keymap.set("n", "<leader>sh", ":split<CR>", { desc = "Split window horizontally" })
