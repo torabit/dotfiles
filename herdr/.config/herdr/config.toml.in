@@ -21,9 +21,13 @@ resize_pane_down = "prefix+ctrl+j"
 resize_pane_up = "prefix+ctrl+k"
 resize_pane_right = "prefix+ctrl+l"
 
-# Alt+hjkl は意図的にバインドしない。herdr は pane の実行中コマンドを見て
-# キーを分岐できず、未バインドのキーは PTY へ素通しされる。この性質を使い、
-# 移動するか否かの判定を nvim と zsh 側へ移す。
+# herdr は未バインドのキーを pane の中のプログラムへ素通しするため、herdr 側で
+# 受け取らないとエージェントや lazygit が動いている pane から抜けられない。
+# nvim の split 移動は nvim 既定の <C-w>hjkl に譲る。
+focus_pane_left = ["prefix+h", "alt+h"]
+focus_pane_down = ["prefix+j", "alt+j"]
+focus_pane_up = ["prefix+k", "alt+k"]
+focus_pane_right = ["prefix+l", "alt+l"]
 
 # WSL 固有: Windows のクリップボードの画像を ssh 先へ転送し、そのパスを
 # 現在の pane へ挿入する。ssh 先のプロセスは Windows のクリップボードに

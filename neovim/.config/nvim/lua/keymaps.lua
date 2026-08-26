@@ -17,23 +17,6 @@ vim.keymap.set("n", "<leader>bd", function()
 	require("mini.bufremove").delete(0)
 end, { desc = "Delete buffer" })
 
--- nvim の split 内で動けなければ herdr の pane へ抜ける。herdr は pane の
--- 実行中コマンドを見てキーを分岐できないので、判定をこちら側に持つ。
-local herdr_direction = { h = "left", j = "down", k = "up", l = "right" }
-local function nav(key)
-	return function()
-		local from = vim.fn.winnr()
-		vim.cmd.wincmd(key)
-		if vim.fn.winnr() == from and vim.fn.executable("herdr") == 1 then
-			vim.system({ "herdr", "pane", "focus", "--current", "--direction", herdr_direction[key] })
-		end
-	end
-end
-
-for key, direction in pairs(herdr_direction) do
-	vim.keymap.set("n", "<A-" .. key .. ">", nav(key), { desc = "Move to " .. direction .. " window or pane" })
-end
-
 vim.keymap.set("n", "<leader>sv", ":vsplit<CR>", { desc = "Split window vertically" })
 vim.keymap.set("n", "<leader>sh", ":split<CR>", { desc = "Split window horizontally" })
 vim.keymap.set("n", "<C-Up>", ":resize +2<CR>", { desc = "Increase window height" })
