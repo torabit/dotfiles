@@ -21,16 +21,23 @@ i use ```stow```
 # Usage
 in root dir
 
+リポジトリが `~/ghq` 配下にあるので `-t ~` でターゲットを明示する。省略すると
+親ディレクトリ (`~/ghq/github.com/torabit`) にリンクが張られる。
+
+`--no-folding` はディレクトリ自体ではなく中のファイルを個別にリンクする。これが無いと
+リンク先に存在しないディレクトリ (`~/.local` など) はディレクトリごと symlink にされ、
+stow 管理外のファイルを共存させられなくなる。
+
 `--ignore='\.in$'` は配色テンプレートの `.in` ファイルをリンク対象から外す。無いと
 `~/.config/zsh/palette.zsh.in` のような未使用のリンクがホームに増え、テンプレートを
 リネームしたときに `stow -D` で回収できず残留する。
 
 ### create link
 ```zsh
-stow -v --ignore='\.in$' dirname
+stow --no-folding --ignore='\.in$' -t ~ -v dirname
 ```
 
 ### unlink
 ```zsh
-stow -vD --ignore='\.in$' dirname
+stow -D --ignore='\.in$' -t ~ -v dirname
 ```
