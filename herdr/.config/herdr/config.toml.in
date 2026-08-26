@@ -76,6 +76,7 @@ prompt_new_tab_name = false
 resume_agents_on_restore = true
 
 [experimental]
-# img alias は chafa -f symbols で文字として描くため画像プロトコルを使わない。
-# 外側の端末が kitty graphics を実装したら有効にする。
-kitty_graphics = false
+# WSL 固有: tmux の allow-passthrough on を引き継ぐ。chafa -f kitty を手で
+# 指定したときに WSL 側から Windows 側の端末へ画像を通すのに使っていた。
+# herdr 側ではまだ experimental 扱いの機能。描画が乱れたら false に戻す。
+kitty_graphics = true

@@ -103,9 +103,10 @@ WSL 側のシェルで実行する。ssh 先では `powershell.exe` に届かな
 転送後、リモートのパスを Windows のクリップボードへ入れ替えるので、ssh 先の
 Claude Code では Ctrl+V でそのパスを貼り付ければよい。画像そのものは渡さない。
 
-tmux 内なら `Alt+V` で転送とパス挿入をまとめて実行できる (`tmux/.tmux.conf`)。
-tmux が WSL 側で動いていて、ssh はその中のペインなので、転送を WSL 側で走らせつつ
-結果を ssh ペインへ送り込める。Enter は送らないので内容を確認してから送信する。
+herdr でも `Alt+V` (`key = "alt+v"`) で転送とパス挿入をまとめて実行できる
+(`herdr/.config/herdr/config.toml`)。herdr サーバが WSL 側で動いていて、ssh はその
+配下の pane なので、転送を WSL 側で走らせつつ結果を ssh 先の pane へ送り込める。
+`herdr pane send-text` は Enter を送らないので内容を確認してから送信する。
 
 ローカルの Claude Code で Ctrl+V が効くのは、WSL 上のプロセスが `powershell.exe`
 経由でクリップボードを読めるため。ssh 先のプロセスにはその経路が無く、Ctrl+V は
@@ -122,11 +123,10 @@ Windows のクリップボードは `powershell.exe` 経由で読む。WSL 側�
 
 ## 画像のインライン表示
 
-`chafa` で端末に画像を出す。tmux は `allow-passthrough on` で kitty graphics を通す
-(`tmux/.tmux.conf`)。sixel は `terminal-features` に宣言していない。宣言すると tmux が
-DA1 へ sixel 対応と応答し、chafa が描画できない端末へ sixel を送るため。
+`chafa` で端末に画像を出す。herdr は `experimental.kitty_graphics` で kitty graphics の
+passthrough を通す (`herdr/.config/herdr/config.toml`)。tmux の `allow-passthrough on` を
+引き継いだ設定で、herdr 側ではまだ experimental 扱い。描画が乱れる場合は false に戻す。
 
 ```zsh
 chafa -f kitty path/to/image.png
-chafa -f sixels path/to/image.png
 ```
