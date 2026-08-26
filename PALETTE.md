@@ -63,7 +63,6 @@ dotfiles 全体で使用する PaperColor Light のカラーパレット。値�
 | accent (pink)    | `#d70087` | herdr accent、starship、fzf pointer      |
 | accent (cyan)    | `#005f87` | starship dir、fzf prompt、herdr teal     |
 | accent (orange)  | `#d75f00` | starship cmd_duration、lazygit           |
-| inactive         | `#878787` | fzf info                                 |
 | border           | `#bcbcbc` | fzf border、herdr surface1/overlay1      |
 | selection bg     | `#d7d7af` | fzf selected-bg、herdr selection_bg      |
 | hover bg         | `#e4e4e4` | fzf bg+                                  |
