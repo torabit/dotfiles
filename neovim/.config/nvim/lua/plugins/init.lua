@@ -43,8 +43,6 @@ vim.pack.add({
 	"https://github.com/kylechui/nvim-surround",
 	-- Marks
 	"https://github.com/chentoast/marks.nvim",
-	-- Tmux
-	"https://github.com/christoomey/vim-tmux-navigator",
 	-- Copilot
 	"https://github.com/zbirenbaum/copilot.lua",
 	-- Ruby/Rails
@@ -103,7 +101,6 @@ packadd("flash.nvim")
 packadd("nvim-surround")
 packadd("marks.nvim")
 packadd("fidget.nvim")
-packadd("vim-tmux-navigator")
 packadd("copilot.lua")
 packadd("vim-rails")
 packadd("vim-endwise")
