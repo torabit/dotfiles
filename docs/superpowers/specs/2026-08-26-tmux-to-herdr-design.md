@@ -23,7 +23,7 @@ herdr は tmux 互換ではない。設定は移植ではなく書き直しに�
 | `allow-passthrough on` | `[experimental] kitty_graphics`。既定 false のまま |
 | `mouse on` | `[ui] mouse_capture` |
 | `bind \| -` | `split_horizontal` / `split_vertical` を再バインド |
-| `bind r` reload | reload config アクション |
+| `bind r` reload | reload config アクション。既定キーが `prefix+shift+r` に変わる (`prefix+r` は resize_mode) |
 | `C-hjkl` resize | resize アクション |
 | `status-right` の時計 | `[ui] tab_bar_right` の `datetime` |
 | `status-right` の git branch | sidebar の `branch` トークン (既定で表示) |
@@ -102,7 +102,9 @@ pane の terminal title 依存になる。
 - タブラベルの作業ディレクトリ自動表示
 - `prefix+e` の kill-pane -a (他の pane を全て閉じる)。相当アクションが無い
 - `prefix+g` の lazygit popup。使用頻度が低く nvim の `<C-\>` で足りる
-- wsl の ssh 警告色のうち pane border 側 (下記)
+- wsl の ssh 警告色 (下記)
+- copy mode 中の Alt+hjkl。herdr の copy mode は herdr 自身の UI で、未バインドキーの
+  PTY 素通しが tmux の copy-mode-vi と同じように効くかは対話端末が無く未検証
 
 ## ブランチ別の差分
 
@@ -123,13 +125,13 @@ type = "shell"
 # custom command へ渡る pane ID の環境変数名は herdr の版で変わっている
 # (0.8.2 は HERDR_PANE_ID、新しい版は HERDR_ACTIVE_PANE_ID)。どちらの版でも
 # 動くよう両対応でフォールバックする。
-command = 'p=$(clip-image) && herdr pane send-text "${HERDR_ACTIVE_PANE_ID:-$HERDR_PANE_ID}" "$p"'
+command = 'p=$(clip-image) && herdr pane send-text "${HERDR_ACTIVE_PANE_ID:-$HERDR_PANE_ID}" "$p" || herdr notification show "clip-image" --body "クリップボードに画像がありません"'
 ```
 
 ssh 中の pane を警告色で示す条件付きスタイルは再現できない。herdr の pane border 色は静的で、
-pane の実行中コマンドを見て切り替える仕組みが無い。`tab_bar_right` の `command` エントリで
-フォーカス中の pane が ssh のときだけ `SSH` を出す形にし、status-left のバッジ側だけ残す。
-分割時にどの pane が ssh かは見分けられなくなる。
+pane の実行中コマンドを見て切り替える仕組みが無い。status-left のバッジ側で `tab_bar_right` の
+`command` エントリを使う案も検討したが、`herdr pane list` が返す JSON で pane ごとのフィールドを
+確認できず、フォーカス中の pane が ssh かどうかを判定する手段が無かった。バッジ側も落とした。
 
 thumbs を捨てるので `@thumbs-command` の win32yank 指定は消える。`clip` alias は win32yank の
 ままで変わらない。
