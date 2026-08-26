@@ -24,7 +24,6 @@ herdr は tmux 互換ではない。設定は移植ではなく書き直しに�
 | `mouse on` | `[ui] mouse_capture` |
 | `bind \| -` | `split_horizontal` / `split_vertical` を再バインド |
 | `bind r` reload | reload config アクション |
-| `bind g` lazygit popup | `[[keys.command]] type = "popup"` |
 | `C-hjkl` resize | resize アクション |
 | `status-right` の時計 | `[ui] tab_bar_right` の `datetime` |
 | `status-right` の git branch | sidebar の `branch` トークン (既定で表示) |
@@ -61,20 +60,15 @@ vim-tmux-navigator と `vim.g.tmux_navigator_no_mappings` は削除する。
 fzf など他の TUI が前面にいるときは効かない。現行の `is_vim` 正規表現も fzf を含んでおり
 キーを fzf へ渡しているので、挙動は変わらない。
 
-### lazygit popup
+### lazygit の popup は移さない
 
-```toml
-[[keys.command]]
-key = "prefix+g"
-type = "popup"
-command = "zsh -c lazygit"
-width = "80%"
-height = "80%"
-```
+tmux の `prefix+g` (display-popup -E lazygit) は移行しない。使用頻度が低く、nvim が
+`<C-\>` にフローティングターミナルを持っているのでそこから起動すれば足りる。
 
-`sh -c` では `.zshenv` が読まれず `LG_CONFIG_FILE` が未設定になり、テーマ分離が壊れる。
-`zsh -c` は非ログイン非対話でも `.zshenv` を読むのでこれを使う。
-popup はフォーカス中 pane の作業ディレクトリを継承する。
+これに伴い `[[keys.command]]` は linux と darwin では 1 つも書かない。`LG_CONFIG_FILE` を
+`.zshenv` に置く理由が「tmux の popup が非ログイン非対話シェルを経由するため」でなくなるので、
+コメントを実態に合わせて直す。変数の置き場所は `.zshenv` のまま変えない。起動経路に依らず
+効くという性質は popup が無くなっても有用で、動かす理由がない。
 
 ### 既定 config を実際に読んで判明した差分
 
@@ -91,9 +85,8 @@ git branch は `tab_bar_right` に置かない。`command` エントリは herdr
 トークン `branch` と `git_status` が既定で branch を表示するので、そのまま使う。
 `tab_bar_right` には `datetime` だけを置く。
 
-`prefix+g` は既定で `goto` (ワークスペースとペインのピッカー) が占めている。lazygit を
-`prefix+g` に置くには `goto` を空文字で解除する必要がある。解除が受け付けられなければ
-lazygit を `prefix+alt+g` にする。
+`prefix+g` は既定で `goto` (ワークスペースとペインのピッカー) が占めている。lazygit の popup は
+移さないことにしたので競合せず、`goto` は既定のまま残す。
 
 ### tab bar
 
@@ -108,6 +101,7 @@ pane の terminal title 依存になる。
   ダブルクリックのトークンコピーで代替する
 - タブラベルの作業ディレクトリ自動表示
 - `prefix+e` の kill-pane -a (他の pane を全て閉じる)。相当アクションが無い
+- `prefix+g` の lazygit popup。使用頻度が低く nvim の `<C-\>` で足りる
 - wsl の ssh 警告色のうち pane border 側 (下記)
 
 ## ブランチ別の差分
@@ -166,7 +160,6 @@ thumbs を捨てるので `@thumbs-command` の win32yank 指定は消える。`
 
 実機 (linux のみ):
 
-- prefix+g の lazygit がテーマ付きで開く
 - Alt+hjkl が nvim の split と herdr の pane を跨いで動く
 - Alt+hjkl がシェル pane でも動く
 - tab bar に git branch と時計が出る

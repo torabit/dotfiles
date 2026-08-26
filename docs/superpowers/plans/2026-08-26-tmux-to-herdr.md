@@ -68,9 +68,6 @@ resize_pane_down = "prefix+ctrl+j"
 resize_pane_up = "prefix+ctrl+k"
 resize_pane_right = "prefix+ctrl+l"
 
-# lazygit を prefix+g に置くため goto を解除する。
-goto = ""
-
 # Alt+hjkl は意図的にバインドしない。herdr は pane の実行中コマンドを見て
 # キーを分岐できず、未バインドのキーは PTY へ素通しされる。この性質を使い、
 # 移動するか否かの判定を nvim と zsh 側へ移す。
@@ -87,8 +84,7 @@ herdr config check
 Expected: 診断が出ずに通る。
 
 `prefix+|` が拒否された場合は `split_vertical = "prefix+v"` (既定) に戻し、テンプレートに
-理由をコメントで残す。`goto = ""` が拒否された場合は `goto` の行を削除し、後続タスクの
-lazygit を `prefix+alt+g` に置く。どちらも `herdr config check` の出力を根拠にする。
+理由をコメントで残す。判断は `herdr config check` の出力を根拠にする。
 
 - [ ] **Step 4: 生成物とテンプレートの一致を確認する**
 
@@ -189,7 +185,7 @@ git commit -m "feat(herdr): 配色を palette.json から生成する"
 
 ---
 
-### Task 3: lazygit の popup と tab bar と残りの UI を設定する
+### Task 3: tab bar と残りの UI を設定する
 
 **Files:**
 - Modify: `herdr/.config/herdr/config.toml.in`
@@ -198,24 +194,11 @@ git commit -m "feat(herdr): 配色を palette.json から生成する"
 - Consumes: Task 2 のテンプレート
 - Produces: 完成した `config.toml.in`
 
-- [ ] **Step 1: lazygit の popup を追記する**
+- [ ] **Step 1: tab bar と window title を追記する**
 
-```toml
-# lazygit。sh -c だと .zshenv を読まず LG_CONFIG_FILE が未設定になり、
-# config.yml と theme.yml のマージが効かない。zsh -c は非ログイン非対話でも
-# .zshenv を読む。
-[[keys.command]]
-key = "prefix+g"
-type = "popup"
-command = "zsh -c lazygit"
-description = "lazygit"
-width = "80%"
-height = "80%"
-```
-
-Task 1 の Step 3 で `goto = ""` が拒否されていた場合は `key = "prefix+alt+g"` にする。
-
-- [ ] **Step 2: tab bar と window title を追記する**
+tmux の `prefix+g` (lazygit の popup) は移さない。使用頻度が低く、nvim が `<C-\>` に
+フローティングターミナルを持っているのでそこから起動すれば足りる。linux と darwin では
+`[[keys.command]]` を 1 つも書かない。
 
 `[ui]` セクション (Task 2 で `accent` を書いた場所) に足す。
 
@@ -233,7 +216,7 @@ window_title = "{workspace} {tab} @{hostname}"
 prompt_new_tab_name = false
 ```
 
-- [ ] **Step 3: session と experimental を追記する**
+- [ ] **Step 2: session と experimental を追記する**
 
 ```toml
 [session]
@@ -248,7 +231,7 @@ kitty_graphics = false
 既定のままで足りるものは書かない。`mouse_capture` と `copy_on_select` は既定 true で
 tmux の `set -g mouse on` を満たす。copy mode は既定で vi 風に動く。
 
-- [ ] **Step 4: 生成して検証する**
+- [ ] **Step 3: 生成して検証する**
 
 ```bash
 just build && herdr config check && just check
@@ -256,11 +239,11 @@ just build && herdr config check && just check
 
 Expected: 3 つとも通る。
 
-- [ ] **Step 5: コミット**
+- [ ] **Step 4: コミット**
 
 ```bash
 git add herdr
-git commit -m "feat(herdr): lazygit の popup と tab bar を設定する"
+git commit -m "feat(herdr): tab bar と永続化を設定する"
 ```
 
 ---
@@ -414,12 +397,11 @@ fi
 
 - [ ] **Step 4: `.zshenv` のコメントを直す**
 
-`zsh/.zshenv` の 4 行目から 5 行目を置き換える。
+`zsh/.zshenv` の 4 行目から 5 行目を置き換える。変数の置き場所は動かさない。
 
 ```zsh
 # lazygit は後のファイルが前を上書きする形でマージする。テーマを分離しておく。
-# herdr の prefix+g は popup を sh 経由で起動するため .zshrc は読まれない。
-# command を zsh -c にして .zshenv を通す。ここに置く理由がそれ。
+# 非ログイン非対話シェルから起動されても効くよう .zshrc ではなくここに置く。
 ```
 
 - [ ] **Step 5: 動作を確認する**
@@ -549,7 +531,6 @@ herdr
 
 | 確認項目 | 期待 |
 | --- | --- |
-| `prefix+g` | lazygit が popup で開き、PaperColor Light のテーマが当たっている |
 | `prefix+\|` と `prefix+-` | 縦割りと横割りができる |
 | `<A-hjkl>` (シェル pane) | pane を跨いで移動する |
 | `<A-hjkl>` (nvim pane) | split 内で動き、端で pane へ抜ける |
