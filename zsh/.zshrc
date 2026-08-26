@@ -80,10 +80,13 @@ if (( $+commands[herdr] )); then
   zle -N _herdr_focus_down
   zle -N _herdr_focus_up
   zle -N _herdr_focus_right
-  bindkey '^[h' _herdr_focus_left
-  bindkey '^[j' _herdr_focus_down
-  bindkey '^[k' _herdr_focus_up
-  bindkey '^[l' _herdr_focus_right
+  for _keymap in viins vicmd; do
+    bindkey -M $_keymap '^[h' _herdr_focus_left
+    bindkey -M $_keymap '^[j' _herdr_focus_down
+    bindkey -M $_keymap '^[k' _herdr_focus_up
+    bindkey -M $_keymap '^[l' _herdr_focus_right
+  done
+  unset _keymap
 fi
 
 # ── Tools ────────────────────────────────────────────────────
