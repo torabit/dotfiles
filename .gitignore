@@ -1,5 +1,8 @@
 lazygit/.config/lazygit/state.yml
 hunk/.config/hunk/state.json
+herdr/.config/herdr/*
+!herdr/.config/herdr/config.toml
+!herdr/.config/herdr/config.toml.in
 neovim/.config/nvim/plugin/packer_compiled.lua
 **/*.local
 # stow パッケージの .local ディレクトリ (~/.local へのリンク元) は追跡する。
