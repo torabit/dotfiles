@@ -63,7 +63,6 @@ dotfiles 全体で使用する PaperColor Light のカラーパレット。値�
 | accent (pink)    | `{{role.accent}}` | herdr accent、starship、fzf pointer      |
 | accent (cyan)    | `{{role.accent-alt}}` | starship dir、fzf prompt、herdr teal     |
 | accent (orange)  | `{{role.accent-warm}}` | starship cmd_duration、lazygit           |
-| inactive         | `{{role.inactive}}` | fzf info                                 |
 | border           | `{{role.border}}` | fzf border、herdr surface1/overlay1      |
 | selection bg     | `{{role.selection-bg}}` | fzf selected-bg、herdr selection_bg      |
 | hover bg         | `{{role.hover-bg}}` | fzf bg+                                  |

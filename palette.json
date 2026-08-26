@@ -60,7 +60,6 @@
     "accent": "{colors.pink}",
     "accent-alt": "{colors.teal}",
     "accent-warm": "{colors.orange}",
-    "inactive": "{colors.gray}",
     "border": "{colors.silver}",
     "selection-bg": "{colors.sand}",
     "hover-bg": "{colors.mist}"
