@@ -46,19 +46,27 @@ tmux のスタイル指定より粒度が粗いので、配色は完全一致し
 
 `@sidebar_color_*` の 30 行は herdr のネイティブ sidebar に吸収されて消える。
 
-### Alt+hjkl の判定を反転する
+### Alt+hjkl を herdr へ直バインドする
 
 herdr は pane の実行中コマンドを見てキーを分岐できない。未バインドのキーは PTY へ素通しされる。
-この性質を使い、判定を herdr 側から呼び出し側へ移す。
 
-- herdr: Alt+hjkl を一切バインドしない
-- nvim: `<A-h>` で `wincmd h` を試し、`winnr()` が変わらなければ `herdr pane focus --direction left` を呼ぶ
-- zsh: zle widget で同じコマンドを呼ぶ
+当初はこの性質を使い、判定を herdr 側から呼び出し側へ移す設計にした。herdr は Alt+hjkl を
+一切バインドせず、nvim は `wincmd` を試して `winnr()` が変わらなければ `herdr pane focus` を
+呼び、zsh は zle widget で同じコマンドを呼ぶ。
 
-vim-tmux-navigator と `vim.g.tmux_navigator_no_mappings` は削除する。
+検証: 実機で Claude Code、lazygit、btop、less、fzf を pane に立てて Alt+hjkl を押した。
+観測: いずれの pane でも Alt+hjkl は pane 内のプログラムが自分のキーとして受け取り、pane は
+動かなかった。未バインドのキーが PTY へ素通しされる herdr の挙動どおりで、判定を nvim と zsh
+側に置いても、それらが動いていない pane には判定を持つ場所自体が無い。
+結論: nvim と素の zsh 以外では Alt+hjkl が完全に死ぬ。エージェントを pane で走らせるのが herdr
+を使う理由なので、一番使う場面で効かず実運用で破綻した。
 
-fzf など他の TUI が前面にいるときは効かない。現行の `is_vim` 正規表現も fzf を含んでおり
-キーを fzf へ渡しているので、挙動は変わらない。
+最終的に Alt+hjkl を herdr の `focus_pane_*` へ直バインドし、nvim の split 移動は nvim 既定の
+`<C-w>hjkl` に譲った。引き換えに、nvim の split と herdr の pane をひと続きに移動する使い勝手は
+失われた。`<C-w>hjkl` は split の境界で止まり、pane へ抜けるには herdr 側の Alt+hjkl へ
+持ち替える必要がある。
+
+vim-tmux-navigator を削除する判断自体は変わらない。herdr では機能しないため。
 
 ### lazygit の popup は移さない
 
@@ -105,6 +113,8 @@ pane の terminal title 依存になる。
 - wsl の ssh 警告色 (下記)
 - copy mode 中の Alt+hjkl。herdr の copy mode は herdr 自身の UI で、未バインドキーの
   PTY 素通しが tmux の copy-mode-vi と同じように効くかは対話端末が無く未検証
+- nvim の split と herdr の pane をひと続きに移動する使い勝手。Alt+hjkl を herdr へ直バインド
+  したため、nvim の split 内は `<C-w>hjkl` に持ち替える必要がある
 
 ## ブランチ別の差分
 
