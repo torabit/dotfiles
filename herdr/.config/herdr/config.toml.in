@@ -24,3 +24,29 @@ resize_pane_right = "prefix+ctrl+l"
 # Alt+hjkl は意図的にバインドしない。herdr は pane の実行中コマンドを見て
 # キーを分岐できず、未バインドのキーは PTY へ素通しされる。この性質を使い、
 # 移動するか否かの判定を nvim と zsh 側へ移す。
+
+# ── PaperColor Light ──────────────────────────────────────────
+# 組み込みテーマは全て暗い。基底の上から全トークンを上書きする。
+[theme.custom]
+accent = "{{role.accent}}"
+panel_bg = "{{role.bg}}"
+sidebar_bg = "{{role.bg}}"
+active_row_bg = "{{role.hover-bg}}"
+selection_bg = "{{role.selection-bg}}"
+surface0 = "{{role.hover-bg}}"
+surface1 = "{{role.border}}"
+surface_dim = "{{role.bg}}"
+overlay0 = "{{role.comment}}"
+overlay1 = "{{role.border}}"
+text = "{{role.fg}}"
+subtext0 = "{{role.comment}}"
+mauve = "{{colors.purple}}"
+green = "{{role.ok}}"
+yellow = "{{colors.brown}}"
+red = "{{role.error}}"
+blue = "{{role.keyword}}"
+teal = "{{role.accent-alt}}"
+peach = "{{role.accent-warm}}"
+
+[ui]
+accent = "{{role.accent}}"
