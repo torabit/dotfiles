@@ -125,16 +125,6 @@ keys = [
   # (frontends/rioterm/src/bindings/mod.rs の platform_key_bindings)。
   # 端末上のアプリへ渡っていた F11 (CSI 23~) は届かなくなる。
   { key = "F11", action = "ToggleFullscreen" },
-
-  # Ctrl+V で貼り付ける。既定は Ctrl+Shift+V のみ
-  # (frontends/rioterm/src/bindings/mod.rs の platform_key_bindings)。
-  # 端末上のアプリへ渡っていた SYN (0x16) は届かなくなる。
-  #
-  # mode = "~vi" は必須。Rio は同じトリガの既定バインドを消してから
-  # ユーザー定義を追加する (bindings/mod.rs の config_key_bindings)。
-  # mode 未指定だと vi モードの Ctrl+V (ToggleBlockSelection) まで消える。
-  # 既定の Paste も同じく ~vi で登録されている。
-  { key = "v", with = "control", action = "Paste", mode = "~vi" },
 ]
 
 [hints]
