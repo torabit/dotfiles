@@ -24,7 +24,7 @@ local function nav(key)
 	return function()
 		local from = vim.fn.winnr()
 		vim.cmd.wincmd(key)
-		if vim.fn.winnr() == from then
+		if vim.fn.winnr() == from and vim.fn.executable("herdr") == 1 then
 			vim.system({ "herdr", "pane", "focus", "--current", "--direction", herdr_direction[key] })
 		end
 	end
