@@ -79,6 +79,23 @@ bindkey -M viins '^G'   edit-command-line  # 既定の list-expand を置き換�
 bindkey -M vicmd '^G'   edit-command-line
 bindkey -M vicmd 'v'    edit-command-line  # 既定の visual-mode を置き換え
 
+# herdr の pane 移動。herdr 側では Alt+hjkl をバインドせず、キーはここへ届く。
+# nvim も同じ判定を自前で持つ (neovim/.config/nvim/lua/keymaps.lua)。
+if (( $+commands[herdr] )); then
+  _herdr_focus_left()  { herdr pane focus --current --direction left  >/dev/null 2>&1 }
+  _herdr_focus_down()  { herdr pane focus --current --direction down  >/dev/null 2>&1 }
+  _herdr_focus_up()    { herdr pane focus --current --direction up    >/dev/null 2>&1 }
+  _herdr_focus_right() { herdr pane focus --current --direction right >/dev/null 2>&1 }
+  zle -N _herdr_focus_left
+  zle -N _herdr_focus_down
+  zle -N _herdr_focus_up
+  zle -N _herdr_focus_right
+  bindkey '^[h' _herdr_focus_left
+  bindkey '^[j' _herdr_focus_down
+  bindkey '^[k' _herdr_focus_up
+  bindkey '^[l' _herdr_focus_right
+fi
+
 # ── Tools ────────────────────────────────────────────────────
 (( $+commands[mise] )) && eval "$(mise activate zsh)"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --glob "!.git/*"'
@@ -93,13 +110,11 @@ alias l='ll -aa'
 alias v='nvim'
 alias vi='nvim'
 alias vim='nvim'
-alias tmuxs='tmux source-file ~/.tmux.conf'
+alias herdrs='herdr server reload-config'
 if (( $+commands[wl-copy] )); then
   alias clip='wl-copy'
 elif (( $+commands[xclip] )); then
   alias clip='xclip -selection clipboard'
-elif [[ -n $TMUX ]]; then
-  alias clip='tmux load-buffer -w -'
 else
   # OSC 52: let the terminal emulator own the clipboard (works over SSH)
   clip() { printf '\e]52;c;%s\a' "$(base64 | tr -d '\n')" }
