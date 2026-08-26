@@ -31,7 +31,7 @@ resize_pane_right = "prefix+ctrl+l"
 [[keys.command]]
 key = "alt+v"
 type = "shell"
-command = 'p=$(clip-image) && herdr pane send-text "$HERDR_PANE_ID" "$p"'
+command = 'p=$(clip-image) && herdr pane send-text "$HERDR_ACTIVE_PANE_ID" "$p" || herdr notification show "clip-image" --body "クリップボードに画像がありません"'
 description = "clip-image のパスを挿入する"
 
 # ── PaperColor Light ──────────────────────────────────────────

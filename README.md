@@ -123,9 +123,10 @@ Windows のクリップボードは `powershell.exe` 経由で読む。WSL 側�
 
 ## 画像のインライン表示
 
-`chafa` で端末に画像を出す。herdr は `experimental.kitty_graphics` で kitty graphics の
-passthrough を通す (`herdr/.config/herdr/config.toml`)。tmux の `allow-passthrough on` を
-引き継いだ設定で、herdr 側ではまだ experimental 扱い。描画が乱れる場合は false に戻す。
+`chafa` で端末に画像を出す。herdr は `experimental.kitty_graphics` で attached client 向けに
+kitty graphics をローカルにレンダリングする (`herdr/.config/herdr/config.toml`)。escape 列を
+外側の端末へ素通しする tmux の `allow-passthrough on` とは機構が異なるが、由来はそちらを
+引き継いだ設定。herdr 側ではまだ experimental 扱いで、描画が乱れる場合は false に戻す。
 
 ```zsh
 chafa -f kitty path/to/image.png
