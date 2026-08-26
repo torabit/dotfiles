@@ -1,7 +1,7 @@
 lazygit/.config/lazygit/state.yml
 hunk/.config/hunk/state.json
-herdr/.config/herdr/*
-!herdr/.config/herdr/config.toml
-!herdr/.config/herdr/config.toml.in
+herdr/.config/herdr/herdr-server.log
+herdr/.config/herdr/.plugins.lock
+herdr/.config/herdr/herdr.sock
 neovim/.config/nvim/plugin/packer_compiled.lua
 **/*.local
