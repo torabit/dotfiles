@@ -69,26 +69,6 @@ bindkey -M viins '^G'   edit-command-line  # 既定の list-expand を置き換�
 bindkey -M vicmd '^G'   edit-command-line
 bindkey -M vicmd 'v'    edit-command-line  # 既定の visual-mode を置き換え
 
-# herdr の pane 移動。herdr 側では Alt+hjkl をバインドせず、キーはここへ届く。
-# nvim も同じ判定を自前で持つ (neovim/.config/nvim/lua/keymaps.lua)。
-if (( $+commands[herdr] )); then
-  _herdr_focus_left()  { herdr pane focus --current --direction left  >/dev/null 2>&1 }
-  _herdr_focus_down()  { herdr pane focus --current --direction down  >/dev/null 2>&1 }
-  _herdr_focus_up()    { herdr pane focus --current --direction up    >/dev/null 2>&1 }
-  _herdr_focus_right() { herdr pane focus --current --direction right >/dev/null 2>&1 }
-  zle -N _herdr_focus_left
-  zle -N _herdr_focus_down
-  zle -N _herdr_focus_up
-  zle -N _herdr_focus_right
-  for _keymap in viins vicmd; do
-    bindkey -M $_keymap '^[h' _herdr_focus_left
-    bindkey -M $_keymap '^[j' _herdr_focus_down
-    bindkey -M $_keymap '^[k' _herdr_focus_up
-    bindkey -M $_keymap '^[l' _herdr_focus_right
-  done
-  unset _keymap
-fi
-
 # ── Tools ────────────────────────────────────────────────────
 eval "$(mise activate zsh)"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --glob "!.git/*"'
