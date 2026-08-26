@@ -60,12 +60,12 @@ dotfiles 全体で使用する PaperColor Light のカラーパレット。値�
 
 | Role             | Hex       | 使用箇所                                 |
 |------------------|-----------|------------------------------------------|
-| accent (pink)    | `#d70087` | tmux アクティブ、starship、fzf pointer   |
-| accent (cyan)    | `#005f87` | starship dir、fzf prompt、tmux session   |
+| accent (pink)    | `#d70087` | herdr accent、starship、fzf pointer      |
+| accent (cyan)    | `#005f87` | starship dir、fzf prompt、herdr teal     |
 | accent (orange)  | `#d75f00` | starship cmd_duration、lazygit           |
-| inactive         | `#878787` | tmux 非アクティブ window、fzf info       |
-| border           | `#bcbcbc` | fzf border、tmux pane border             |
-| selection bg     | `#d7d7af` | fzf selected-bg、tmux mode               |
+| inactive         | `#878787` | fzf info                                 |
+| border           | `#bcbcbc` | fzf border、herdr surface1/overlay1      |
+| selection bg     | `#d7d7af` | fzf selected-bg、herdr selection_bg      |
 | hover bg         | `#e4e4e4` | fzf bg+                                  |
 
 ## 生成先
