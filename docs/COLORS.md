@@ -85,7 +85,7 @@ ANSI スロットの割り当てそのものを書く場所 (rio の `[colors]` 
 | `warn` | 警告 |
 | `visual` | 選択範囲、リンク、属性 |
 | `linenr` | 行番号 |
-| `accent` | 主アクセント。tmux アクティブ、fzf pointer |
+| `accent` | 主アクセント。herdr アクティブ、fzf pointer |
 | `accent-alt` | 副アクセント。fzf prompt、starship dir |
 | `accent-warm` | 第三アクセント。starship cmd_duration |
 | `inactive` | 非アクティブな要素 |

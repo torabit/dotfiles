@@ -25,6 +25,15 @@ resize_pane_right = "prefix+ctrl+l"
 # キーを分岐できず、未バインドのキーは PTY へ素通しされる。この性質を使い、
 # 移動するか否かの判定を nvim と zsh 側へ移す。
 
+# WSL 固有: Windows のクリップボードの画像を ssh 先へ転送し、そのパスを
+# 現在の pane へ挿入する。ssh 先のプロセスは Windows のクリップボードに
+# 触れないため画像を直接貼れない。転送は WSL 側で走らせる必要がある。
+[[keys.command]]
+key = "alt+v"
+type = "shell"
+command = 'p=$(clip-image) && herdr pane send-text "$HERDR_PANE_ID" "$p"'
+description = "clip-image のパスを挿入する"
+
 # ── PaperColor Light ──────────────────────────────────────────
 # 組み込みテーマは全て暗い。基底の上から全トークンを上書きする。
 [theme.custom]
