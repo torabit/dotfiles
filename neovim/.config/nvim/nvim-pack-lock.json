@@ -201,10 +201,6 @@
     "vim-rails": {
       "rev": "b0a5c76f86ea214ade36ab0b811e730c3f0add67",
       "src": "https://github.com/tpope/vim-rails"
-    },
-    "vim-tmux-navigator": {
-      "rev": "e41c431a0c7b7388ae7ba341f01a0d217eb3a432",
-      "src": "https://github.com/christoomey/vim-tmux-navigator"
     }
   }
 }
