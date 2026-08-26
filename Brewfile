@@ -19,6 +19,7 @@ brew "ghq"
 brew "git"
 brew "git-delta"
 brew "go"
+brew "herdr"
 brew "hunk"
 brew "jq"
 brew "lazygit"
@@ -29,7 +30,6 @@ brew "ripgrep"
 brew "starship"
 brew "stow"
 brew "the_silver_searcher"
-brew "tmux"
 brew "tree"
 brew "typos-cli"
 brew "unzip"
@@ -70,8 +70,8 @@ brew "vips"
 # Apps
 cask "claude-code"
 
-# Clipboard bridge for nvim/tmux. Only needed with a GUI session;
-# on headless boxes OSC 52 is used instead (see .tmux.conf / .zshrc).
+# Clipboard bridge for nvim. Only needed with a GUI session;
+# on headless boxes OSC 52 is used instead (see .zshrc).
 # brew "wl-clipboard"
 # brew "xclip"
 
