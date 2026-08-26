@@ -28,10 +28,13 @@ resize_pane_right = "prefix+ctrl+l"
 # WSL 固有: Windows のクリップボードの画像を ssh 先へ転送し、そのパスを
 # 現在の pane へ挿入する。ssh 先のプロセスは Windows のクリップボードに
 # 触れないため画像を直接貼れない。転送は WSL 側で走らせる必要がある。
+# custom command へ渡る pane ID の環境変数名は herdr の版で変わっている
+# (0.8.2 は HERDR_PANE_ID、新しい版は HERDR_ACTIVE_PANE_ID)。どちらの版でも
+# 動くよう両対応でフォールバックする。
 [[keys.command]]
 key = "alt+v"
 type = "shell"
-command = 'p=$(clip-image) && herdr pane send-text "$HERDR_ACTIVE_PANE_ID" "$p" || herdr notification show "clip-image" --body "クリップボードに画像がありません"'
+command = 'p=$(clip-image) && herdr pane send-text "${HERDR_ACTIVE_PANE_ID:-$HERDR_PANE_ID}" "$p" || herdr notification show "clip-image" --body "クリップボードに画像がありません"'
 description = "clip-image のパスを挿入する"
 
 # ── PaperColor Light ──────────────────────────────────────────
