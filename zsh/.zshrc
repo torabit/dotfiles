@@ -132,10 +132,6 @@ alias l='ll -aa'
 alias vim='nvim'
 alias dot='cd $(ghq root)/github.com/torabit/dotfiles'
 alias herdrs='herdr server reload-config'
-# ssh でログインしてから向こうで herdr を起動するのとは別物。--remote は client を
-# 手元に残したまま lura の server へ繋ぐので、通知音の再生とクリップボードが
-# WSL 側で動く。向こうで起動すると client もリモートに居るため音は鳴らない。
-alias herdrl='herdr --remote lura'
 alias zshrc='vim ~/.zshrc'
 # WSL 固有: クリップボードは Windows 側が持つ。win32yank で橋渡しする。
 # X も Wayland も無いので wl-copy と xclip は使えない。
