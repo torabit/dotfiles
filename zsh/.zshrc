@@ -165,8 +165,19 @@ function g() {
 # 取らず、転送のジッタで枯れてノイズが乗る。libpulse に外から buffer 長を指示して
 # 回避する。実効 1s 確保すれば消える (270ms ではまだ乗った)。
 # 変数は libpulse 全体に効くので、他のプログラムを巻き込まないよう herdr に絞る。
+#
+# WSL 固有: ConPTY は OSC 10/11 (端末の既定 fg/bg の問い合わせ) を Rio まで通さない。
+# herdr は色を得られず fg=白 / bg=黒 の既定に落ち、pane のカーソルと copy mode の
+# 選択を白で塗る。TUI 起動だけ pty shim を挟んで palette の実値を返す。
+# 詳細は ~/.config/herdr/bin/host-colors.py の docstring。
 function herdr() {
-  PULSE_LATENCY_MSEC=2000 command herdr "$@"
+  # サブコマンド (herdr pane ... など) は shim を通さない。TUI 起動は引数なしか、
+  # hr の --remote-keybindings のようにオプションから始まる。
+  if (( $# == 0 )) || [[ $1 == -* ]]; then
+    PULSE_LATENCY_MSEC=2000 python3 "$HOME/.config/herdr/bin/host-colors.py" "$@"
+  else
+    PULSE_LATENCY_MSEC=2000 command herdr "$@"
+  fi
 }
 
 # ── Local overrides ─────────────────────────────────────────
