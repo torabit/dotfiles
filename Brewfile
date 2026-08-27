@@ -8,6 +8,8 @@ tap "oven-sh/bun"
 # CLI tools
 brew "atuin"
 brew "awscli"
+# herdr-thumbs の overlay.sh が mapfile 等 bash 4 の機能を使う。macOS の /bin/bash は 3.2
+brew "bash"
 brew "bat"
 brew "btop"
 brew "dust"
