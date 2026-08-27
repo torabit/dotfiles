@@ -8,6 +8,13 @@ My dotfiles
 just build
 ```
 
+commit 前に `just check` を走らせる pre-commit hook を `.githooks/` に置いている。
+clone 後に一度だけ有効化する。
+
+```zsh
+git config core.hooksPath .githooks
+```
+
 i use ```stow```
 
 # Usage

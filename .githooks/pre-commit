@@ -1,0 +1,8 @@
+#!/bin/sh
+# 生成物とテンプレートの乖離を commit 前に止める。
+# lazygit 等が symlink 越しに生成物だけを書き換えることがある (50d6c9a の再発防止)。
+just check || {
+    echo "just check が失敗した。テンプレート (.in) と生成物がずれている。" >&2
+    echo "テンプレートを直して just build で再生成してから commit する。" >&2
+    exit 1
+}
