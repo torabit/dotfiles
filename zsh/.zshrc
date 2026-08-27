@@ -158,6 +158,16 @@ function g() {
   fi
 }
 
+# WSL 固有: 通知音を鳴らすのは server ではなく herdr の client プロセス。音源は
+# 48kHz の mp3 で、mp3 を扱えるのが mpg123 しかないため必ずそれが使われる。
+# WSLg の RDPSink は実レイテンシが 97ms あるのに mpg123 は buffer を 145ms しか
+# 取らず、転送のジッタで枯れてノイズが乗る。libpulse に外から buffer 長を指示して
+# 回避する。実効 1s 確保すれば消える (270ms ではまだ乗った)。
+# 変数は libpulse 全体に効くので、他のプログラムを巻き込まないよう herdr に絞る。
+function herdr() {
+  PULSE_LATENCY_MSEC=2000 command herdr "$@"
+}
+
 # ── Local overrides ─────────────────────────────────────────
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
