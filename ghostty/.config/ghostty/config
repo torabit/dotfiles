@@ -24,3 +24,7 @@ macos-option-as-alt = true
 
 window-padding-x = 0
 window-padding-y = 0
+
+# alacritty の hints (ctrl+shift+u) 相当。herdr prefix (C-a = \x01) + space を送り
+# herdr-thumbs を起動する。herdr 外では C-a と空白の入力になるだけ
+keybind = ctrl+shift+u=text:\x01\x20
