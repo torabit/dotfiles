@@ -67,7 +67,28 @@ autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey -M viins '^G'   edit-command-line  # 既定の list-expand を置き換え
 bindkey -M vicmd '^G'   edit-command-line
-bindkey -M vicmd 'v'    edit-command-line  # 既定の visual-mode を置き換え
+
+# vi のモードはプロンプト記号ではなくカーソル形状で示す。starship は zsh の visual
+# mode を判別できず (starship#6390)、記号を出すには再描画のたびに starship と
+# git status を走らせることになる。形状なら描画コストがかからない。
+# visual mode の範囲は fast-syntax-highlighting が反転させるので、形状は vicmd と
+# 同じでよい。ohmyzsh#8004 と同じ割り当て。
+_vi_cursor_shape() {
+  case $KEYMAP in
+    vicmd|visual) print -n '\e[2 q' ;;  # 塗りつぶし
+    *)            print -n '\e[6 q' ;;  # 縦棒
+  esac
+}
+# starship も zle-keymap-select を張る。zle -N で直接束ねると片方が落ちるので
+# add-zle-hook-widget を使う。starship 側は既存の widget を見つけて包む実装。
+autoload -Uz add-zle-hook-widget
+add-zle-hook-widget keymap-select _vi_cursor_shape
+add-zle-hook-widget line-init _vi_cursor_shape
+
+# 実行するコマンドに vicmd の形状を引き継がせない。
+_vi_cursor_reset() { print -n '\e[6 q' }
+autoload -Uz add-zsh-hook
+add-zsh-hook preexec _vi_cursor_reset
 
 # ── Tools ────────────────────────────────────────────────────
 eval "$(mise activate zsh)"
