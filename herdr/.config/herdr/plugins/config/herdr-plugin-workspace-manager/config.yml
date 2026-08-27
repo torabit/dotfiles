@@ -1,0 +1,23 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/razajamil/herdr-plugin-workspace-manager/main/schema.json
+#
+# herdr worktree create で開いた workspace に自動適用されるレイアウト。
+# fresh な worktree workspace にのみ適用され、main checkout には触れない。
+# 導入は `herdr plugin install razajamil/herdr-plugin-workspace-manager`。
+
+globalLayout: agent-review
+
+layouts:
+  # 左: claude (ready まで待って起動)。右上: nvim。右下: hunk watch。
+  # 同方向の連続分割を避ける herdr 公式ガイドに沿った 左1 + 右2 構成。
+  - id: agent-review
+    tabs:
+      - title: code
+        panes:
+          - title: claude
+            agent: claude
+          - title: nvim
+            command: nvim
+            split: vertical
+          - title: hunk
+            command: hunk diff --watch
+            split: horizontal
