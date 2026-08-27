@@ -29,6 +29,15 @@ focus_pane_down = ["prefix+j", "alt+j"]
 focus_pane_up = ["prefix+k", "alt+k"]
 focus_pane_right = ["prefix+l", "alt+l"]
 
+# 画面上の URL やパスを hint で拾う。tmux-thumbs の既定キー prefix+space を
+# 引き継ぐ。色と大文字 hint の挙動は plugins/config/sd2k.thumbs/config.env。
+# 導入は `herdr plugin install sd2k/herdr-thumbs` (Rust toolchain が必要)。
+[[keys.command]]
+key = "prefix+space"
+type = "plugin_action"
+command = "sd2k.thumbs.pick"
+description = "pick text"
+
 # ── PaperColor Light ──────────────────────────────────────────
 # 既定の基底は暗い。上流がトークンを増やしたときに暗い値が漏れないよう
 # 明るい基底を選び、その上から全トークンを上書きする。
