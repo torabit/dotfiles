@@ -6,6 +6,11 @@ prefix = "ctrl+a"
 # detach は tmux の prefix+d に合わせる。既定の prefix+q は使わない。
 detach = "prefix+d"
 
+# close は tmux の confirm-before に合わせて y を要求する。既定の即時 close を
+# 外し、prefix+x / prefix+shift+x を bin/confirm-close の popup に差し替える。
+close_pane = ""
+close_tab = ""
+
 # 分割の向きの呼び方が tmux と逆になっている。
 # herdr の split_vertical は縦線で割る (tmux の split-window -h)。
 split_vertical = "prefix+|"
@@ -37,6 +42,23 @@ key = "prefix+space"
 type = "plugin_action"
 command = "sd2k.thumbs.pick"
 description = "pick text"
+
+# close の確認モーダル。y だけが閉じる。上の close_pane / close_tab を参照。
+[[keys.command]]
+key = "prefix+x"
+type = "popup"
+command = '"$HOME/.config/herdr/bin/confirm-close" pane'
+description = "close pane (confirm)"
+width = 44
+height = 5
+
+[[keys.command]]
+key = "prefix+shift+x"
+type = "popup"
+command = '"$HOME/.config/herdr/bin/confirm-close" tab'
+description = "close tab (confirm)"
+width = 44
+height = 5
 
 # ── PaperColor Light ──────────────────────────────────────────
 # 既定の基底は暗い。上流がトークンを増やしたときに暗い値が漏れないよう

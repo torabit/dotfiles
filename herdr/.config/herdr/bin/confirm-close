@@ -1,0 +1,23 @@
+#!/bin/sh
+# prefix+x / prefix+shift+x の popup から呼ばれる確認モーダル。
+# tmux の confirm-before 相当で、y を押したときだけ閉じる。
+# 引数は pane か tab。対象 id は herdr が popup に渡す環境変数から取る。
+set -u
+
+kind=${1:-pane}
+herdr=${HERDR_BIN_PATH:-herdr}
+
+case $kind in
+  pane) target=${HERDR_ACTIVE_PANE_ID:-} ;;
+  tab)  target=${HERDR_ACTIVE_TAB_ID:-} ;;
+  *)    exit 1 ;;
+esac
+[ -n "$target" ] || exit 0
+
+printf '\n  close %s %s? [y/N] ' "$kind" "$target"
+stty -icanon -echo 2>/dev/null
+key=$(dd bs=1 count=1 2>/dev/null)
+stty icanon echo 2>/dev/null
+case $key in
+  y | Y) "$herdr" "$kind" close "$target" >/dev/null 2>&1 ;;
+esac
