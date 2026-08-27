@@ -34,6 +34,16 @@ focus_pane_down = ["prefix+j", "alt+j"]
 focus_pane_up = ["prefix+k", "alt+k"]
 focus_pane_right = ["prefix+l", "alt+l"]
 
+# navigate mode (prefix+w) の workspace 移動を j/k にする。既定の pane 移動が
+# j/k を使っていて衝突するため、pane 側は ctrl+hjkl へ退避する。
+# このキーは navigate mode 中だけ有効で、通常入力は奪わない。
+navigate_workspace_up = "k"
+navigate_workspace_down = "j"
+navigate_pane_left = "ctrl+h"
+navigate_pane_down = "ctrl+j"
+navigate_pane_up = "ctrl+k"
+navigate_pane_right = "ctrl+l"
+
 # WSL 固有: Windows のクリップボードの画像を ssh 先へ転送し、そのパスを
 # 現在の pane へ挿入する。ssh 先のプロセスは Windows のクリップボードに
 # 触れないため画像を直接貼れない。転送は WSL 側で走らせる必要がある。
@@ -111,6 +121,26 @@ window_title = "{workspace} {tab} @{hostname}"
 
 # tmux では bind c が即座に window を作っていた。名前の入力を挟まない。
 prompt_new_tab_name = false
+
+# claude の行は 2 行目を agent 名からセッション要約に差し替える。
+# terminal_title_stripped は Claude Code が OSC title に書くセッション要約。
+# ディレクトリ名は workspace トークン、git branch は spaces 行の既定表示が担う。
+[ui.sidebar.agents.rows_by_agent]
+# 2 行目は既定スタイルだと薄い theme.custom.overlay 系の前景になり読めないため、
+# fg で本文色を明示して dim を外す。
+claude = [
+  ["state_icon", "workspace", "tab"],
+  [{ token = "terminal_title_stripped", fg = "#444444", dim = false }],
+]
+
+# agent の完了/入力待ちを in-app toast で出す (既定は off)。アクティブなタブの
+# 分は抑制される。表示中の toast へは prefix+o (open_notification_target 既定) で
+# 遷移する。
+[ui.toast]
+delivery = "herdr"
+
+[ui.toast.herdr]
+position = "bottom-left"
 
 [session]
 # 値は herdr の既定と同じ true。tmux-resurrect と tmux-continuum の置き換えが
