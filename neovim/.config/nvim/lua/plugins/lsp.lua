@@ -109,7 +109,7 @@ vim.keymap.set("n", "<leader>dl", vim.diagnostic.open_float, { desc = "Show line
 -- Server configs and vim.lsp.enable are in lua/servers/
 require("servers")
 
--- fix diagnostic colors to match palette.json (must run after everything else)
+-- fix diagnostic colors to match the vanadis palette (must run after everything else)
 vim.api.nvim_set_hl(0, "DiagnosticFloatingError", { fg = p.error, bg = p.bg })
 vim.api.nvim_set_hl(0, "DiagnosticFloatingWarn", { fg = p.warn, bg = p.bg })
 vim.api.nvim_set_hl(0, "DiagnosticFloatingInfo", { fg = p.visual, bg = p.bg })
