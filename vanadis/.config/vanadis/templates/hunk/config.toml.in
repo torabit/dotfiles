@@ -1,25 +1,29 @@
-# 生成物。編集は config.toml.in を直す。
+# 生成物。編集は vanadis の templates/hunk/config.toml.in を直す。
 # Hunk (https://hunk.dev) - review-first terminal diff viewer
-# 色は palette.json から生成する。
+# 色は vanadis のテーマから生成する。
 
-mode = "split"        # delta の side-by-side に合わせる
+mode = "split"
 cursor_line = "row"
 line_numbers = true
 wrap_lines = false
 hunk_headers = true
-theme = "papercolor-light"
+theme = "{{meta.id}}"
 
-# github-light-default をベースに、UI 色だけ PaperColor Light で上書きする。
-# diff の背景ティント (addedBg / removedBg など) はベースの値をそのまま使う。
-[themes.papercolor-light]
-base = "github-light-default"
-label = "PaperColor Light"
+# ベーステーマの上から UI 色だけ上書きする。diff の背景ティント
+# (addedBg / removedBg など) はベースの値をそのまま使う。
+menu_bar = true
+agent_notes = true
+copy_decorations = false
+
+[themes.{{meta.id}}]
+base = "{{text.hunk-base}}"
+label = "{{meta.name}}"
 
 background = "{{role.bg}}"        # bg
 panel = "{{role.hover-bg}}"             # hover bg
 border = "{{role.border}}"            # border
 accent = "{{role.accent}}"            # accent (pink)
-accentMuted = "{{role.comment}}"       # inactive
+accentMuted = "{{role.inactive}}"       # inactive
 text = "{{role.fg}}"              # fg
 muted = "{{role.comment}}"             # comment
 selectedHunk = "{{role.selection-bg}}"      # selection bg

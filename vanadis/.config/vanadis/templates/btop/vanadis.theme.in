@@ -1,6 +1,6 @@
-#* 生成物。編集は papercolor-light.theme.in を直す。
-# Btop PaperColor Light theme
-# Based on palette.json
+#* 生成物。編集は vanadis の templates/btop/vanadis.theme.in を直す。
+# Btop {{meta.name}} theme
+# Based on vanadis theme {{meta.id}}
 
 # Main background, empty for terminal default
 theme[main_bg]="{{role.bg}}"
@@ -21,7 +21,7 @@ theme[selected_bg]="{{role.selection-bg}}"
 theme[selected_fg]="{{role.fg}}"
 
 # Color of inactive/disabled text
-theme[inactive_fg]="{{role.comment}}"
+theme[inactive_fg]="{{role.inactive}}"
 
 # Color of text appearing on top of graphs
 theme[graph_text]="{{role.comment}}"

@@ -1,4 +1,4 @@
-# 生成物。編集は config.toml.in を直す。
+# 生成物。編集は vanadis の templates/herdr/config.toml.in を直す。
 
 [keys]
 prefix = "ctrl+a"
@@ -70,11 +70,11 @@ description = "close tab (confirm)"
 width = 44
 height = 5
 
-# ── PaperColor Light ──────────────────────────────────────────
-# 既定の基底は暗い。上流がトークンを増やしたときに暗い値が漏れないよう
-# 明るい基底を選び、その上から全トークンを上書きする。
+# ── 配色 ──────────────────────────────────────────────────────
+# 基底は text.herdr-base でテーマ側から選ぶ。上流がトークンを増やしたとき
+# 基底の値が漏れないよう、その上から全トークンを上書きする。
 [theme]
-name = "catppuccin-latte"
+name = "{{text.herdr-base}}"
 
 [theme.custom]
 accent = "{{role.accent}}"

@@ -1,0 +1,70 @@
+# 各ツールの config を 1 つのパレットから生成する。テンプレートは templates/ に
+# 集約する。ツールが読むディレクトリに .in を置くと、btop のようにテーマ
+# ディレクトリを列挙するツールがそれをテーマとして拾う。
+#
+# output は生成物であり、dotfiles リポジトリには置かない。stow もコミットもしない。
+
+# vanadis apply --variant dark が引く表。テーマ名を直に書く場合は要らない。
+[auto]
+light = "papercolor-light"
+dark = "papercolor-dark"
+
+# vanadis cycle が回る順。
+[cycle]
+themes = ["papercolor-light", "papercolor-dark"]
+
+# bat は tmTheme の中の name でテーマを選ぶ。ファイル名では選ばない。切り替えても
+# BAT_THEME を追随させずに済むよう、name は固定名を書く。
+# cache --build は必須。省くと bat はキャッシュ済みのテーマを配り続ける。
+[[targets]]
+name = "bat"
+template = "templates/bat/vanadis.tmTheme.in"
+output = "~/.config/bat/themes/vanadis.tmTheme"
+reload = ["bat", "cache", "--build"]
+
+# btop はテーマディレクトリを列挙して中身をテーマ一覧に出す。papercolor-light.theme
+# のままだと gruvbox に切り替えた後もその名前で並ぶ。
+[[targets]]
+name = "btop"
+template = "templates/btop/vanadis.theme.in"
+output = "~/.config/btop/themes/vanadis.theme"
+
+# herdr は 2 つの config を持つので name はツール名ではなく target の識別子。
+[[targets]]
+name = "herdr"
+template = "templates/herdr/config.toml.in"
+output = "~/.config/herdr/config.toml"
+reload = ["herdr", "server", "reload-config"]
+
+[[targets]]
+name = "herdr-thumbs"
+template = "templates/herdr/config.env.in"
+output = "~/.config/herdr/plugins/config/sd2k.thumbs/config.env"
+
+[[targets]]
+name = "hunk"
+template = "templates/hunk/config.toml.in"
+output = "~/.config/hunk/config.toml"
+
+[[targets]]
+name = "lazygit"
+template = "templates/lazygit/theme.yml.in"
+output = "~/.config/lazygit/theme.yml"
+
+[[targets]]
+name = "nvim"
+template = "templates/neovim/palette.lua.in"
+output = "~/.config/nvim/lua/palette.lua"
+
+# starship はプロンプトを出すたびに config を読み直す。走らせるものは無い。
+[[targets]]
+name = "starship"
+template = "templates/starship/starship.toml.in"
+output = "~/.config/starship.toml"
+
+# fzf は色を環境変数から読むので、反映には exec zsh が要る。vanadis は子プロセス
+# なのでユーザのシェルを置き換えられない。reload には書けない。
+[[targets]]
+name = "zsh"
+template = "templates/zsh/palette.zsh.in"
+output = "~/.config/zsh/palette.zsh"

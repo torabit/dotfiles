@@ -1,4 +1,4 @@
--- 生成物。編集は palette.lua.in を直す。
+-- 生成物。編集は vanadis の templates/neovim/palette.lua.in を直す。
 return {
 	bg = "{{role.bg}}",
 	fg = "{{role.fg}}",

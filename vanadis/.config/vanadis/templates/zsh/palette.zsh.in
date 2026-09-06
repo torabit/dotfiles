@@ -1,7 +1,7 @@
-# 生成物。編集は palette.zsh.in を直す。
+# 生成物。編集は vanadis の templates/zsh/palette.zsh.in を直す。
 
 export FZF_DEFAULT_OPTS='
-  --color=light
+  --color={{meta.variant}}
   --color=fg:{{role.fg}},bg:{{role.bg}},hl:{{role.accent}}
   --color=fg+:{{role.fg}},bg+:{{role.hover-bg}},hl+:{{role.accent}}
   --color=selected-fg:{{role.fg}},selected-bg:{{role.selection-bg}}
