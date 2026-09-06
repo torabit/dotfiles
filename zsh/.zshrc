@@ -94,7 +94,7 @@ add-zsh-hook preexec _vi_cursor_reset
 eval "$(mise activate zsh)"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --glob "!.git/*"'
 [ -s "$HOME/.config/zsh/palette.zsh" ] && source "$HOME/.config/zsh/palette.zsh"
-export BAT_THEME='PaperColor-Light'
+export BAT_THEME='vanadis'
 [ -s "/Users/toranosukeujike/.bun/_bun" ] && source "/Users/toranosukeujike/.bun/_bun"
 
 # ── Aliases ──────────────────────────────────────────────────

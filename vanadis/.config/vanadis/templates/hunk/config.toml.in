@@ -1,0 +1,45 @@
+# 生成物。編集は vanadis の templates/hunk/config.toml.in を直す。
+# Hunk (https://hunk.dev) - review-first terminal diff viewer
+# 色は vanadis のテーマから生成する。
+
+mode = "split"
+cursor_line = "row"
+line_numbers = true
+wrap_lines = false
+hunk_headers = true
+theme = "{{meta.id}}"
+
+# ベーステーマの上から UI 色だけ上書きする。diff の背景ティント
+# (addedBg / removedBg など) はベースの値をそのまま使う。
+menu_bar = true
+agent_notes = true
+copy_decorations = false
+
+[themes.{{meta.id}}]
+base = "{{text.hunk-base}}"
+label = "{{meta.name}}"
+
+background = "{{role.bg}}"        # bg
+panel = "{{role.hover-bg}}"             # hover bg
+border = "{{role.border}}"            # border
+accent = "{{role.accent}}"            # accent (pink)
+accentMuted = "{{role.inactive}}"       # inactive
+text = "{{role.fg}}"              # fg
+muted = "{{role.comment}}"             # comment
+selectedHunk = "{{role.selection-bg}}"      # selection bg
+
+addedSignColor = "{{role.ok}}"    # green
+removedSignColor = "{{role.error}}"  # red
+lineNumberFg = "{{role.linenr}}"      # linenumber
+
+badgeAdded = "{{role.ok}}"
+badgeRemoved = "{{role.error}}"
+badgeNeutral = "{{role.comment}}"
+
+fileNew = "{{role.ok}}"
+fileModified = "{{role.accent-warm}}"      # accent (orange)
+fileDeleted = "{{role.error}}"
+fileRenamed = "{{role.visual}}"       # visual
+fileUntracked = "{{role.comment}}"
+
+noteBorder = "{{role.border}}"
