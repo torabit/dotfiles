@@ -56,6 +56,15 @@ name = "nvim"
 template = "templates/neovim/palette.lua.in"
 output = "~/.config/nvim/lua/palette.lua"
 
+# Claude Code はカスタムテーマを ~/.claude/themes/<slug>.json から読む。slug は
+# ファイル名で、settings.json 側は "theme": "custom:vanadis" を固定で持つ。テーマを
+# 切り替えても settings.json は動かない。
+# diff*Dimmed と *Shimmer は対応する色がパレットに無いので base に任せている。
+[[targets]]
+name = "claude"
+template = "templates/claude/vanadis.json.in"
+output = "~/.claude/themes/vanadis.json"
+
 # starship はプロンプトを出すたびに config を読み直す。走らせるものは無い。
 [[targets]]
 name = "starship"

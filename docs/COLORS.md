@@ -10,6 +10,7 @@ vanadis/.config/vanadis/     stow する。git 管理する
 └── themes/*.toml            パレット
 
 ~/.config/<tool>/...         vanadis が生成する。stow しない。git 管理しない
+~/.claude/themes/            同上。Claude Code のカスタムテーマだけここ
 ~/.local/state/vanadis/      どのテーマを適用中か。git 管理しない
 ```
 
@@ -69,9 +70,12 @@ vanadis cycle                   # [cycle] の順に 1 つ進める
 | herdr-thumbs | `~/.config/herdr/plugins/config/sd2k.thumbs/config.env` |
 | hunk | `~/.config/hunk/config.toml` |
 | starship | `~/.config/starship.toml` |
+| claude | `~/.claude/themes/vanadis.json` |
 
 型 B のファイルは先頭付近に「生成物。編集は対応するテンプレートを直す」を持つ
-(bat の tmTheme は XML 宣言と DOCTYPE が先に来るため 3 行目)。
+(bat の tmTheme は XML 宣言と DOCTYPE が先に来るため 3 行目)。JSON はコメントを
+持てないので、claude だけ `_generated` キーで同じことを書いている。Claude Code の
+パーサは `name` / `base` / `overrides` しか読まないため、他のキーは無視される。
 
 型 B のツールは dotfiles にパッケージを持たない。config 全体が生成物なので、
 stow する対象が残らない。
@@ -85,6 +89,13 @@ gruvbox に切り替えた後もその名前で並ぶ。
 bat はファイル名ではなく tmTheme 内の `name` でテーマを選ぶ。ここは固定名 `vanadis`
 を書いてあるので、テーマを切り替えても `.zshrc` の `BAT_THEME` は追随させなくてよい。
 
+Claude Code も同じ形にしてある。カスタムテーマは `~/.claude/themes/<slug>.json` から
+読まれ、slug はファイル名である。dotclaude 側の `settings.json` は
+`"theme": "custom:vanadis"` を固定で持つので、テーマを切り替えても dotclaude に差分は
+出ない。テーマファイルの `base` に `{{meta.variant}}` が入るため、override していない
+キーは Claude Code の light / dark 既定に従う。`diff*Dimmed` と `*Shimmer` は対応する
+色がパレットに無いので base に任せている。
+
 ## 反映
 
 生成しただけでは効かないツールがある。
@@ -94,6 +105,7 @@ bat はファイル名ではなく tmTheme 内の `name` でテーマを選ぶ�
 | bat | `bat cache --build` が必須。省くとキャッシュ済みのテーマを配り続ける | する |
 | herdr | `herdr server reload-config` | する |
 | starship | 次のプロンプトで反映される | 走らせるものが無い |
+| claude | テーマディレクトリを監視している様子。効かなければ再起動 | 未確認のため空にしてある |
 | zsh (fzf) | `exec zsh`。fzf は色を環境変数から読む | しない。vanadis は子プロセスなのでユーザのシェルを置き換えられない |
 | nvim / btop / hunk / lazygit | 再起動 | コマンドが無い |
 
