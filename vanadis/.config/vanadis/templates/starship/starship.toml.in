@@ -21,8 +21,21 @@ accent-warm = "{{role.accent-warm}}"
 comment = "{{role.comment}}"
 error = "{{role.error}}"
 ok = "{{role.ok}}"
+warn = "{{role.warn}}"
 purple = "{{colors.purple}}"
 visual = "{{role.visual}}"
+
+# style を書かないと starship の既定 (bold yellow / bold dimmed green) に落ちる。
+# 既定は ANSI の 16 色名で、端末側のパレットを引くのでテーマを切り替えても動かない。
+# 区切りの " in " も、書式に色を付けないと端末の既定前景色のままになる。
+[username]
+format = "[$user]($style)[ in ](comment)"
+style_user = "warn"
+style_root = "error"
+
+[hostname]
+format = "[$ssh_symbol$hostname]($style)[ in ](comment)"
+style = "ok"
 
 [directory]
 style = "visual"
