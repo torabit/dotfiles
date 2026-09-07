@@ -7,8 +7,6 @@ gui:
   sidePanelWidth: 0.2
   expandFocusedSidePanel: true
   mainPanelSplitMode: flexible
-  theme:
-    lightTheme: true
   commitLength:
     show: true
   skipNoStagedFilesWarning: false

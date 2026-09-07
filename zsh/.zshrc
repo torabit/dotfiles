@@ -109,6 +109,9 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --glob "!.git/*"'
 # いた頃の値が exec zsh で引き継がれ続けるので、明示的に落とす。
 unset FZF_DEFAULT_OPTS
 export FZF_DEFAULT_OPTS_FILE="$HOME/.config/zsh/fzf.opts"
+# lazygit は config を 1 つしか見ない。vanadis が書く theme.yml を後ろに並べて
+# マージさせる。upstream の docs が theme-specific options 用に挙げている使い方。
+export LG_CONFIG_FILE="$HOME/.config/lazygit/config.yml,$HOME/.config/lazygit/theme.yml"
 export BAT_THEME='vanadis'
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
