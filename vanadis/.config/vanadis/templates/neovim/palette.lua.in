@@ -1,5 +1,10 @@
 -- 生成物。編集は vanadis の templates/neovim/palette.lua.in を直す。
+-- colorscheme は上流のプラグインが色を持つので、テーマ側が名前で選ぶ。
+-- variant は PaperColor が light と dark のどちらを出すかを決める
+-- &background に渡す。
 return {
+	colorscheme = "{{text.nvim-base}}",
+	variant = "{{meta.variant}}",
 	bg = "{{role.bg}}",
 	fg = "{{role.fg}}",
 	error = "{{role.error}}",
