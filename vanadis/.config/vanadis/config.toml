@@ -1,0 +1,100 @@
+# 各ツールの config を 1 つのパレットから生成する。テンプレートは templates/ に
+# 集約する。ツールが読むディレクトリに .in を置くと、btop のようにテーマ
+# ディレクトリを列挙するツールがそれをテーマとして拾う。
+#
+# output は生成物であり、dotfiles リポジトリには置かない。stow もコミットもしない。
+
+# vanadis apply --variant dark が引く表。テーマ名を直に書く場合は要らない。
+[auto]
+light = "papercolor-light"
+dark = "papercolor-dark"
+
+# vanadis cycle が回る順。
+[cycle]
+themes = ["papercolor-light", "papercolor-dark"]
+
+# bat は tmTheme の中の name でテーマを選ぶ。ファイル名では選ばない。切り替えても
+# BAT_THEME を追随させずに済むよう、name は固定名を書く。
+# cache --build は必須。省くと bat はキャッシュ済みのテーマを配り続ける。
+[[targets]]
+name = "bat"
+template = "templates/bat/vanadis.tmTheme.in"
+output = "~/.config/bat/themes/vanadis.tmTheme"
+reload = ["bat", "cache", "--build"]
+
+# btop はテーマディレクトリを列挙して中身をテーマ一覧に出す。papercolor-light.theme
+# のままだと gruvbox に切り替えた後もその名前で並ぶ。
+[[targets]]
+name = "btop"
+template = "templates/btop/vanadis.theme.in"
+output = "~/.config/btop/themes/vanadis.theme"
+
+# herdr は 3 つの生成物を持つので name はツール名ではなく target の識別子。
+[[targets]]
+name = "herdr"
+template = "templates/herdr/config.toml.in"
+output = "~/.config/herdr/config.toml"
+reload = ["herdr", "server", "reload-config"]
+
+[[targets]]
+name = "herdr-thumbs"
+template = "templates/herdr/config.env.in"
+output = "~/.config/herdr/plugins/config/sd2k.thumbs/config.env"
+
+# WSL 固有。config ではなくスクリプトで、herdr を pty 越しに起動して端末の既定色の
+# 問い合わせに代わりに答える。理由は生成物の docstring。
+# shebang を持つが実行権限は要らない。.zshrc の herdr 関数が python3 に渡して呼ぶ。
+[[targets]]
+name = "herdr-host-colors"
+template = "templates/herdr/host-colors.py.in"
+output = "~/.config/herdr/bin/host-colors.py"
+
+[[targets]]
+name = "hunk"
+template = "templates/hunk/config.toml.in"
+output = "~/.config/hunk/config.toml"
+
+[[targets]]
+name = "lazygit"
+template = "templates/lazygit/theme.yml.in"
+output = "~/.config/lazygit/theme.yml"
+
+[[targets]]
+name = "nvim"
+template = "templates/neovim/palette.lua.in"
+output = "~/.config/nvim/lua/palette.lua"
+
+# WSL 固有。Rio は Windows ネイティブアプリで Windows 側のファイルを読む。手書きの
+# config.toml が theme = "vanadis" でこれを引く。生成物は色だけ。
+#
+# ここへ書くだけでは Rio に届かない。rio-sync が theme と config.toml を
+# %LOCALAPPDATA%\rio\ へ送る。theme を先、config.toml を後に置くのは Rio の監視が
+# %LOCALAPPDATA%\rio 直下しか見ておらず (RecursiveMode::NonRecursive)、themes/ の中を
+# 書いても発火しないため。config.toml を置き直すことが発火を兼ねる。
+[[targets]]
+name = "rio"
+template = "templates/rio/theme.toml.in"
+output = "~/.config/rio/themes/vanadis.toml"
+reload = ["rio-sync"]
+
+# Claude Code はカスタムテーマを ~/.claude/themes/<slug>.json から読む。slug は
+# ファイル名で、settings.json 側は "theme": "custom:vanadis" を固定で持つ。テーマを
+# 切り替えても settings.json は動かない。
+# diff*Dimmed と *Shimmer は対応する色がパレットに無いので base に任せている。
+[[targets]]
+name = "claude"
+template = "templates/claude/vanadis.json.in"
+output = "~/.claude/themes/vanadis.json"
+
+# starship はプロンプトを出すたびに config を読み直す。走らせるものは無い。
+[[targets]]
+name = "starship"
+template = "templates/starship/starship.toml.in"
+output = "~/.config/starship.toml"
+
+# fzf は色を環境変数から読むので、反映には exec zsh が要る。vanadis は子プロセス
+# なのでユーザのシェルを置き換えられない。reload には書けない。
+[[targets]]
+name = "zsh"
+template = "templates/zsh/palette.zsh.in"
+output = "~/.config/zsh/palette.zsh"

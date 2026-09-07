@@ -17,12 +17,17 @@ brew bundle
 mise install
 ```
 
-配色は `palette.json` から生成する。生成物はコミットされているので、`stow` する前に
-実行する必要はない。色を変えるときだけ実行する。詳細は `docs/COLORS.md` を読む。
+配色は [vanadis](https://github.com/torabit/vanadis) が 1 つのパレットから生成する。
+生成物はコミットしていないので、`stow` した後に一度実行する必要がある。詳細は
+`docs/COLORS.md` を読む。
 
 ```zsh
-just build
+stow --no-folding -t ~ -v vanadis
+vanadis apply papercolor-light
 ```
+
+bat / hunk / starship は config 全体が生成物なので、dotfiles にパッケージを持たない。
+`vanadis apply` が `~/.config` へ直接書く。
 
 i use ```stow```
 
@@ -32,22 +37,22 @@ in root dir
 リポジトリが `~/ghq` 配下にあるので `-t ~` でターゲットを明示する。省略すると
 親ディレクトリ (`~/ghq/github.com/torabit`) にリンクが張られる。
 
-`--no-folding` はディレクトリ自体ではなく中のファイルを個別にリンクする。これが無いと
-リンク先に存在しないディレクトリ (`~/.local` など) はディレクトリごと symlink にされ、
-stow 管理外のファイルを共存させられなくなる。
+`--no-folding` はディレクトリ自体ではなく中のファイルを個別にリンクする。全パッケージで
+必須である。省くと `~/.config/bat` のようなパスがリポジトリを指す symlink になり、その下へ
+vanadis が生成物を書くとリポジトリの中身が書き換わる。stow 管理外のファイルを同じ
+ディレクトリに共存させることもできなくなる。
 
-`--ignore='\.in$'` は配色テンプレートの `.in` ファイルをリンク対象から外す。無いと
-`~/.config/zsh/palette.zsh.in` のような未使用のリンクがホームに増え、テンプレートを
-リネームしたときに `stow -D` で回収できず残留する。
+配色テンプレートの `.in` は `vanadis` パッケージにだけ置く。これはリンクする対象なので
+`--ignore='\.in$'` は付けない。
 
 ### create link
 ```zsh
-stow --no-folding --ignore='\.in$' -t ~ -v dirname
+stow --no-folding -t ~ -v dirname
 ```
 
 ### unlink
 ```zsh
-stow -D --ignore='\.in$' -t ~ -v dirname
+stow -D -t ~ -v dirname
 ```
 
 ## Rio (stow 対象外)
@@ -56,15 +61,18 @@ Rio は Windows ネイティブアプリなので stow ではリンクできな�
 `rio/config.toml` を編集したら次で Windows 側へ反映する。
 
 ```zsh
-./rio/sync.sh
+rio-sync
 ```
 
-`%LOCALAPPDATA%\rio\config.toml` へ実体をコピーする。symlink は使わない。
-WSL2 が VHD 方式になった影響で、WSL 起動前は Windows 側からリンク先を解決できず
-Rio の設定読み込みが失敗するため。
+`%LOCALAPPDATA%\rio\` へ `config.toml` と `themes/vanadis.toml` の実体をコピーする。
+symlink は使わない。WSL2 が VHD 方式になった影響で、WSL 起動前は Windows 側から
+リンク先を解決できず Rio の設定読み込みが失敗するため。
 
 Rio は保存を検知して即座に再読み込みするので再起動は不要。
-配色は `palette.json` から生成する。手順は `docs/COLORS.md` を読む。
+
+配色は vanadis が `themes/vanadis.toml` を生成し、rio target の `reload` が `rio-sync`
+を呼ぶ。`vanadis apply` と `vanadis cycle` は Rio まで自動で届くので、手で走らせるのは
+`rio/config.toml` を編集したときだけ。手順は `docs/COLORS.md` を読む。
 
 ### フォントのパッチ
 
@@ -104,8 +112,9 @@ WSL 側のシェルで実行する。ssh 先では `powershell.exe` に届かな
 Claude Code では Ctrl+V でそのパスを貼り付ければよい。画像そのものは渡さない。
 
 herdr でも `Alt+V` (`key = "alt+v"`) で転送とパス挿入をまとめて実行できる
-(`herdr/.config/herdr/config.toml`)。herdr サーバが WSL 側で動いていて、ssh はその
-配下の pane なので、転送を WSL 側で走らせつつ結果を ssh 先の pane へ送り込める。
+(`vanadis/.config/vanadis/templates/herdr/config.toml.in`)。herdr サーバが WSL 側で
+動いていて、ssh はその配下の pane なので、転送を WSL 側で走らせつつ結果を ssh 先の
+pane へ送り込める。
 `herdr pane send-text` は Enter を送らないので内容を確認してから送信する。
 
 ローカルの Claude Code で Ctrl+V が効くのは、WSL 上のプロセスが `powershell.exe`
@@ -124,9 +133,10 @@ Windows のクリップボードは `powershell.exe` 経由で読む。WSL 側�
 ## 画像のインライン表示
 
 `chafa` で端末に画像を出す。herdr は `experimental.kitty_graphics` で attached client 向けに
-kitty graphics をローカルにレンダリングする (`herdr/.config/herdr/config.toml`)。escape 列を
-外側の端末へ素通しする tmux の `allow-passthrough on` とは機構が異なるが、由来はそちらを
-引き継いだ設定。herdr 側ではまだ experimental 扱いで、描画が乱れる場合は false に戻す。
+kitty graphics をローカルにレンダリングする
+(`vanadis/.config/vanadis/templates/herdr/config.toml.in`)。escape 列を外側の端末へ
+素通しする tmux の `allow-passthrough on` とは機構が異なるが、由来はそちらを引き継いだ
+設定。herdr 側ではまだ experimental 扱いで、描画が乱れる場合は false に戻す。
 
 ```zsh
 chafa -f kitty path/to/image.png

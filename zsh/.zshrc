@@ -121,7 +121,9 @@ add-zsh-hook preexec _title_preexec
 (( $+commands[mise] )) && eval "$(mise activate zsh)"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --glob "!.git/*"'
 [ -s "$HOME/.config/zsh/palette.zsh" ] && source "$HOME/.config/zsh/palette.zsh"
-export BAT_THEME='PaperColor-Light'
+# bat は tmTheme の中の name でテーマを選ぶ。vanadis が固定名を書くので、
+# テーマを切り替えてもここは動かない。
+export BAT_THEME='vanadis'
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # ── Aliases ──────────────────────────────────────────────────

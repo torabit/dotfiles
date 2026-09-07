@@ -1,7 +1,7 @@
 [tools]
 node = "24.19.0"   # LTS Krypton
 ruby = "3.2.2"
-rust = "1.97.1"    # cargo-modules の最新が rustc 1.95 以上を要求するため 1.94.0 から更新
+rust = "1.98.1"    # 下限は cargo-modules が要求する 1.95
 pnpm = "10.34.5"
 bun = "1.4.0"      # brew から移管。brew 版は 1.1.20 で止まっていた
 "npm:eslint_d" = "latest"
@@ -21,6 +21,9 @@ bun = "1.4.0"      # brew から移管。brew 版は 1.1.20 で止まってい�
 "github:bnjbvr/cargo-machete" = "latest"
 "github:obi1kenobi/cargo-semver-checks" = "latest"
 "github:crate-ci/cargo-release" = "latest"
+# 日本語文章の lint。crates.io にもあるが SudachiDict をビルド時に
+# 埋め込むため cargo backend だと重い。バイナリ実体は 212MB。
+"github:nwiizo/suiko" = "latest"
 
 # cargo backend (no prebuilt binary available)
 "cargo:bacon" = "latest"
@@ -36,6 +39,9 @@ bun = "1.4.0"      # brew から移管。brew 版は 1.1.20 で止まってい�
 "cargo:cargo-modules" = "latest"
 "cargo:flamegraph" = "latest"
 "cargo:cargo-chef" = "latest"
+# 各ツールの config を 1 つのパレットから生成する。prebuilt binary も
+# Homebrew tap も未公開なので cargo backend で入れる。手順は docs/COLORS.md。
+"cargo:vanadis" = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["node", "ruby", "rust"]

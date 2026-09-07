@@ -1,12 +1,7 @@
-lazygit/.config/lazygit/state.yml
-hunk/.config/hunk/state.json
-herdr/.config/herdr/*.log
-herdr/.config/herdr/.plugins.lock
-herdr/.config/herdr/herdr.sock
-herdr/.config/herdr/plugins.json
-herdr/.config/herdr/session.json
-herdr/.config/herdr/plugins/github/
-neovim/.config/nvim/plugin/packer_compiled.lua
+# ツールの state とログはリポジトリに来ない。stow を --no-folding で張るので
+# ~/.config/<tool> が実ディレクトリになり、ツールの書き込みはそちらへ落ちる。
+# 折り畳まれた symlink だった間だけリポジトリの中に溜まっていた。
+
 **/*.local
 # stow パッケージの .local ディレクトリ (~/.local へのリンク元) は追跡する。
 # 上の **/*.local はローカル上書きファイル向けだが、ディレクトリ名にもマッチする。

@@ -1,15 +1,18 @@
-# 生成物。編集は config.toml.in を直す。
 # Rio terminal configuration
 #
 # 移植元: alacritty/.config/alacritty.toml
-# 配色は {{role.*}} / {{ansi.*}} で palette.json (PaperColor Light) を参照する。
-# テーマ名では参照しない。
 #
-# 反映方法: rio/sync.sh (Windows 側 %LOCALAPPDATA%\rio\config.toml へコピー)
+# 反映方法: rio-sync (Windows 側 %LOCALAPPDATA%\rio\ へコピー)
 # 参照: https://rioterm.com/docs/config
 #
 # 注意: セクションヘッダに属さないキーはファイル先頭に置く必要がある。
 # 後方に置くと無視される。
+
+# 配色は themes/vanadis.toml から読む。ファイルは vanadis が生成し、rio-sync が
+# このファイルと一緒に Windows 側へ送る。Rio は theme が指すファイルの [colors] で
+# 自分の colors を差し替えるだけなので、下の設定には影響しない。
+# 手順は docs/COLORS.md。
+theme = "vanadis"
 
 hide-mouse-cursor-when-typing = true
 scrollback-history-limit = 10000
@@ -66,53 +69,6 @@ blinking = true
 # 既定では鳴る。visual は既定の false のままにする (画面を光らせない)。
 [bell]
 audio = false
-
-[colors]
-background = "#eeeeee"
-foreground = "#444444"
-cursor = "#444444"
-# vi モードのカーソルは通常カーソルと区別できるようアクセント色にする
-# (Alacritty では CellForeground 反転指定だが Rio は固定色のみ)
-vi-cursor = "#005f87"
-
-# 選択範囲: Alacritty の CellBackground / CellForeground 反転相当
-selection-foreground = "#eeeeee"
-selection-background = "#444444"
-
-# ANSI 16 colors
-black = "#eeeeee"
-red = "#af0000"
-green = "#008700"
-yellow = "#5f8700"
-blue = "#0087af"
-magenta = "#878787"
-cyan = "#005f87"
-white = "#444444"
-
-light-black = "#bcbcbc"
-light-red = "#d70000"
-light-green = "#d70087"
-light-yellow = "#8700af"
-light-blue = "#d75f00"
-light-magenta = "#d75f00"
-light-cyan = "#005faf"
-light-white = "#005f87"
-
-# 検索ハイライト
-search-match-foreground = "#eeeeee"
-search-match-background = "#af0000"
-search-focused-match-foreground = "#eeeeee"
-search-focused-match-background = "#0087af"
-
-# ヒント (URL 選択)
-hint-foreground = "#eeeeee"
-hint-background = "#0087af"
-
-# UI: Rio 既定はダーク配色のため Light 側に合わせる
-bar = "#eeeeee"
-tabs = "#bcbcbc"
-tabs-active = "#d70087"
-split = "#bcbcbc"
 
 [bindings]
 keys = [

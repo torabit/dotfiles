@@ -1,0 +1,35 @@
+{
+  "_generated": "生成物。編集は vanadis の templates/claude/vanadis.json.in を直す。",
+  "name": "{{meta.name}}",
+  "base": "{{meta.variant}}",
+  "overrides": {
+    "text": "{{role.fg}}",
+    "inverseText": "{{role.bg}}",
+    "inactive": "{{role.inactive}}",
+    "subtle": "{{role.linenr}}",
+    "selectionBg": "{{role.selection-bg}}",
+    "userMessageBackground": "{{role.hover-bg}}",
+
+    "success": "{{role.ok}}",
+    "error": "{{role.error}}",
+    "warning": "{{role.warn}}",
+
+    "promptBorder": "{{role.border}}",
+    "bashBorder": "{{role.accent}}",
+
+    "permission": "{{role.keyword}}",
+    "suggestion": "{{role.keyword}}",
+    "remember": "{{role.keyword}}",
+    "ide": "{{role.keyword}}",
+    "planMode": "{{role.accent-alt}}",
+    "background": "{{role.accent-alt}}",
+    "autoAccept": "{{colors.purple}}",
+    "skill": "{{colors.purple}}",
+    "merged": "{{colors.purple}}",
+
+    "diffAdded": "{{diff.added-bg}}",
+    "diffAddedWord": "{{diff.added-emph}}",
+    "diffRemoved": "{{diff.removed-bg}}",
+    "diffRemovedWord": "{{diff.removed-emph}}"
+  }
+}

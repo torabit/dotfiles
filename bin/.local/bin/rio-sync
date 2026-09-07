@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+#
+# Rio の設定と配色を Windows 側 %LOCALAPPDATA%\rio\ へ反映する。
+#
+#   dotfiles/rio/config.toml            手書き。theme = "vanadis" を持つ
+#   ~/.config/rio/themes/vanadis.toml   vanadis が生成する色
+#
+# Rio は Windows ネイティブアプリなので stow の対象外。手動コピーで同期する。
+#
+# symlink を使わない理由:
+#   WSL2 のファイルシステムが VHD 方式になった影響で、WSL 起動前は Windows 側から
+#   リンク先 (\\wsl.localhost\...) を解決できず、Rio の設定読み込みが失敗する。
+#   そのため実体をコピーする。
+#
+# theme を先、config.toml を後に置く。理由が 2 つある。
+#   順序が逆だと Rio が theme の無い状態で config を読み、theme の読み込みに失敗する。
+#   Rio の監視は %LOCALAPPDATA%\rio 直下しか見ておらず (RecursiveMode::NonRecursive)、
+#   themes/ の中を書いても発火しない。config.toml を置き直すことが発火を兼ねる。
+#
+# vanadis の rio target が reload でこれを呼ぶので、apply と cycle は自動で届く。
+
+set -euo pipefail
+
+# stow の symlink 経由で呼ばれるので実体を辿る。bin/.local/bin から 3 つ上がリポジトリ。
+self="$(readlink -f "${BASH_SOURCE[0]}")"
+repo="$(cd "$(dirname "${self}")/../../.." && pwd)"
+
+config_src="${repo}/rio/config.toml"
+theme_src="${HOME}/.config/rio/themes/vanadis.toml"
+
+for src in "${config_src}" "${theme_src}"; do
+  if [[ ! -f "${src}" ]]; then
+    echo "error: ファイルが見つかりません: ${src}" >&2
+    [[ "${src}" == "${theme_src}" ]] && echo "hint: vanadis apply を先に実行する" >&2
+    exit 1
+  fi
+done
+
+cmd_exe="/mnt/c/Windows/System32/cmd.exe"
+if [[ ! -x "${cmd_exe}" ]]; then
+  cmd_exe="$(command -v cmd.exe || true)"
+fi
+if [[ -z "${cmd_exe}" ]]; then
+  echo "error: cmd.exe が見つかりません。WSL 上で実行してください。" >&2
+  exit 1
+fi
+
+# %LOCALAPPDATA% を Windows 側から取得する。ユーザー名をハードコードしない。
+# cwd が UNC パスだと cmd.exe が警告を出すため /mnt/c で実行する。
+localappdata_win="$(cd /mnt/c && "${cmd_exe}" /c 'echo %LOCALAPPDATA%' 2>/dev/null | tr -d '\r\n')"
+if [[ -z "${localappdata_win}" || "${localappdata_win}" == '%LOCALAPPDATA%' ]]; then
+  echo "error: %LOCALAPPDATA% を解決できませんでした。" >&2
+  exit 1
+fi
+
+dest_dir="$(wslpath -u "${localappdata_win}")/rio"
+
+sync_one() {
+  local src="$1" dest="$2"
+
+  mkdir -p "$(dirname "${dest}")"
+
+  # 既存が symlink の場合は取り除いてから実体をコピーする
+  if [[ -L "${dest}" ]]; then
+    echo "info: 既存の symlink を削除します: ${dest}"
+    unlink "${dest}"
+  fi
+
+  cp -f "${src}" "${dest}"
+
+  if ! diff -q "${src}" "${dest}" >/dev/null; then
+    echo "error: コピー後の内容が一致しません: ${dest}" >&2
+    exit 1
+  fi
+
+  echo "synced: ${src}"
+  echo "     -> ${dest}"
+}
+
+sync_one "${theme_src}" "${dest_dir}/themes/vanadis.toml"
+sync_one "${config_src}" "${dest_dir}/config.toml"
