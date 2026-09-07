@@ -56,7 +56,7 @@ vanadis cycle                   # [cycle] の順に 1 つ進める
 | target | 生成物 | 読む側（手書き、自由に編集可） |
 | --- | --- | --- |
 | nvim | `~/.config/nvim/lua/palette.lua` | `require("palette")` する lua |
-| zsh | `~/.config/zsh/palette.zsh` | `.zshrc` から `source` する |
+| zsh | `~/.config/zsh/fzf.opts` | `.zshrc` の `FZF_DEFAULT_OPTS_FILE` が指す |
 | lazygit | `~/.config/lazygit/theme.yml` | `LG_CONFIG_FILE` で `config.yml` とマージ |
 
 **型 B（全文生成）**: ファイル全体が生成される。ツールに include 機構が無いか、
@@ -75,7 +75,7 @@ vanadis cycle                   # [cycle] の順に 1 つ進める
 型 B のファイルは先頭付近に「生成物。編集は対応するテンプレートを直す」を持つ
 (bat の tmTheme は XML 宣言と DOCTYPE が先に来るため 3 行目)。JSON はコメントを
 持てないので、claude だけ `_generated` キーで同じことを書いている。Claude Code の
-パーサは `name` / `base` / `overrides` しか読まないため、他のキーは無視される。
+パーサは未知のキーを無視するので `_generated` は素通りする。
 
 型 B のツールは dotfiles にパッケージを持たない。config 全体が生成物なので、
 stow する対象が残らない。
@@ -96,6 +96,11 @@ Claude Code も同じ形にしてある。カスタムテーマは `~/.claude/th
 キーは Claude Code の light / dark 既定に従う。`diff*Dimmed` と `*Shimmer` は対応する
 色がパレットに無いので base に任せている。
 
+`overrides` の 25 キーが実際に効いているかは未確認。原色を入れた検証用テーマを
+`overrides` / トップレベル平置き / `colors` の 3 通りで試したが、いずれも画面に出な
+かった。`base` の light / dark は効く。バイナリの文字列には `name` / `defaultBase` /
+`colors` という並びがあり、そちらが正しい形の可能性がある。
+
 ## 反映
 
 生成しただけでは効かないツールがある。
@@ -106,8 +111,45 @@ Claude Code も同じ形にしてある。カスタムテーマは `~/.claude/th
 | herdr | `herdr server reload-config` | する |
 | starship | 次のプロンプトで反映される | 走らせるものが無い |
 | claude | テーマディレクトリを監視している様子。効かなければ再起動 | 未確認のため空にしてある |
-| zsh (fzf) | `exec zsh`。fzf は色を環境変数から読む | しない。vanadis は子プロセスなのでユーザのシェルを置き換えられない |
+| zsh (fzf) | 次に fzf を起動したとき。`FZF_DEFAULT_OPTS_FILE` を毎回読む | 走らせるものが無い |
 | nvim / btop / hunk / lazygit | 再起動 | コマンドが無い |
+
+## 生成物を選ぶポインタはツール側にある
+
+vanadis はテーマのファイルを書く。そのファイルを選ぶポインタはツール側にあり、
+vanadis の管理外に置かれる。ポインタが既定値のままだと、生成物は誰にも読まれずに
+置かれ続ける。テーマを切り替えても何も起きないのはたいていこれ。
+
+| target | ポインタ | 置き場 |
+| --- | --- | --- |
+| bat | `BAT_THEME='vanadis'` | `.zshrc` |
+| zsh (fzf) | `FZF_DEFAULT_OPTS_FILE` | `.zshrc` |
+| lazygit | `LG_CONFIG_FILE` にカンマ区切りで `theme.yml` を並べる | `.zshrc` |
+| nvim | `require("palette")` して `&background` と colorscheme に渡す | `lua/plugins/colorscheme.lua` |
+| claude | `"theme": "custom:vanadis"` | dotclaude の `settings.json` |
+| btop | `color_theme = "vanadis"` | `~/.config/btop/btop.conf` |
+
+btop だけ dotfiles の管理外にある。btop が終了のたびに全体を書き戻すファイルなので
+追跡すると差分が出続ける。新しいマシンでは手で入れる。btop は `.theme` を拡張子なしの
+名前でも照合するので、値は `vanadis` でよい。
+
+## ANSI 16 色と端末背景に乗るものは vanadis では動かせない
+
+ツールの色は 2 種類ある。truecolor で自分の色を持つもの (starship, nvim, fzf, bat) は
+vanadis がそのまま動かせる。ANSI 16 色名と端末の既定背景に乗るものは動かせない。
+16 色名は端末エミュレータのパレットを引くため。
+
+SSH 先で vanadis を回しても、端末は手元にあるので届かない。手元の端末側にも vanadis を
+入れて同じ variant を適用しないと、明るい背景に暗いツール配色が乗る形になる。
+
+見落としやすい形が 2 つある。
+
+starship はセクションを書かないモジュールに既定のスタイルを使う。`[username]` の
+`bold yellow` と `[hostname]` の `bold dimmed green` がそれで、どちらも ANSI 色名。
+`style` を明示するまでテーマに追随しない。
+
+lazygit の既定テーマも `green` `blue` `default` のような ANSI 色名で書かれている。
+`theme.yml` が上書きしているキー以外は端末のパレットが決める。
 
 ## 色ではない値もテーマに追随させる
 
@@ -121,6 +163,8 @@ variant で切り替わるのは色だけではない。`--color=light` や、�
 | delta の `--syntax-theme` | `{{text.delta-syntax-theme}}` |
 | hunk の `base` | `{{text.hunk-base}}` |
 | herdr の `[theme] name` | `{{text.herdr-base}}` |
+| nvim の `&background` | `{{meta.variant}}` |
+| nvim の colorscheme 名 | `{{text.nvim-base}}` |
 | hunk の `theme` / `label` | `{{meta.id}}` / `{{meta.name}}` |
 
 `vanadis check` はこれを拾えない。どれも有効な値なので、生成物は clean のまま通る。
