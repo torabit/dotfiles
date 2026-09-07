@@ -103,7 +103,12 @@ add-zsh-hook preexec _vi_cursor_reset
 # ── Tools ────────────────────────────────────────────────────
 (( $+commands[mise] )) && eval "$(mise activate zsh)"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --glob "!.git/*"'
-[ -s "$HOME/.config/zsh/palette.zsh" ] && source "$HOME/.config/zsh/palette.zsh"
+# fzf の色。vanadis が書くファイルを fzf 自身が起動のたびに読むので、テーマを
+# 切り替えても走っているシェルは触らなくてよい。変数は固定で、中身だけが動く。
+# FZF_DEFAULT_OPTS はファイルより後に適用されて勝つ。以前ここが色を export して
+# いた頃の値が exec zsh で引き継がれ続けるので、明示的に落とす。
+unset FZF_DEFAULT_OPTS
+export FZF_DEFAULT_OPTS_FILE="$HOME/.config/zsh/fzf.opts"
 export BAT_THEME='vanadis'
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 

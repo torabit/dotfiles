@@ -1,0 +1,12 @@
+# 生成物。編集は vanadis の templates/zsh/fzf.opts.in を直す。
+# fzf は起動のたびに $FZF_DEFAULT_OPTS_FILE を読む。環境変数に色を焼き付けないので、
+# vanadis cycle の後に exec zsh も再 source も要らない。
+
+--color={{meta.variant}}
+--color=fg:{{role.fg}},bg:{{role.bg}},hl:{{role.accent}}
+--color=fg+:{{role.fg}},bg+:{{role.hover-bg}},hl+:{{role.accent}}
+--color=selected-fg:{{role.fg}},selected-bg:{{role.selection-bg}}
+--color=info:{{role.comment}},prompt:{{role.accent-alt}},pointer:{{role.accent}}
+--color=marker:{{role.ok}},spinner:{{role.accent}}
+--color=border:{{role.border}},header:{{role.accent-alt}},gutter:{{role.bg}}
+--color=preview-bg:{{role.bg}},preview-fg:{{role.fg}},preview-border:{{role.border}}

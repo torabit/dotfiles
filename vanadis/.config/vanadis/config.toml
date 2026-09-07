@@ -71,9 +71,11 @@ name = "starship"
 template = "templates/starship/starship.toml.in"
 output = "~/.config/starship.toml"
 
-# fzf は色を環境変数から読むので、反映には exec zsh が要る。vanadis は子プロセス
-# なのでユーザのシェルを置き換えられない。reload には書けない。
+# fzf は起動のたびに $FZF_DEFAULT_OPTS_FILE を読む。.zshrc はこの変数を固定で
+# export し、色はこのファイルだけが持つ。FZF_DEFAULT_OPTS に色を焼き付けると
+# 走っているシェルに反映できない。vanadis は子プロセスなので親の environ を
+# 書き換えられず、pane ごとに exec zsh が要ることになる。
 [[targets]]
 name = "zsh"
-template = "templates/zsh/palette.zsh.in"
-output = "~/.config/zsh/palette.zsh"
+template = "templates/zsh/fzf.opts.in"
+output = "~/.config/zsh/fzf.opts"
