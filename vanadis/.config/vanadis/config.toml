@@ -31,10 +31,14 @@ output = "~/.config/btop/themes/vanadis.theme"
 
 # ghostty は手書きの config が config-file = theme.conf で読む。生成物は色だけ。
 # 名前にテーマ名が入っていないので、手書き側の参照ごと固定でよい。
+# ghostty は config を監視しない。1.2 以降は SIGUSR2 で読み直す (他の signal は落ちる)。
+# vanadis は reload が非 0 で終わると apply 全体を失敗にする。ghostty が起動していない
+# とき pkill は 1 を返すので、それだけは成功扱いにする。次回起動時に読むので問題ない。
 [[targets]]
 name = "ghostty"
 template = "templates/ghostty/theme.conf.in"
 output = "~/.config/ghostty/theme.conf"
+reload = ["sh", "-c", "pkill -USR2 -x ghostty || [ $? -eq 1 ]"]
 
 # herdr は 2 つの config を持つので name はツール名ではなく target の識別子。
 [[targets]]
