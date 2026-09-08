@@ -39,11 +39,16 @@ bun = "1.4.0"      # brew から移管。brew 版は 1.1.20 で止まってい�
 "cargo:cargo-modules" = "latest"
 "cargo:flamegraph" = "latest"
 "cargo:cargo-chef" = "latest"
-# 各ツールの config を 1 つのパレットから生成する。prebuilt binary も
-# Homebrew tap も未公開なので cargo backend で入れる。手順は docs/COLORS.md。
+# 自作の 2 つ。Homebrew には formula も tap も無いので Brewfile には書けない。
+# cargo-dist の prebuilt binary が GitHub release にあるので github backend でも入るが、
+# crates.io のほうが先に出る。release-plz がリリース PR のマージで crates.io へ publish
+# してタグを push し、GitHub release は dist がそのタグから後追いで作るため。heimdallr
+# 0.1.2 は crates.io にあって GitHub release がまだ無い状態が実際にあった。
+#
+# 各ツールの config を 1 つのパレットから生成する。手順は docs/COLORS.md。
 "cargo:vanadis" = "latest"
 # システムの light/dark を監視して vanadis apply を走らせる。常駐は
-# heimdallr/.config/systemd/user/heimdallr.service。Homebrew tap は未公開。
+# heimdallr/.config/systemd/user/heimdallr.service。
 "cargo:heimdallr" = "latest"
 
 [settings]
