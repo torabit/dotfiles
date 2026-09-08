@@ -1,0 +1,24 @@
+[Unit]
+Description=Follow the system light/dark theme
+
+[Service]
+# heimdallr の README にある unit にこの 1 行を足したもの。
+#
+# systemd の user PATH は素のシステム既定で、reload 先が住む 3 ディレクトリのどれも入って
+# いない。vanadis は ~/.cargo/bin、bat と btop と herdr と nvim と lazygit は linuxbrew、
+# rio-sync は ~/.local/bin。
+#
+# 無いと unit は active のまま apply が毎回 `sh: 1: vanadis: not found` で落ちる。heimdallr
+# は失敗した on-change を報告して監視を続けるので unit は落ちず、`-u` にも出ない。
+# `journalctl --user -t heimdallr` でしか見えない。
+Environment=PATH=%h/.cargo/bin:/home/linuxbrew/.linuxbrew/bin:%h/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+ExecStart=%h/.cargo/bin/heimdallr watch --on-change 'vanadis apply --variant "$1"'
+
+# `watch` はモードが読めないと起動を拒否する。単発呼び出しには正しく、読む相手より先に
+# 上がった unit には正しくない。
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=default.target

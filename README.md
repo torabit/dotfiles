@@ -96,6 +96,36 @@ Segoe UI Emoji が選ばれ、そのフォントは日本語グリフを持た�
 ドナーは Windows 同梱の Segoe UI Symbol。改変フォントなので再配布はしない。
 反映には Rio の再起動が必要。
 
+## heimdallr (システムテーマの追従)
+
+Windows の light/dark を監視して `vanadis apply --variant` を走らせる。
+[heimdallr](https://github.com/torabit/heimdallr) が WSL では `reg.exe` でレジストリを読む。
+OS が dark に倒れれば bat から Rio まで全ターゲットが追いかける。
+
+```zsh
+stow --no-folding -t ~ -v heimdallr
+systemctl --user daemon-reload
+systemctl --user enable --now heimdallr.service
+```
+
+バイナリはどこにも宣言していない。`cargo install heimdallr` か
+[release](https://github.com/torabit/heimdallr/releases/latest) から入れる。vanadis と同じ扱い。
+
+`Environment=PATH=` が要る。systemd の user PATH は素のシステム既定で、`~/.cargo/bin` も
+linuxbrew も `~/.local/bin` も入っていない。無いと unit は active のまま `vanadis` が引けず、
+apply が毎回落ちる。heimdallr は失敗した on-change を報告して監視を続けるので unit は落ちない。
+理由は unit のコメントに書いてある。
+
+ログは unit 名ではなく identifier で見る。`-u` には on-change の出力が返ってこない。
+
+```zsh
+journalctl --user -t heimdallr -f
+```
+
+この構成では毎回 `herdr server reload-config` が失敗する。herdr を `--remote` のブリッジで
+動かしていて `~/.config/herdr/herdr.sock` にローカルサーバが無いため。対話シェルから叩いても
+同じなので heimdallr 側の問題ではない。
+
 ## clip-image
 
 Windows のクリップボードにある画像を ssh 先へ転送し、リモート側の絶対パスを表示する。
