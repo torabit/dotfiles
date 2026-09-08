@@ -42,6 +42,15 @@ bun = "1.4.0"      # brew から移管。brew 版は 1.1.20 で止まってい�
 # 各ツールの config を 1 つのパレットから生成する。prebuilt binary も
 # Homebrew tap も未公開なので cargo backend で入れる。手順は docs/COLORS.md。
 "cargo:vanadis" = "latest"
+# システムの light/dark を監視して vanadis apply を走らせる。常駐は
+# heimdallr/.config/systemd/user/heimdallr.service。Homebrew tap は未公開。
+"cargo:heimdallr" = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["node", "ruby", "rust"]
+
+# 自分のリポジトリの 2 つだけホールドを外す。minimum_release_age は上流の
+# リリースが差し替えられた場合に気付く猶予を作るための遅延で、自分が publish
+# 元なら買えるものが無い。既定のままだと `latest` が数日前のバージョンに
+# 落ちる。vanadis は 0.4.0 に対して 0.3.2、heimdallr は解決先が無くなる。
+minimum_release_age_excludes = ["cargo:vanadis", "cargo:heimdallr"]
