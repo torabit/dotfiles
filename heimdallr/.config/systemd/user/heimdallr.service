@@ -2,18 +2,25 @@
 Description=Follow the system light/dark theme
 
 [Service]
-# heimdallr の README にある unit にこの 1 行を足したもの。
+# heimdallr の README にある unit との違いは PATH と ExecStart の 2 行。
 #
-# systemd の user PATH は素のシステム既定で、reload 先が住む 3 ディレクトリのどれも入って
-# いない。vanadis は ~/.cargo/bin、bat と btop と herdr と nvim と lazygit は linuxbrew、
-# rio-sync は ~/.local/bin。
+# systemd の user PATH は素のシステム既定で、reload 先が住むディレクトリがどれも入って
+# いない。vanadis と heimdallr は mise、bat と herdr は linuxbrew、rio-sync は
+# ~/.local/bin。無いと unit は active のまま apply が毎回 `sh: 1: vanadis: not found`
+# で落ちる。heimdallr は失敗した on-change を報告して監視を続けるので unit は落ちず、
+# `journalctl --user -u` にも出ない。identifier で見ないと見えない。
 #
-# 無いと unit は active のまま apply が毎回 `sh: 1: vanadis: not found` で落ちる。heimdallr
-# は失敗した on-change を報告して監視を続けるので unit は落ちず、`-u` にも出ない。
-# `journalctl --user -t heimdallr` でしか見えない。
-Environment=PATH=%h/.cargo/bin:/home/linuxbrew/.linuxbrew/bin:%h/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+# mise は shims を先に置く。activate が足すのは `installs/<tool>/<version>/bin` で、
+# バージョンを上げるたびに壊れる。`installs/<tool>/latest/bin` も latest 指定のときしか
+# 維持されない。shim は config を毎回読むのでどちらの指定でも正しい。systemd が渡す環境で
+# 動くことは確認した (`env -i HOME=$HOME PATH=/usr/bin:/bin` で 0.1.2 を返す)。
+#
+# ~/.cargo/bin は入れない。手で `cargo install` した実体がここに残っていると PATH で先に
+# 来て mise 側を隠す。実際に vanadis 0.3.5 と heimdallr 0.1.0 が mise の 0.4.0 と 0.1.2 を
+# 隠していたので、cargo uninstall で消してある。
+Environment=PATH=%h/.local/share/mise/shims:/home/linuxbrew/.linuxbrew/bin:%h/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-ExecStart=%h/.cargo/bin/heimdallr watch --on-change 'vanadis apply --variant "$1"'
+ExecStart=%h/.local/share/mise/shims/heimdallr watch --on-change 'vanadis apply --variant "$1"'
 
 # `watch` はモードが読めないと起動を拒否する。単発呼び出しには正しく、読む相手より先に
 # 上がった unit には正しくない。

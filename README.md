@@ -108,13 +108,20 @@ systemctl --user daemon-reload
 systemctl --user enable --now heimdallr.service
 ```
 
-バイナリはどこにも宣言していない。`cargo install heimdallr` か
-[release](https://github.com/torabit/heimdallr/releases/latest) から入れる。vanadis と同じ扱い。
+バイナリは vanadis と同じく mise で入る (`cargo:heimdallr`)。brew には formula が無く tap も
+無いので Brewfile には書けない。
 
-`Environment=PATH=` が要る。systemd の user PATH は素のシステム既定で、`~/.cargo/bin` も
-linuxbrew も `~/.local/bin` も入っていない。無いと unit は active のまま `vanadis` が引けず、
-apply が毎回落ちる。heimdallr は失敗した on-change を報告して監視を続けるので unit は落ちない。
-理由は unit のコメントに書いてある。
+`Environment=PATH=` が要る。systemd の user PATH は素のシステム既定で、reload 先が住む
+ディレクトリがどれも入っていない。無いと unit は active のまま `vanadis` が引けず、apply が
+毎回落ちる。heimdallr は失敗した on-change を報告して監視を続けるので unit は落ちない。
+
+mise は `shims` を指す。activate が足すのは `installs/<tool>/<version>/bin` なので、
+バージョンを上げるたびに壊れる。shim は config を毎回読むのでどちらの指定でも正しく、
+systemd が渡す素の環境でも動く。
+
+`~/.cargo/bin` は入れていない。手で `cargo install` した実体が残っていると PATH で先に来て
+mise 側を隠す。実際に vanadis 0.3.5 と heimdallr 0.1.0 が mise の 0.4.0 と 0.1.2 を隠していた
+ので `cargo uninstall` で消してある。同じ理由で `cargo install` はしない。
 
 ログは unit 名ではなく identifier で見る。`-u` には on-change の出力が返ってこない。
 
