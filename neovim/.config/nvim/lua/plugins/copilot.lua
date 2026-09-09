@@ -4,7 +4,10 @@ require("copilot").setup({
 		enabled = true,
 		auto_trigger = true,
 		keymap = {
-			accept = "<Tab>",
+			-- <Tab> は blink.cmp 側のハンドラが accept を呼ぶ。ここで張ると
+			-- copilot のバッファマップが blink のマップを上書きし、候補が無いとき
+			-- 委譲先 expr の戻り値を捨てるためインデントが効かなくなる。
+			accept = false,
 			accept_word = "<C-Right>",
 			accept_line = "<C-End>",
 			next = "<M-]>",
