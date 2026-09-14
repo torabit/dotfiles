@@ -113,6 +113,26 @@ export FZF_DEFAULT_OPTS_FILE="$HOME/.config/zsh/fzf.opts"
 # マージさせる。upstream の docs が theme-specific options 用に挙げている使い方。
 export LG_CONFIG_FILE="$HOME/.config/lazygit/config.yml,$HOME/.config/lazygit/theme.yml"
 export BAT_THEME='vanadis'
+
+# ssh クライアントの端末の色に合わせる。LC_CLIENT_THEME はクライアントの
+# ssh_config が SendEnv で送り、ここの sshd が既定の `AcceptEnv LC_*` で受ける。
+# このホストにシステムテーマは無いので、追従の起点はクライアントしかない。
+#
+# 一致していれば vanadis を呼ばない。ログインごとに全 target を書き直すと bat の
+# cache --build と herdr の reload が毎回走り、その分ログインが遅くなる。
+#
+# 追従はログイン時の 1 回だけ。zshrc はセッション中に再実行されないので、繋いだ後
+# にクライアント側でテーマが変わってもここは動かない。クライアントが 2 つあって別
+# のモードなら、生成物は後から来た方に倒れる。ファイルはマシンに 1 つ、テーマは
+# セッションごとなので、両方を満たす形はない。
+() {
+  [[ -n $LC_CLIENT_THEME ]] || return
+  local applied=""
+  [[ -r $HOME/.config/zsh/variant ]] && applied="$(<$HOME/.config/zsh/variant)"
+  [[ $LC_CLIENT_THEME == "$applied" ]] && return
+  vanadis apply --variant "$LC_CLIENT_THEME" >/dev/null
+}
+
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # ── Aliases ──────────────────────────────────────────────────
