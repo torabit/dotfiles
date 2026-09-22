@@ -79,12 +79,3 @@ output = "~/.config/starship.toml"
 name = "zsh"
 template = "templates/zsh/fzf.opts.in"
 output = "~/.config/zsh/fzf.opts"
-
-# 適用中の variant を 1 語だけ書き出す。.zshrc が ssh クライアントから届いた
-# variant と比べるのに、シェルが fork なしで読める形が要る。state.toml はテーマ名
-# しか持たないので、そこから引くと [auto] の逆引きになり、テーマを増やすたびに
-# 壊れる。
-[[targets]]
-name = "variant"
-template = "templates/zsh/variant.in"
-output = "~/.config/zsh/variant"
