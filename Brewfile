@@ -19,7 +19,8 @@ brew "ghq"
 brew "git"
 brew "git-delta"
 brew "go"
-brew "herdr"
+# herdr はここに置かない。herdr update が ~/.local/bin だけを更新するため brew 版が
+# 置いていかれ、CLI と server で protocol がずれて reload-config が弾かれる。
 brew "hunk"
 brew "jq"
 brew "lazygit"

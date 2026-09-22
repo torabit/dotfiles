@@ -7,6 +7,8 @@ export HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
 eval "$(${HOMEBREW_PREFIX}/bin/brew shellenv)"
 
 # ── PATH ─────────────────────────────────────────────────────
+# .zshenv でも入れている。brew shellenv がこの上で brew を前に積むので、
+# 対話シェルで ~/.local/bin を brew より前に戻すためにここでもう一度置く。
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/bin:$PATH" # dotclaude が stow する client-os / client-theme
 export PATH="$HOME/go/bin:$PATH" # go install targets (gopls, staticcheck, ...)
