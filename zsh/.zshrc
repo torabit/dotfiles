@@ -132,16 +132,31 @@ export BAT_THEME='vanadis'
 #
 # apply が失敗したらキャッシュを書かない。次のシェルでやり直す。
 #
+# セッションを復元すると pane が数ミリ秒の間に一斉に開く。全部が同じ結論に達して
+# apply を並行に走らせると、vanadis が staged file (<output>.vanadis-new) を奪い合って
+# 落ちる。flock を取れなかった側は何もしない。勝った側がキャッシュを書くので、
+# 次に開くシェルはそもそもここへ来ない。fd はプロセスの終了で閉じるため、
+# 途中で殺されても lock は残らない。
+#
 # クライアントが 2 つあって別のモードなら、生成物は後から来た方に倒れる。ファイルは
 # マシンに 1 つ、テーマはセッションごとなので、両方を満たす形はない。
 () {
-  local want cache last
+  local want cache last lock fd
   want="$(client-theme 2>/dev/null)" || return
   cache="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/client-theme"
   [[ -r $cache ]] && last="$(<$cache)"
   [[ $want == "$last" ]] && return
-  vanadis apply --variant "$want" >/dev/null || return
-  mkdir -p "${cache:h}" && print -r -- "$want" >| "$cache"
+
+  mkdir -p "${cache:h}" || return
+  lock="$cache.lock"
+  : >>"$lock"                       # zsystem flock は既存のファイルしか開けない
+  zmodload -F zsh/system b:zsystem || return
+  zsystem flock -t 0 -f fd "$lock" 2>/dev/null || return
+  {
+    vanadis apply --variant "$want" >/dev/null && print -r -- "$want" >| "$cache"
+  } always {
+    zsystem flock -u $fd
+  }
 }
 
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
