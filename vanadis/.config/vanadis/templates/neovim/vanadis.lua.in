@@ -1,4 +1,5 @@
--- 生成物。編集は vanadis の templates/neovim/palette.lua.in を直す。
+-- 生成物。編集は vanadis の templates/neovim/vanadis.lua.in を直す。
+-- 読むのは手書きの lua/palette.lua だけ。他は require("palette") を通す。
 -- colorscheme は上流のプラグインが色を持つので、テーマ側が名前で選ぶ。
 -- variant は PaperColor が light と dark のどちらを出すかを決める
 -- &background に渡す。

@@ -55,7 +55,7 @@ vanadis cycle                   # [cycle] の順に 1 つ進める
 
 | target | 生成物 | 読む側（手書き、自由に編集可） |
 | --- | --- | --- |
-| nvim | `~/.config/nvim/lua/palette.lua` | `require("palette")` する lua |
+| nvim | `~/.config/nvim/lua/vanadis.lua` | 手書きの `lua/palette.lua` だけが読む |
 | zsh | `~/.config/zsh/palette.zsh` | `.zshrc` から `source` する |
 | lazygit | `~/.config/lazygit/theme.yml` | `LG_CONFIG_FILE` で `config.yml` とマージ |
 | ghostty | `~/.config/ghostty/theme.conf` | `config` の `config-file = theme.conf` |
@@ -109,7 +109,8 @@ Claude Code も同じ形にしてある。カスタムテーマは `~/.claude/th
 | claude | テーマディレクトリを監視している様子。効かなければ再起動 | 未確認のため空にしてある |
 | zsh (fzf) | `exec zsh`。fzf は色を環境変数から読む | しない。vanadis は子プロセスなのでユーザのシェルを置き換えられない |
 | ghostty | `pkill -USR2 -x ghostty`。設定ファイルは監視しない。1.2 以降は SIGUSR2 で読み直す。他の signal は落とすので送らない | する |
-| nvim / btop / hunk / lazygit | 再起動 | コマンドが無い |
+| nvim | 走っている nvim の socket へ貼り直しを投げる | する (`vanadis-reload-nvim`) |
+| btop / hunk / lazygit | 再起動 | コマンドが無い |
 
 ## 色ではない値もテーマに追随させる
 

@@ -7,3 +7,6 @@ herdr/.config/herdr/plugins.json
 herdr/.config/herdr/plugins/github/
 neovim/.config/nvim/plugin/packer_compiled.lua
 **/*.local
+# *.local のパターンは * が空にマッチするので .local ディレクトリごと拾う。
+# ~/.local/bin へ stow するパッケージが丸ごと消えるため、ディレクトリだけ戻す。
+!**/.local/

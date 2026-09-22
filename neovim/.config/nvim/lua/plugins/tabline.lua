@@ -7,7 +7,7 @@ local function set_hl()
 	vim.api.nvim_set_hl(0, "TabbyFill", { bg = p.bg })
 end
 
-set_hl()
+p.on_apply(set_hl)
 vim.api.nvim_create_autocmd("ColorScheme", { callback = set_hl })
 
 require("tabby").setup({
