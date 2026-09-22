@@ -21,7 +21,7 @@ local function set_transparent()
 	vim.api.nvim_set_hl(0, "TabLineFill", { bg = "none", fg = p.slate })
 end
 
-set_transparent()
+p.on_apply(set_transparent)
 
 -- Git branch function with caching and Nerd Font icon
 local cached_branch = ""

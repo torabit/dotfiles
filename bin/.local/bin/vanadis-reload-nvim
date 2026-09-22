@@ -1,0 +1,30 @@
+#!/bin/sh
+# 走っている nvim にパレットの貼り直しを投げる。vanadis の nvim target の reload。
+#
+# nvim は require の結果を package.loaded に載せるので、生成物を書いただけでは
+# 走っている nvim は読み直さない。貼り直しの実体は lua/palette.lua の reload で、
+# _G.VanadisReload として公開されている。
+#
+# nvim は起動時に自分で待ち受ける。$XDG_RUNTIME_DIR があればそこに nvim.<pid>.<n>、
+# 無ければ $TMPDIR/nvim.$USER/<random>/<n>。macOS には XDG_RUNTIME_DIR が無いので
+# 両方を見る。
+#
+# --remote-expr は式を評価して結果を返すだけなので、--remote-send と違って挿入モードや
+# プロンプトの途中でも入力を壊さない。
+#
+# 何が起きても 0 で抜ける。死んだ socket が 1 つ残っているだけで apply 全体が失敗扱いに
+# なるのを避ける。届かなかった相手は stderr に出す。
+
+set -u
+
+command -v nvim >/dev/null 2>&1 || exit 0
+
+for sock in \
+	"${XDG_RUNTIME_DIR:-/nonexistent}"/nvim.*.[0-9]* \
+	"${TMPDIR:-/tmp}/nvim.${USER:-$(id -un)}"/*/[0-9]*; do
+	[ -S "$sock" ] || continue
+	timeout 2 nvim --server "$sock" --remote-expr 'v:lua.VanadisReload()' >/dev/null 2>&1 ||
+		echo "vanadis-reload-nvim: $sock へ届かなかった" >&2
+done
+
+exit 0

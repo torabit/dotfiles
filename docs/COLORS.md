@@ -55,7 +55,7 @@ vanadis cycle                   # [cycle] の順に 1 つ進める
 
 | target | 生成物 | 読む側（手書き、自由に編集可） |
 | --- | --- | --- |
-| nvim | `~/.config/nvim/lua/palette.lua` | `require("palette")` する lua |
+| nvim | `~/.config/nvim/lua/vanadis.lua` | 手書きの `lua/palette.lua` だけが読む |
 | zsh | `~/.config/zsh/fzf.opts` | `.zshrc` の `FZF_DEFAULT_OPTS_FILE` が指す |
 | lazygit | `~/.config/lazygit/theme.yml` | `LG_CONFIG_FILE` で `config.yml` とマージ |
 
@@ -112,7 +112,8 @@ Claude Code も同じ形にしてある。カスタムテーマは `~/.claude/th
 | starship | 次のプロンプトで反映される | 走らせるものが無い |
 | claude | テーマディレクトリを監視している様子。効かなければ再起動 | 未確認のため空にしてある |
 | zsh (fzf) | 次に fzf を起動したとき。`FZF_DEFAULT_OPTS_FILE` を毎回読む | 走らせるものが無い |
-| nvim / btop / hunk / lazygit | 再起動 | コマンドが無い |
+| nvim | 走っている nvim の socket へ貼り直しを投げる | する (`vanadis-reload-nvim`) |
+| btop / hunk / lazygit | 再起動 | コマンドが無い |
 
 ## 生成物を選ぶポインタはツール側にある
 
@@ -125,7 +126,7 @@ vanadis の管理外に置かれる。ポインタが既定値のままだと、
 | bat | `BAT_THEME='vanadis'` | `.zshrc` |
 | zsh (fzf) | `FZF_DEFAULT_OPTS_FILE` | `.zshrc` |
 | lazygit | `LG_CONFIG_FILE` にカンマ区切りで `theme.yml` を並べる | `.zshrc` |
-| nvim | `require("palette")` して `&background` と colorscheme に渡す | `lua/plugins/colorscheme.lua` |
+| nvim | `require("palette")` して `&background` と colorscheme に渡す | `lua/palette.lua` と `lua/plugins/colorscheme.lua` |
 | claude | `"theme": "custom:vanadis"` | dotclaude の `settings.json` |
 | btop | `color_theme = "vanadis"` | `~/.config/btop/btop.conf` |
 
