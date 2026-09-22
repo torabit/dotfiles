@@ -8,6 +8,7 @@ eval "$(${HOMEBREW_PREFIX}/bin/brew shellenv)"
 
 # ── PATH ─────────────────────────────────────────────────────
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/bin:$PATH" # dotclaude が stow する client-os / client-theme
 export PATH="$HOME/go/bin:$PATH" # go install targets (gopls, staticcheck, ...)
 PATH=~/.console-ninja/.bin:$PATH
 export PNPM_HOME="$HOME/.local/share/pnpm"
@@ -114,23 +115,31 @@ export FZF_DEFAULT_OPTS_FILE="$HOME/.config/zsh/fzf.opts"
 export LG_CONFIG_FILE="$HOME/.config/lazygit/config.yml,$HOME/.config/lazygit/theme.yml"
 export BAT_THEME='vanadis'
 
-# ssh クライアントの端末の色に合わせる。LC_CLIENT_THEME はクライアントの
-# ssh_config が SendEnv で送り、ここの sshd が既定の `AcceptEnv LC_*` で受ける。
+# ssh クライアントの端末の色に合わせる。クライアントの ssh_config が
+# `SetEnv LC_CLIENT_THEME` で送り、ここの sshd が `AcceptEnv LC_*` で受ける。
 # このホストにシステムテーマは無いので、追従の起点はクライアントしかない。
 #
-# 一致していれば vanadis を呼ばない。ログインごとに全 target を書き直すと bat の
-# cache --build と herdr の reload が毎回走り、その分ログインが遅くなる。
+# 値は client-theme から取る。$LC_CLIENT_THEME を直接読んではいけない。zshrc は
+# 対話シェルのたびに走り、herdr が pane に spawn する zsh は server を起動した時点の
+# environ を継ぐので、そこの値は前のクライアントのものになる。client-theme は生きて
+# いる sshd セッションのうち最も新しいものから読む。
 #
-# 追従はログイン時の 1 回だけ。zshrc はセッション中に再実行されないので、繋いだ後
-# にクライアント側でテーマが変わってもここは動かない。クライアントが 2 つあって別
-# のモードなら、生成物は後から来た方に倒れる。ファイルはマシンに 1 つ、テーマは
-# セッションごとなので、両方を満たす形はない。
+# 比べる相手は「前回追従した値」であって、今あたっているテーマではない。手で
+# vanadis cycle してもこのキャッシュは動かないため、次の pane 起動で巻き戻らない。
+# 追従するのはクライアント側で light/dark を変えたときと、別の端末へ移ったときだけ。
+#
+# apply が失敗したらキャッシュを書かない。次のシェルでやり直す。
+#
+# クライアントが 2 つあって別のモードなら、生成物は後から来た方に倒れる。ファイルは
+# マシンに 1 つ、テーマはセッションごとなので、両方を満たす形はない。
 () {
-  [[ -n $LC_CLIENT_THEME ]] || return
-  local applied=""
-  [[ -r $HOME/.config/zsh/variant ]] && applied="$(<$HOME/.config/zsh/variant)"
-  [[ $LC_CLIENT_THEME == "$applied" ]] && return
-  vanadis apply --variant "$LC_CLIENT_THEME" >/dev/null
+  local want cache last
+  want="$(client-theme 2>/dev/null)" || return
+  cache="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/client-theme"
+  [[ -r $cache ]] && last="$(<$cache)"
+  [[ $want == "$last" ]] && return
+  vanadis apply --variant "$want" >/dev/null || return
+  mkdir -p "${cache:h}" && print -r -- "$want" >| "$cache"
 }
 
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
