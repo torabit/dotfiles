@@ -105,6 +105,11 @@ alias v='nvim'
 alias vi='nvim'
 alias vim='nvim'
 alias herdrs='herdr server reload-config'
+# ssh 先の herdr へ繋ぐ。使い方は `hr lura`。
+# 通知音は client 側で鳴るため、ssh 先で herdr を立ち上げるのではなくこちらから繋ぐ。
+# --remote は既定で手元の keybinding を送るが、[[keys.command]] だけは送られない。
+# server を指定して ssh 先の config をそのまま使い、popup と plugin action を残す。
+alias hr='herdr --remote-keybindings server --remote'
 alias clip='pbcopy'
 alias clearbuff="clear && printf '\e[3J'"
 
